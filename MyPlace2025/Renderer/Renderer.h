@@ -1,5 +1,5 @@
 #pragma once
-#include "Types/Mesh.hpp"
+#include "Types/Mesh.h"
 #include "Shader/shader.h"
 //#include "GLFW/glfw3.h"
 #include <memory>

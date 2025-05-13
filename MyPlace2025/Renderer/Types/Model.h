@@ -10,8 +10,11 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
-#include <learnopengl/mesh.h>
-#include <learnopengl/shader.h>
+#include "Texture.h"
+#include "Mesh.h"
+#include "Shader/Shader.h"
+//#include <learnopengl/mesh.h>
+///#include <learnopengl/shader.h>
 
 #include <string>
 #include <fstream>
@@ -24,7 +27,7 @@ using namespace std;
 namespace glc
 {
 
-   unsigned int TextureFromFile(const char* path, const string& directory, bool gamma = false);
+   unsigned int TextureFromFile(const char* path, const ::std::string& directory, bool gamma = false);
 
    class Model
    {
@@ -32,25 +35,25 @@ namespace glc
       // model data 
       vector<Texture> textures_loaded;	// stores all the textures loaded so far, optimization to make sure textures aren't loaded more than once.
       vector<Mesh>    meshes;
-      string directory;
+      ::std::string directory;
       bool gammaCorrection;
 
       // constructor, expects a filepath to a 3D model.
-      Model(string const& path, bool gamma = false) : gammaCorrection(gamma)
+      Model(::std::string const& path, bool gamma = false) : gammaCorrection(gamma)
       {
          loadModel(path);
       }
 
       // draws the model, and thus all its meshes
-      void Draw(Shader& shader)
+      void Draw(glc::Shader& shader)
       {
          for (unsigned int i = 0; i < meshes.size(); i++)
             meshes[i].Draw(shader);
       }
 
-   private:
+   //private:
       // loads a model with supported ASSIMP extensions from file and stores the resulting meshes in the meshes vector.
-      void loadModel(string const& path)
+      void loadModel(::std::string const& path)
       {
          // read file via ASSIMP
          Assimp::Importer importer;
@@ -173,7 +176,7 @@ namespace glc
 
       // checks all material textures of a given type and loads the textures if they're not loaded yet.
       // the required info is returned as a Texture struct.
-      vector<Texture> loadMaterialTextures(aiMaterial* mat, aiTextureType type, string typeName)
+      vector<Texture> loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName)
       {
          vector<Texture> textures;
          for (unsigned int i = 0; i < mat->GetTextureCount(type); i++)

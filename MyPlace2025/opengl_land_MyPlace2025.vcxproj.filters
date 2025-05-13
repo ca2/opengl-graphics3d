@@ -114,7 +114,7 @@
     <ClInclude Include="Renderer\Renderer.h">
       <Filter>Header Files\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="Renderer\Types\Mesh.hpp">
+    <ClInclude Include="Renderer\Types\Mesh.h">
       <Filter>Header Files\Renderer\Types</Filter>
     </ClInclude>
     <ClInclude Include="Renderer\Types\Texture.h">

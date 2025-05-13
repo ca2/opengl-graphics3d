@@ -5,7 +5,7 @@
 #include <map>
 #include "OpenGL/GLError.h"
 #include "Renderer/Renderer.h"
-#include "Renderer/Types/Mesh.hpp"
+#include "Renderer/Types/Mesh.h"
 
 
 namespace glc

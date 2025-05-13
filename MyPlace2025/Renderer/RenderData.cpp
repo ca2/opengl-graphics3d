@@ -5,7 +5,7 @@
 #include "Types/CubeMap.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-#include "Renderer/Types/Mesh.hpp"
+#include "Renderer/Types/Mesh.h"
 #include <cmath>
 #include <vector>
 #include <stb_image.h>

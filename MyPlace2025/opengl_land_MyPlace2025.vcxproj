@@ -837,7 +837,7 @@
     <ClInclude Include="Renderer\Types\CubeMap.h" />
     <ClInclude Include="Renderer\Types\aaa_filesystem.h" />
     <ClInclude Include="Renderer\Types\aaa_Gizmo.h" />
-    <ClInclude Include="Renderer\Types\Mesh.hpp" />
+    <ClInclude Include="Renderer\Types\Mesh.h" />
     <ClInclude Include="Renderer\Types\Model.h" />
     <ClInclude Include="Renderer\Types\ModelMesh.h" />
     <ClInclude Include="Renderer\Types\Shapes.h" />

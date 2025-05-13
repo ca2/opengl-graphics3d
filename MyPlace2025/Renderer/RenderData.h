@@ -5,7 +5,7 @@
 #include <glm/glm.hpp>
 #include "Renderer/Renderer.h"
 #include "Shader/Shader.h"
-#include "Renderer/Types/Mesh.hpp"
+#include "Renderer/Types/Mesh.h"
 #include "Core/Camera.h"
 #include "Renderer/Types/Texture.h"
 
