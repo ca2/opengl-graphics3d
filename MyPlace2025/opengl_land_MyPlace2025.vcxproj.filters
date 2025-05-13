@@ -1,0 +1,216 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="framework.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="_.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="application.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="document.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="impact.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main_frame.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pane_impact.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Camera.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Input.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\ResourceManager.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Window.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\RenderData.cpp">
+      <Filter>Source Files\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\Renderer.cpp">
+      <Filter>Source Files\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\Types\CubeMap.cpp">
+      <Filter>Source Files\Renderer\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\Types\Mesh.cpp">
+      <Filter>Source Files\Renderer\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\Types\Model.cpp">
+      <Filter>Source Files\Renderer\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\Types\Texture.cpp">
+      <Filter>Source Files\Renderer\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader\Shader.cpp">
+      <Filter>Source Files\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="AppCore\Application.cpp">
+      <Filter>Source Files\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="AppCore\Player.cpp">
+      <Filter>Source Files\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="AppCore\Scene.cpp">
+      <Filter>Source Files\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\gl_container.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="application.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="document.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="impact.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="main_frame.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="_.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="framework.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pane_impact.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Window.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\ResourceManager.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Input.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\FileSystem.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Camera.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\RenderData.h">
+      <Filter>Header Files\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Renderer.h">
+      <Filter>Header Files\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Types\Mesh.hpp">
+      <Filter>Header Files\Renderer\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Types\Texture.h">
+      <Filter>Header Files\Renderer\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Types\Shapes.h">
+      <Filter>Header Files\Renderer\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Types\ModelMesh.h">
+      <Filter>Header Files\Renderer\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Types\Model.h">
+      <Filter>Header Files\Renderer\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Types\aaa_Gizmo.h">
+      <Filter>Header Files\Renderer\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Types\aaa_filesystem.h">
+      <Filter>Header Files\Renderer\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Types\CubeMap.h">
+      <Filter>Header Files\Renderer\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader\Shader.h">
+      <Filter>Header Files\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader\ModelShader.h">
+      <Filter>Header Files\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\Transform.h">
+      <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\Defines.h">
+      <Filter>Header Files\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\_constant.h">
+      <Filter>Header Files\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\Types.h">
+      <Filter>Header Files\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="AppCore\Scene.h">
+      <Filter>Header Files\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="AppCore\Player.h">
+      <Filter>Header Files\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="AppCore\Application.h">
+      <Filter>Header Files\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\gl_container.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{a052d07f-5694-4a78-99d3-dd6804dc0619}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{553e2ad6-0eec-4e39-9937-6581b3f77c18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Renderer">
+      <UniqueIdentifier>{ae42b619-2044-47ce-9aca-e9a7abcb573d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Renderer\Types">
+      <UniqueIdentifier>{9cdaba3b-caa2-413e-9410-dcfa57003e84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Utils">
+      <UniqueIdentifier>{d82e9c09-e324-48fd-8a71-f5948c27d56c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Core">
+      <UniqueIdentifier>{439d0707-bebb-4ec7-9445-90c59254adc6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Core">
+      <UniqueIdentifier>{4bddc2e6-2e97-4661-951e-8d9762d74d53}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Renderer">
+      <UniqueIdentifier>{22482d41-e176-4b43-96ad-3260cc90eca7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Renderer\Types">
+      <UniqueIdentifier>{5431d3cf-17a2-4b35-9453-2b76334b8ce5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Shader">
+      <UniqueIdentifier>{53f0a9d8-ce7d-4009-91c9-86d798972bde}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Common">
+      <UniqueIdentifier>{23434622-709f-45a1-9c27-e686fd3f199b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Shader">
+      <UniqueIdentifier>{3cba3d0e-efa2-48d5-bbf3-2951ad220d8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Application">
+      <UniqueIdentifier>{88bbf5e8-25fd-4d85-b2da-55a790479c7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Application">
+      <UniqueIdentifier>{cc747fe4-d67c-41e4-a8ed-b07aa62f4d62}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
