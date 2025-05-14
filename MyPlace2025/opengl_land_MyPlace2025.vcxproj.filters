@@ -46,9 +46,6 @@
     <ClCompile Include="Renderer\Types\Mesh.cpp">
       <Filter>Source Files\Renderer\Types</Filter>
     </ClCompile>
-    <ClCompile Include="Renderer\Types\Model.cpp">
-      <Filter>Source Files\Renderer\Types</Filter>
-    </ClCompile>
     <ClCompile Include="Renderer\Types\Texture.cpp">
       <Filter>Source Files\Renderer\Types</Filter>
     </ClCompile>
@@ -56,16 +53,22 @@
       <Filter>Source Files\Shader</Filter>
     </ClCompile>
     <ClCompile Include="AppCore\Application.cpp">
-      <Filter>Source Files\Application</Filter>
+      <Filter>Source Files\AppCore</Filter>
     </ClCompile>
     <ClCompile Include="AppCore\Player.cpp">
-      <Filter>Source Files\Application</Filter>
+      <Filter>Source Files\AppCore</Filter>
     </ClCompile>
     <ClCompile Include="AppCore\Scene.cpp">
-      <Filter>Source Files\Application</Filter>
+      <Filter>Source Files\AppCore</Filter>
     </ClCompile>
     <ClCompile Include="Core\gl_container.cpp">
       <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="opengl\engine.cpp">
+      <Filter>Source Files\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="opengl\application.cpp">
+      <Filter>Source Files\opengl</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -157,16 +160,28 @@
       <Filter>Header Files\Common</Filter>
     </ClInclude>
     <ClInclude Include="AppCore\Scene.h">
-      <Filter>Header Files\Application</Filter>
+      <Filter>Header Files\AppCore</Filter>
     </ClInclude>
     <ClInclude Include="AppCore\Player.h">
-      <Filter>Header Files\Application</Filter>
+      <Filter>Header Files\AppCore</Filter>
     </ClInclude>
     <ClInclude Include="AppCore\Application.h">
-      <Filter>Header Files\Application</Filter>
+      <Filter>Header Files\AppCore</Filter>
     </ClInclude>
     <ClInclude Include="Core\gl_container.h">
       <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="opengl\application.h">
+      <Filter>Header Files\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="opengl\GLRenderer.h">
+      <Filter>Header Files\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="opengl\GLError.h">
+      <Filter>Header Files\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="opengl\engine.h">
+      <Filter>Header Files\opengl</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -206,11 +221,17 @@
     <Filter Include="Source Files\Shader">
       <UniqueIdentifier>{3cba3d0e-efa2-48d5-bbf3-2951ad220d8d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Application">
+    <Filter Include="Header Files\opengl">
+      <UniqueIdentifier>{474fb0c7-ea3a-44d1-bc4a-e17e2c85ef05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\AppCore">
       <UniqueIdentifier>{88bbf5e8-25fd-4d85-b2da-55a790479c7c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Application">
+    <Filter Include="Source Files\AppCore">
       <UniqueIdentifier>{cc747fe4-d67c-41e4-a8ed-b07aa62f4d62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\opengl">
+      <UniqueIdentifier>{e0c01b0c-0d7c-4541-9cba-a7aefce90824}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

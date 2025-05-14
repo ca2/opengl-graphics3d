@@ -2,6 +2,7 @@
 
 
 #include "core/platform/application.h"
+#include "opengl/engine.h"
 
 
 namespace opengl_land_MyPlace2025
@@ -23,11 +24,18 @@ bool m_bAbsoluteMousePosition;
       //pane_impact *                                     m_ppaneimpact;
       ::pointer < ::user::plain_edit >             m_peditYeeColor;
 
+      ::pointer<impact> m_pimpact;
+      ::task_pointer m_ptask3dEngine;
+      ::pointer < ::opengl::engine > m_popenglengine;
+
       application();
       ~application() override;
       
 
       __DECLARE_APPLICATION_RELEASE_TIME();
+
+
+
 
 
       virtual string preferred_experience() override;
@@ -44,6 +52,8 @@ bool m_bAbsoluteMousePosition;
 
 
 bool is_absolute_mouse_position();
+
+virtual void update_3d_application(int cx, int cy);
 
    };
 

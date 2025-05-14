@@ -1,5 +1,5 @@
 #include "framework.h"
-#define APPLICATION_NAMESPACE vulkan_land_continuum
+#define APPLICATION_NAMESPACE opengl_land_MyPlace2025
 #include "acme/inline/application/main.inl"
 
 

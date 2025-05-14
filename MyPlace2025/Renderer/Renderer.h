@@ -16,12 +16,12 @@ namespace glc
       void Clear() const;
 
       // Draws the skybox using the given mesh and shader
-      void DrawSkybox(const Mesh& skyboxMesh, const Shader& shader) const;
+      void DrawSkybox(const Mesh *pskyboxMesh, const Shader * pshader) const;
 
-      void DrawInstanced(const std::vector<Mesh*>& meshes, const Shader& shader, unsigned int instanceCount) const;
+      void DrawInstanced(const std::vector<Mesh*>& meshes, const Shader *pshader, unsigned int instanceCount) const;
       void MultiDrawIndirectCommand() {}
 
-      void DrawModel(const std::vector<Mesh*>& mehses, const Shader& shader);
+      void DrawModel(const std::vector<Mesh*>& mehses, const Shader *pshader);
 
 
    private:

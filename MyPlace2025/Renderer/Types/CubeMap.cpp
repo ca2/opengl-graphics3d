@@ -1,5 +1,6 @@
 #include "framework.h"
 #include "CubeMap.h"
+#include "acme/filesystem/filesystem/file_context.h"
 #include <stb_image.h>
 #include <iostream>
 
@@ -8,9 +9,10 @@ namespace glc
 {
 
    // Constructor
-   Skybox::Skybox(const std::vector<std::string>& faces)
+   Skybox::Skybox(::particle * pparticle, const std::vector<std::string>& faces)
       : facesCubemap(faces)
    {
+      initialize(pparticle);
       SetupSkybox();
    }
 
@@ -49,7 +51,12 @@ namespace glc
 
       int width, height, nrChannels;
       for (unsigned int i = 0; i < facesCubemap.size(); i++) {
-         unsigned char* data = stbi_load(facesCubemap[i].c_str(), &width, &height, &nrChannels, 0);
+//         unsigned char* data = stbi_load(facesCubemap[i].c_str(), &width, &height, &nrChannels, 0);
+         auto mem = file()->as_memory(facesCubemap[i].c_str());
+         unsigned char* data = stbi_load_from_memory(
+            (const stbi_uc*)mem.data(),
+            mem.size(), &width, &height, &nrChannels, 0);
+
          if (data) {
             // Load the texture data into the cubemap
             glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i,

@@ -10,6 +10,8 @@ namespace glc
    GlContainer::GlContainer()
    {
 
+      m_iWidth = 0;
+      m_iHeight = 0;
 
    }
 
@@ -19,6 +21,24 @@ namespace glc
 
 
    }
+
+
+   bool GlContainer::is_absolute_mouse_position()
+   {
+
+
+      return true;
+
+   }
+
+   ::pointer < ::opengl::application> GlContainer::start_opengl_application()
+   {
+
+      return {};
+
+   }
+
+
 
 
 } // namespace glc

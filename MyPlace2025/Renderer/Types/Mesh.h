@@ -5,6 +5,10 @@
 namespace glc
 {
 
+
+   class Shader;
+   class Texture;
+
    class Mesh:
    virtual public ::particle
    {
@@ -19,9 +23,13 @@ namespace glc
       void SetInstanceModelMatrices(const std::vector<glm::mat4>& modelmatricies);
       void UpdateInstanceModelMatrices(const std::vector<glm::mat4>& modelMatrices);
 
+
+
+      void Draw(Shader * pshader);
    //private:
       void SetupMesh();
 
+      ::pointer_array<Texture>      textures;
       std::vector<float> m_Vertices;
       std::vector<unsigned int> m_Indices;
       unsigned int m_VAO, m_VBO, m_EBO;

@@ -1,9 +1,9 @@
 #include "framework.h"
-#include "glad/glad.h"
+#include "glad.h"
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
-
+#include "acme/filesystem/filesystem/file_context.h"
 #include "Shader/Shader.h"
 #include <fstream>
 #include <sstream>
@@ -13,8 +13,9 @@ namespace glc
 {
 
    // Constructor to load and compile shaders
-   Shader::Shader(const std::string& vertexPath, const std::string& fragmentPath)
+   Shader::Shader(::particle * pparticle, const std::string& vertexPath, const std::string& fragmentPath)
    {
+      initialize(pparticle);
       // Load and compile vertex and fragment shaders
       std::string vertexCode = ParseShader(vertexPath);
       std::string fragmentCode = ParseShader(fragmentPath);
@@ -61,20 +62,20 @@ namespace glc
    // Read shader source code from file
    std::string Shader::ParseShader(const std::string& filePath)
    {
-      std::ifstream file(filePath);
-      std::stringstream stream;
+      //std::ifstream file(filePath);
+      //std::stringstream stream;
 
-      if (file.is_open())
-      {
-         stream << file.rdbuf();
-         file.close();
-      }
-      else
-      {
-         std::cerr << "Failed to open shader file: " << filePath << std::endl;
-      }
-
-      return stream.str();
+      //if (file.is_open())
+      //{
+        // stream << file.rdbuf();
+         //file.close();
+      //}
+      //else
+      //{
+        // std::cerr << "Failed to open shader file: " << filePath << std::endl;
+      //}
+      return file()->as_string(filePath.c_str()).c_str();
+      //return //stream.str();
    }
 
    // Compile a shader of a given type

@@ -14,9 +14,44 @@ namespace glc
       RIGHT
    };
 
-   class Camera {
+   struct camera_t
+   {
+
+      float m_LastX; // Last mouse x position
+      float m_LastY; // Last mouse y position
+      float m_MouseSensitivity; // Sensitivity factor for mouse input
+      // Deadzone
+      float m_MouseDeadZone;
+      // Inertia
+      glm::vec3 m_Velocity;
+      // Camera attributes
+      glm::vec3 m_Position;
+      glm::vec3 m_Front;
+      glm::vec3 m_Up;
+      glm::vec3 m_Right;
+      glm::vec3 m_WorldUp;
+
+      // Euler angles
+      float m_fYaw;
+      float m_fPitch;
+
+      // Camera options
+      float m_Zoom;
+      float m_MovementSpeed;  // Added movement speed
+
+
+   };
+
+   class Camera :
+      virtual public ::particle,
+      virtual public camera_t
+   {
    public:
-      Camera(glm::vec3 position, float yaw, float pitch);
+
+      ::pointer < ::glc::GlContainer > m_pglcontainer;
+
+
+      Camera(glc::GlContainer * pglcontainer, glm::vec3 position, float yaw, float pitch);
 
       // Process input for mouse movement
       void ProcessMouseMovement(float xoffset, float yoffset, bool constrainPitch = true);
@@ -49,29 +84,8 @@ namespace glc
       void TeleportDownward(float distance); // Moves the camera down
 
       void TeleportInDirection(int direction);
-   private:
+   //private:
 
-      float m_LastX; // Last mouse x position
-      float m_LastY; // Last mouse y position
-      float m_MouseSensitivity; // Sensitivity factor for mouse input
-      // Deadzone
-      float m_MouseDeadZone;
-      // Inertia
-      glm::vec3 m_Velocity;
-      // Camera attributes
-      glm::vec3 m_Position;
-      glm::vec3 m_Front;
-      glm::vec3 m_Up;
-      glm::vec3 m_Right;
-      glm::vec3 m_WorldUp;
-
-      // Euler angles
-      float m_Yaw;
-      float m_Pitch;
-
-      // Camera options
-      float m_Zoom;
-      float m_MovementSpeed;  // Added movement speed
 
       // Update camera vectors
       void UpdateCameraVectors();

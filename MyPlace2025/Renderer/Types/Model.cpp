@@ -10,10 +10,10 @@ Model::Model(std::string const& path, bool gamma) : gammaCorrection(gamma)
 }
 
 // Draws the model and all its meshes
-void Model::Draw(ModelShader& shader)
+void Model::Draw(glc::Shader *pshader)
 {
 	for (unsigned int i = 0; i < meshes.size(); i++)
-		meshes[i].Draw(shader);
+		meshes[i]->Draw(pshader);
 }
 
 // Loads a model from file and stores the resulting meshes

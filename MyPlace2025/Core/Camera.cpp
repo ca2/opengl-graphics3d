@@ -11,26 +11,65 @@ namespace glc
 
 
    // Constructor
-   Camera::Camera(glm::vec3 position, float yaw, float pitch)
-      : m_Position(position), m_Yaw(yaw), m_Pitch(pitch),
-      m_Front(glm::vec3(0.0f, 0.0f, -1.0f)),
-      m_WorldUp(glm::vec3(0.0f, 1.0f, 0.0f)),
-      m_Zoom(75.0f), m_MovementSpeed(20.5f) {
+   Camera::Camera(glc::GlContainer* pglcontainer, glm::vec3 position, float fYaw, float fPitch)
+   {
+
+      m_pglcontainer = pglcontainer;
+
+      initialize(pglcontainer);
+
+      m_Position = position;
+      m_fYaw = fYaw;
+      m_fPitch = fPitch;
+      m_Front = glm::vec3(0.0f, 0.0f, -1.0f);
+      m_WorldUp = glm::vec3(0.0f, 1.0f, 0.0f);
+      m_Zoom = 75.0f;
+      m_MovementSpeed = 20.5f;
+
+
    }
 
+
    // Mouse movement processing
-   void Camera::ProcessMouseMovement(float xoffset, float yoffset, bool constrainPitch) {
-      const float sensitivity = 0.1f;  // Adjust this value to your liking
-      xoffset *= sensitivity;
-      yoffset *= sensitivity;
+   void Camera::ProcessMouseMovement(float Δx, float Δy, bool constrainPitch) 
+   {
 
-      m_Yaw += xoffset;
-      m_Pitch += yoffset;
+      const float sensitivity = 0.01f;  // Adjust this value to your liking
+      Δx *= sensitivity;
+      Δy *= sensitivity;
 
-      if (constrainPitch) {
-         if (m_Pitch > 89.0f) m_Pitch = 89.0f;
-         if (m_Pitch < -89.0f) m_Pitch = -89.0f;
+      //m_Yaw += xoffset;
+      //m_Pitch += yoffset;
+
+      //if (constrainPitch) {
+      //   if (m_Pitch > 89.0f) m_Pitch = 89.0f;
+      //   if (m_Pitch < -89.0f) m_Pitch = -89.0f;
+      //}
+      // limit pitch values between about +/- 85ish degrees
+      //gameObject.transform.rotation.x = glm::clamp(gameObject.transform.rotation.x, -1.5f, 1.5f);
+      //gameObject.transform.rotation.y = glm::mod(gameObject.transform.rotation.y, glm::two_pi<float>());
+      if (m_pglcontainer->is_absolute_mouse_position())
+      {
+         m_fYaw = Δx;
+         m_fPitch = Δy;
       }
+      else
+      {
+
+         m_fYaw += Δx;
+         m_fPitch += Δy;
+
+      }
+
+      // Clamp pitch to avoid flipping
+      m_fPitch = glm::clamp(m_fPitch, -1.5f, 1.5f);
+
+      // Optional: wrap yaw
+      if (m_fYaw > 2.0f * MATH_PI) m_fYaw -= 2.0f * MATH_PI;
+      if (m_fYaw < 0.0f) m_fYaw += 2.0f * MATH_PI;
+
+      //gameObject.transform.rotation.x = glm::radians(_pitch);
+      //gameObject.transform.rotation.y = glm::radians(_yaw);
 
       UpdateCameraVectors();
    }
@@ -94,9 +133,9 @@ namespace glc
    // Update the camera vectors based on yaw and pitch
    void Camera::UpdateCameraVectors() {
       glm::vec3 front;
-      front.x = cos(glm::radians(m_Yaw)) * cos(glm::radians(m_Pitch));
-      front.y = sin(glm::radians(m_Pitch));
-      front.z = sin(glm::radians(m_Yaw)) * cos(glm::radians(m_Pitch));
+      front.x = cos(m_fYaw) * cos(m_fPitch);
+      front.y = sin(m_fPitch);
+      front.z = sin(m_fYaw) * cos(m_fPitch);
       m_Front = glm::normalize(front);
 
       // Update right and up vectors
@@ -121,6 +160,20 @@ namespace glc
    glm::vec3 Camera::GetPosition() const {
       return m_Position;
    }
+
+
+   void Camera::scroll_callback(glc::GlContainer* pglcontainer, double xoffset, double yoffset)
+   {
+      m_Zoom -= (float)yoffset;
+      if (m_Zoom < 1.0f)
+         m_Zoom = 1.0f;
+      if (m_Zoom > 45.0f)
+         m_Zoom = 45.0f;
+   }
+
+
+
+
 
 } // namespace glc
 

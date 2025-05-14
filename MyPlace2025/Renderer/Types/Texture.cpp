@@ -1,19 +1,27 @@
 #include "framework.h"
 #include "Texture.h"
+#include "acme/filesystem/filesystem/file_context.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 #include <iostream>
+
 
 namespace glc
 {
 
 
-   Texture::Texture(const std::string& filePath)
-      : m_FilePath(filePath), m_TextureID(0) {
+   Texture::Texture(::particle * pparticle, const std::string& filePath)
+      : m_FilePath(filePath), m_TextureID(0)
+   {
+      initialize(pparticle);
 
       int width, height, nrChannels;
       stbi_set_flip_vertically_on_load(true); // Flip the image vertically if needed
-      unsigned char* data = stbi_load(filePath.c_str(), &width, &height, &nrChannels, 0);
+      auto mem = file()->as_memory(filePath.c_str());
+      unsigned char* data = stbi_load_from_memory(
+         (const stbi_uc*)mem.data(),
+         mem.size(), &width, &height, &nrChannels, 0);
+      //unsigned char* data = stbi_load(filePath.c_str(), &width, &height, &nrChannels, 0);
 
       if (data) {
          glGenTextures(1, &m_TextureID);

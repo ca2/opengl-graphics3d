@@ -8,13 +8,25 @@ namespace glc
 
 
    // Initialize static members
-   glc::GlContainer* Input::m_pglcontainer = nullptr;
-   bool Input::m_IsFullscreen = false;
-   int Input::m_WindowedWidth = 1280;
-   int Input::m_WindowedHeight = 720;
-   int Input::m_WindowedPosX = 100;
-   int Input::m_WindowedPosY = 100;
-   std::unordered_map<::user::e_key, bool> Input::m_KeyPressed;
+   //glc::GlContainer* Input::m_pglcontainer = nullptr;
+   //bool Input::m_IsFullscreen = false;
+   //int Input::m_WindowedWidth = 1280;
+   //int Input::m_WindowedHeight = 720;
+   //int Input::m_WindowedPosX = 100;
+   //int Input::m_WindowedPosY = 100;
+   //std::unordered_map<::user::e_key, bool> Input::m_KeyPressed;
+   Input::Input(glc::GlContainer* pglcontainer) :
+      m_pglcontainer(pglcontainer)
+   {
+
+      initialize(pglcontainer);
+   }
+
+   Input::~Input()
+   {
+
+
+   }
 
 ::user::enum_key_state Input::get_key_state(::user::e_key ekey) 
    {
@@ -22,7 +34,7 @@ namespace glc
       //return state == GLFW_PRESS || state == GLFW_REPEAT;
 
 
-      if (::system()->session()->is_key_pressed(ekey))
+      if (session()->is_key_pressed(ekey))
       {
 
 
@@ -43,9 +55,9 @@ bool Input::IsKeyPressed(::user::e_key ekey)
       return !get_key_state(ekey);
    }
 
-   void Input::SetGLFWWindow(glc::GlContainer* window) {
-      m_pglcontainer = window;
-   }
+   //void Input::SetGLFWWindow(glc::GlContainer* window) {
+   //   m_pglcontainer = window;
+   //}
 
    // Fullscreen toggle logic
    void Input::ToggleFullscreen() {

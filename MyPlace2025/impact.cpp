@@ -7,18 +7,30 @@
 #include "acme/filesystem/filesystem/file_context.h"
 #include "acme/platform/node.h"
 #include "acme/prototype/mathematics/mathematics.h"
+#include "apex/database/stream.h"
 #include "aura/message/user.h"
 #include "aura/graphics/draw2d/draw2d.h"
-#include "apex/database/stream.h"
+#include "aura/graphics/image/context.h"
+#include "aura/graphics/image/image.h"
+#include "aura/graphics/image/drawing.h"
 #include "Common/Types.h"
 
 
 CLASS_DECL_AURA ::color::color dk_red(); // <3 tbs
-namespace vkc
+namespace opengl
 {
-   ::pointer<::glc::Application > start_vulkan_application(::glc::GlContainer* pvkcontainer, mouseState* pmousestate);
+
+   ::pointer<::opengl::engine > start_opengl_engine(::glc::GlContainer* pvkcontainer, mouseState* pmousestate);
 
 } // namespace vkc
+
+namespace glc
+{
+   
+   ::pointer<::opengl::application > start_opengl_application(::glc::GlContainer* pvkcontainer, mouseState* pmousestate);
+
+} // namespace glc
+
 
 namespace opengl_land_MyPlace2025
 {
@@ -76,18 +88,74 @@ namespace opengl_land_MyPlace2025
 
       MESSAGE_LINK(e_message_create,psender,this,&impact::on_message_create);
       MESSAGE_LINK(e_message_destroy, psender, this, &impact::on_message_destroy);
+      MESSAGE_LINK(e_message_mouse_move, psender, this, &impact::on_message_mouse_move);
+      MESSAGE_LINK(e_message_mouse_leave, psender, this, &impact::on_message_mouse_leave);
 
    }
 
 
 
-   ::pointer < ::glc::Application > impact::start_vulkan_application()
+   ::pointer < ::opengl::engine > impact::start_opengl_engine()
    {
 
-      return ::vkc::start_vulkan_application(this, &m_mousestate);
+      auto pengine= ::opengl::start_opengl_engine(this, &m_mousestate);
+      pengine->initialize_engine(this);
+
+      return pengine;
 
    }
 
+
+
+   void impact::on_message_mouse_move(::message::message* pmessage)
+   {
+
+      auto pmouse = pmessage->m_union.m_pmouse;
+
+      pmessage->m_bRet = true;
+
+      if (get_app()->m_popenglengine)
+      {
+
+         auto point = pmouse->m_pointHost;
+
+         host_to_client()(point);
+
+         //m_mousestate.position.x = point.x();
+         //m_mousestate.position.y = point.y();
+         //m_mousestate.buttons.left = true;
+         //         pmouse->m_p
+
+         double w = m_iWidth;
+         double h = m_iHeight;
+
+         if (m_bLastMouse)
+         {
+            m_bLastMouse = false;
+            m_bFirstMouse = true;
+
+         }
+
+         if (is_absolute_mouse_position())
+         {
+            m_dCursorX = ((point.x() - (w / 2.0)) * 2.0);
+            m_dCursorY = ((point.y() - (h / 2.0)) * 2.0);
+         }
+         else
+         {
+
+            m_dCursorX = point.x();
+            m_dCursorY = point.y();
+
+         }
+
+         track_mouse_leave();
+
+         get_app()->m_popenglengine->handleMouseMove(m_dCursorX, m_dCursorY);
+
+      }
+
+   }
 
 
    void impact::on_message_create(::message::message * pmessage)
@@ -105,6 +173,13 @@ namespace opengl_land_MyPlace2025
          return;
 
       }
+
+
+      m_pparticleImageSynchronization = node()->create_mutex();
+
+      m_pimage = image()->create_image(int_size{ 1920, 1080 });
+
+      get_app()->m_pimpact = this;
 
 
       //application()->show_about_box();
@@ -155,6 +230,9 @@ namespace opengl_land_MyPlace2025
          return;
 
       }
+
+      
+      //return;
 
 //      if (pgraphics->payload("set_transparent") == "set_transparent")
 //      {
@@ -306,8 +384,52 @@ namespace opengl_land_MyPlace2025
 
       pgraphics->set_smooth_mode(::draw2d::e_smooth_mode_none);
       //::user::impact::_001OnDraw(pgraphics);
+
+
+      if (::is_ok(m_pimage))
+      {
+
+         pgraphics->set_alpha_mode(::draw2d::e_alpha_mode_blend);
+
+         _synchronous_lock synchronouslock(m_pparticleImageSynchronization);
+
+         ::image::image_source imagesource(m_pimage, m_pimage->rectangle());
+
+         ::image::image_drawing_options imagedrawingoptions(m_pimage->rectangle());
+
+         ::image::image_drawing imagedrawing(imagedrawingoptions, imagesource);
+
+         pgraphics->draw(imagedrawing);
+
+      }
+
    }
 
+
+   void impact::on_message_mouse_leave(::message::message* pmessage)
+   {
+
+      //if (is_absolute_mouse_position())
+      {
+
+         reset_mouse_last_position();
+
+      }
+
+   }
+
+
+   //void impact::reset_mouse_last_position()
+   //{
+
+   //   if (is_absolute_mouse_position())
+   //   {
+   //      m_dMouseLastX = 0.;
+   //      m_dMouseLastY = 0.;
+   //   }
+   //   m_bLastMouse = true;
+
+   //}
 
    void impact::on_layout(::draw2d::graphics_pointer & pgraphics)
    {
@@ -321,11 +443,46 @@ namespace opengl_land_MyPlace2025
 
       }
 
+      auto iWidth = rectangleX.width();
+      auto iHeight = rectangleX.height();
+
+      get_app()->update_3d_application(iWidth, iHeight);
+
+      //m_iWidth = rectangleX.width();
+      //m_iHeight = rectangleX.height();
+
+      reset_mouse_last_position();
+
       ::user::impact::on_layout(pgraphics);
       
       setup_default_client_area_user_item();
 
    }
+
+
+   ::pointer < ::opengl::application> impact::start_opengl_application()
+   {
+
+      return ::glc::start_opengl_application(this, &m_mousestate);
+
+   }
+
+
+   void impact::reset_mouse_last_position()
+   {
+
+      if (is_absolute_mouse_position())
+      {
+         
+         m_dCursorX = 0.;
+         m_dCursorY = 0.;
+
+      }
+
+      m_bLastMouse = true;
+
+   }
+
 
 
    bool impact::on_click(::item * pitem, ::user::mouse * pmouse)
@@ -343,7 +500,7 @@ namespace opengl_land_MyPlace2025
             
             filtera.add({"application.txt", "application.txt"});
             
-            pick_single_file(filtera, [ this ] (const ::file::path & path)
+            pick_single_file_to_open(filtera, [ this ] (const ::file::path & path)
                              {
                
                try {
@@ -361,7 +518,7 @@ namespace opengl_land_MyPlace2025
                   pmessagebox->async();
                }
                
-            }, false);
+            });
 
             return true;
 
@@ -380,6 +537,7 @@ namespace opengl_land_MyPlace2025
       return get_app()->is_absolute_mouse_position();
 
    }
+
 
 
 } // namespace opengl_land_MyPlace2025

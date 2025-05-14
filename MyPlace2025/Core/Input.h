@@ -6,27 +6,36 @@
 #include "Common/Types.h"
 #include "acme/constant/user_key.h"
 
+
 namespace glc
 {
 
 
-   class Input {
+   class Input :
+      virtual public ::particle
+   {
    public:
-      static ::user::enum_key_state  get_key_state(::user::e_key ekey);
-      static bool IsKeyPressed(::user::e_key ekey); // New method for released keys
-      static bool IsKeyReleased(::user::e_key ekey); // New method for released keys
-      static void SetGLFWWindow(glc::GlContainer * pglcontainer);
-      static void ToggleFullscreen();  // Fullscreen toggle logic
-      static void Update(); // Update key states each frame
-      static bool IsAnyKeyPressed(); // New method to check if any keys are pressed
-   private:
-      static glc::GlContainer* m_pglcontainer;
-      static bool m_IsFullscreen;
 
-      static bool WasKeyPressed(::user::e_key ekey); // Helper to check if key was pressed once
-      static std::unordered_map<::user::e_key, bool> m_KeyPressed; // Store the state of each key
-      static int m_WindowedWidth, m_WindowedHeight;
-      static int m_WindowedPosX, m_WindowedPosY;
+      ::pointer < glc::GlContainer> m_pglcontainer;
+      bool m_IsFullscreen;
+
+      std::unordered_map<::user::e_key, bool> m_KeyPressed; // Store the state of each key
+      //static int m_WindowedWidth, m_WindowedHeight;
+      //static int m_WindowedPosX, m_WindowedPosY;
+
+      Input(glc::GlContainer* pglcontainer);
+      ~Input() override;
+
+      ::user::enum_key_state  get_key_state(::user::e_key ekey);
+      bool IsKeyPressed(::user::e_key ekey); // New method for released keys
+      bool IsKeyReleased(::user::e_key ekey); // New method for released keys
+      //void SetGLFWWindow(glc::GlContainer * pglcontainer);
+      void ToggleFullscreen();  // Fullscreen toggle logic
+      void Update(); // Update key states each frame
+      bool IsAnyKeyPressed(); // New method to check if any keys are pressed
+   //private:
+
+      bool WasKeyPressed(::user::e_key ekey); // Helper to check if key was pressed once
    };
 
 

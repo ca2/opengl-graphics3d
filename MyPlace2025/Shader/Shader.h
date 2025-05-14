@@ -14,7 +14,7 @@ namespace glc
       virtual public ::particle
    {
    public:
-      Shader(const std::string& vertexPath, const std::string& fragmentPath);
+      Shader(::particle * pparticle, const std::string& vertexPath, const std::string& fragmentPath);
       ~Shader();
 
       void Bind() const;

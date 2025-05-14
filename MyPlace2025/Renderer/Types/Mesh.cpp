@@ -2,6 +2,8 @@
 #include "glad.h"
 //#include "GLFW/glfw3.h"  
 #include "Mesh.h"
+#include "Texture.h"
+#include "Shader/Shader.h"
 #include <vector>
 
 
@@ -11,7 +13,8 @@ namespace glc
    Mesh::Mesh(const std::vector<float>& vertices, const std::vector<unsigned int>& indices,
       unsigned int vertexOffset, unsigned int indexOffset, unsigned int indexCount)
       : m_Vertices(vertices), m_Indices(indices), m_VertexOffset(vertexOffset),
-      m_IndexOffset(indexOffset), m_IndexCount(indexCount) {
+      m_IndexOffset(indexOffset), m_IndexCount(indexCount) 
+   {
 
 
       glGenBuffers(1, &m_InstanceVBO);
@@ -24,6 +27,46 @@ namespace glc
       glDeleteBuffers(1, &m_VBO);
       glDeleteBuffers(1, &m_EBO);
       glDeleteBuffers(1, &m_InstanceVBO);  // Delete the instance VBO
+   }
+
+
+
+   // render the mesh
+   void Mesh::Draw(Shader *pshader)
+   {
+      // bind appropriate textures
+      unsigned int diffuseNr = 1;
+      unsigned int specularNr = 1;
+      unsigned int normalNr = 1;
+      unsigned int heightNr = 1;
+      for (unsigned int i = 0; i < textures.size(); i++)
+      {
+         glActiveTexture(GL_TEXTURE0 + i); // active proper texture unit before binding
+         // retrieve texture number (the N in diffuse_textureN)
+         ::std::string number;
+         ::std::string name = textures[i]->type;
+         if (name == "texture_diffuse")
+            number = std::to_string(diffuseNr++);
+         else if (name == "texture_specular")
+            number = std::to_string(specularNr++); // transfer unsigned int to string
+         else if (name == "texture_normal")
+            number = std::to_string(normalNr++); // transfer unsigned int to string
+         else if (name == "texture_height")
+            number = std::to_string(heightNr++); // transfer unsigned int to string
+
+         // now set the sampler to the correct texture unit
+         glUniform1i(glGetUniformLocation(pshader->m_ProgramID, (name + number).c_str()), i);
+         // and finally bind the texture
+         glBindTexture(GL_TEXTURE_2D, textures[i]->m_TextureID);
+      }
+
+      // draw mesh
+      glBindVertexArray(m_VAO);
+      glDrawElements(GL_TRIANGLES, static_cast<unsigned int>(m_Indices.size()), GL_UNSIGNED_INT, 0);
+      glBindVertexArray(0);
+
+      // always good practice to set everything back to defaults once configured.
+      glActiveTexture(GL_TEXTURE0);
    }
 
    void Mesh::SetupMesh() {

@@ -25,30 +25,31 @@ namespace glc
 
 
       // Initialize shaders
-      m_Shader = __allocate Shader(
+      m_Shader = __allocate Shader(this,
          "matter://shaders/default.vert",
          "matter://shaders/default.frag"
       );
 
-      m_Shader->initialize(this);
+      //m_Shader->initialize(this);
 
       m_WallShader = __allocate Shader(
+         this,
          "matter://shaders/misc.vert",
          "matter://shaders/misc.frag"
       );
 
-      m_WallShader->initialize(this);
+      //m_WallShader->initialize(this);
 
       // Load textures
-      m_BoxTexture      = __allocate Texture("C:/Users/camilo/glland/MyPlace2025/res/Textures/stoneWall.jpg");
-      m_PlaneTexture    = __allocate Texture("C:/Users/camilo/glland/MyPlace2025/res/Textures/spaceFloor.jpg");
-      m_SphereTexture   = __allocate Texture("C:/Users/camilo/glland/MyPlace2025/res/Textures/greenWall.jpg");
-      m_Misc            = __allocate Texture("C:/Users/camilo/glland/MyPlace2025/res/Textures/mystical1.jpg");
+      m_BoxTexture      = __allocate Texture(this, "matter://textures/stoneWall.jpg");
+      m_PlaneTexture    = __allocate Texture(this, "matter://textures/spaceFloor.jpg");
+      m_SphereTexture   = __allocate Texture(this, "matter://textures/greenWall.jpg");
+      m_Misc            = __allocate Texture(this, "matter://textures/mystical1.jpg");
 
-      m_BoxTexture->initialize(this);
-         m_PlaneTexture -> initialize(this);
-         m_SphereTexture -> initialize(this);
-         m_Misc -> initialize(this);
+      //m_BoxTexture->initialize(this);
+        // m_PlaneTexture -> initialize(this);
+         //m_SphereTexture -> initialize(this);
+         //m_Misc -> initialize(this);
       // Skybox textures
       std::vector<std::string> facesCubemap = {
 
@@ -73,24 +74,25 @@ namespace glc
 
 
        // Space Skybox
-        "C:/Users/camilo/glland/MyPlace2025/res/Textures/SpaceSkybox/right.png",
-        "C:/Users/camilo/glland/MyPlace2025/res/Textures/SpaceSkybox/left.png",
-        "C:/Users/camilo/glland/MyPlace2025/res/Textures/SpaceSkybox/bot.png",
-        "C:/Users/camilo/glland/MyPlace2025/res/Textures/SpaceSkybox/top.png",
-        "C:/Users/camilo/glland/MyPlace2025/res/Textures/SpaceSkybox/front.png",
-        "C:/Users/camilo/glland/MyPlace2025/res/Textures/SpaceSkybox/back.png"
+        "matter://textures/SpaceSkybox/right.png",
+        "matter://textures/SpaceSkybox/left.png",
+        "matter://textures/SpaceSkybox/bot.png",
+        "matter://textures/SpaceSkybox/top.png",
+        "matter://textures/SpaceSkybox/front.png",
+        "matter://textures/SpaceSkybox/back.png"
       };
 
-      m_Skybox = __allocate Skybox(facesCubemap);
+      m_Skybox = __allocate Skybox(this, facesCubemap);
 
       // Initialize skybox shader
       m_SkyboxShader = __allocate Shader(
+         this,
          "matter://shaders/skybox.vert",
          "matter://shaders/skybox.frag"
       );
 
-      m_Skybox->initialize(this);
-      m_SkyboxShader->initialize(this);
+      //m_Skybox->initialize(this);
+      //m_SkyboxShader->initialize(this);
 
       std::vector<glm::mat4> planeModelMatrices(m_PlaneInstanceCount);
       std::vector<glm::mat4> sphereModelMatrices(m_SphereInstanceCount);
@@ -251,12 +253,14 @@ namespace glc
 
    }
 
-   void RenderData::Render(Renderer& renderer, Camera& camera) {
+
+   void RenderData::Render(Renderer *prenderer, Camera *pcamera) 
+   {
 
 
       // Calculate view and projection matrices
-      glm::mat4 view = camera.GetViewMatrix();
-      glm::mat4 projection = glm::perspective(glm::radians(camera.GetZoom()), 1280.0f / 720.0f, 0.1f, 1000.0f);
+      glm::mat4 view = pcamera->GetViewMatrix();
+      glm::mat4 projection = glm::perspective(glm::radians(pcamera->GetZoom()), 1280.0f / 720.0f, 0.1f, 1000.0f);
 
       // Skybox
       glm::mat4 skyboxView = glm::mat4(glm::mat3(view)); // Remove translation from the view matrix
@@ -268,7 +272,7 @@ namespace glc
       // Set uniforms in the shader
       m_SkyboxShader->Bind(); // Make sure to bind the shader first
 
-      renderer.DrawSkybox(*m_SkyboxMesh, *m_SkyboxShader);
+      prenderer->DrawSkybox(m_SkyboxMesh, m_SkyboxShader);
 
       // Bind the shader and set the view and projection matrices
       m_Shader->Bind();
@@ -278,17 +282,17 @@ namespace glc
       // Bind the box mesh and render multiple instances using instanced rendering
       m_BoxMesh->Bind();
       m_BoxTexture->Bind();
-      renderer.DrawInstanced({ m_BoxMesh.get() }, *m_Shader, m_BoxInstanceCount);  // Drawing the box instances
+      prenderer->DrawInstanced({ m_BoxMesh.get() }, m_Shader, m_BoxInstanceCount);  // Drawing the box instances
 
       // Bind the plane texture
       m_PlaneTexture->Bind();
       m_PlaneMesh->Bind();
-      renderer.DrawInstanced({ m_PlaneMesh.get() }, *m_Shader, m_PlaneInstanceCount);  // Drawing the plane instances
+      prenderer->DrawInstanced({ m_PlaneMesh.get() }, m_Shader, m_PlaneInstanceCount);  // Drawing the plane instances
 
       // Render the sphere instances
       m_SphereTexture->Bind();
       m_SphereMesh->Bind();
-      renderer.DrawInstanced({ m_SphereMesh.get() }, *m_Shader, m_SphereInstanceCount);  // Draw sphere instances
+      prenderer->DrawInstanced({ m_SphereMesh.get() }, m_Shader, m_SphereInstanceCount);  // Draw sphere instances
 
 
       // Render the wall
@@ -298,13 +302,13 @@ namespace glc
 
 
       // Get camera position
-      glm::vec3 cameraPosition = camera.GetPosition();
+      glm::vec3 cameraPosition = pcamera->GetPosition();
 
       m_WallShader->SetUniform3f("cameraPos", cameraPosition.x, cameraPosition.y, cameraPosition.z);
 
       m_Misc->Bind();
       m_WallMesh->Bind();
-      renderer.DrawInstanced({ m_WallMesh.get() }, *m_WallShader, m_WallInstanceCount); // Draw robin
+      prenderer->DrawInstanced({ m_WallMesh.get() }, m_WallShader, m_WallInstanceCount); // Draw robin
 
       // Unbind the shader
       m_Shader->Unbind();

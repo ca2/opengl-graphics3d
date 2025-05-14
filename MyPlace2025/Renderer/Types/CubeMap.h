@@ -13,7 +13,7 @@ namespace glc
    
    {
    public:
-      Skybox(const std::vector<std::string>& faces);
+      Skybox(::particle * pparticle, const std::vector<std::string>& faces);
       ~Skybox();
 
       void SetupSkybox();

@@ -510,7 +510,7 @@
       <AdditionalIncludeDirectories>$(SolutionDir)../../..</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>vulkan-1.lib;windowscodecs.lib;gdiplus.lib;winmm.lib;version.lib;vfw32.lib;opengl32.lib;glu32.lib;Psapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glad.lib;vulkan-1.lib;windowscodecs.lib;gdiplus.lib;winmm.lib;version.lib;vfw32.lib;opengl32.lib;glu32.lib;Psapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreAllDefaultLibraries>
       </IgnoreAllDefaultLibraries>
       <IgnoreSpecificDefaultLibraries>
@@ -804,12 +804,13 @@
     </ClCompile>
     <ClCompile Include="impact.cpp" />
     <ClCompile Include="main_frame.cpp" />
+    <ClCompile Include="opengl\application.cpp" />
+    <ClCompile Include="opengl\engine.cpp" />
     <ClCompile Include="pane_impact.cpp" />
     <ClCompile Include="Renderer\RenderData.cpp" />
     <ClCompile Include="Renderer\Renderer.cpp" />
     <ClCompile Include="Renderer\Types\CubeMap.cpp" />
     <ClCompile Include="Renderer\Types\Mesh.cpp" />
-    <ClCompile Include="Renderer\Types\Model.cpp" />
     <ClCompile Include="Renderer\Types\Texture.cpp" />
     <ClCompile Include="Shader\Shader.cpp" />
     <ClCompile Include="_.cpp" />
@@ -831,6 +832,10 @@
     <ClInclude Include="document.h" />
     <ClInclude Include="impact.h" />
     <ClInclude Include="main_frame.h" />
+    <ClInclude Include="opengl\application.h" />
+    <ClInclude Include="opengl\engine.h" />
+    <ClInclude Include="opengl\GLError.h" />
+    <ClInclude Include="opengl\GLRenderer.h" />
     <ClInclude Include="pane_impact.h" />
     <ClInclude Include="Renderer\RenderData.h" />
     <ClInclude Include="Renderer\Renderer.h" />
@@ -873,9 +878,6 @@
     </ProjectReference>
     <ProjectReference Include="..\..\app\core\core.vcxproj">
       <Project>{29c1eb5b-060e-4021-ae12-d1bcfb1b1359}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\landen\vulkan_land_landen.vcxproj">
-      <Project>{5aafbd19-daed-40a5-bbd6-2fb07425c874}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

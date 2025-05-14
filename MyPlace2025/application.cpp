@@ -5,12 +5,13 @@
 #include "impact.h"
 #include "pane_impact.h"
 #include "acme/filesystem/filesystem/file_system_options.h"
-#include "aura/graphics/write_text/font.h"
 #include "acme/handler/request.h"
+#include "base/user/user/tab_impact.h"
+#include "aura/graphics/image/image.h"
+#include "aura/graphics/write_text/font.h"
 #include "aura/user/user/plain_edit.h"
 #include "aura/user/user/still.h"
 #include "apex/database/stream.h"
-#include "base/user/user/tab_impact.h"
 #include "base/platform/session.h"
 #include "base/user/user/document_manager.h"
 #include "base/user/user/user.h"
@@ -32,21 +33,21 @@ namespace opengl_land_MyPlace2025
       //m_bImaging = false;
 
       //m_bImaging = true; // for showing application icon
-      
+
       //m_bImaging = false; // showing application icon may use innate_ui icon?
 
       //m_bNetworking = false;
 
       //m_ppaneimpact = nullptr;
 
-      m_strAppId = "vulkan-land/MyPlace2025";
+      m_strAppId = "opengl-land/MyPlace2025";
 
-      m_strAppName = "vulkan-land/MyPlace2025";
+      m_strAppName = "opengl-land/MyPlace2025";
 
       m_strBaseSupportId = "opengl_land_MyPlace2025";
 
       m_bLicense = false;
-      
+
       m_pfilesystemoptions->m_b_iCloudContainer = true;
       m_pfilesystemoptions->m_str_iCloudContainerIdentifier = "iCloud.app-simple";
 
@@ -71,12 +72,12 @@ namespace opengl_land_MyPlace2025
       ::core::application::init_instance();
 
       add_impact_system(
-         "main", __initialize_new ::user::single_document_template(
-         "main",
-         ::type < document >(),
-         ::type < main_frame >(),
-         ::type < pane_impact >()));
-      
+         "main", __initialize_new::user::single_document_template(
+            "main",
+            ::type < document >(),
+            ::type < main_frame >(),
+            ::type < pane_impact >()));
+
       add_impact_system(
          "impact", __initialize_new::user::single_document_template(
             "impact",
@@ -87,11 +88,11 @@ namespace opengl_land_MyPlace2025
 #if defined(APPLE_IOS)
 
       m_pathApplicationText = "icloud://iCloud.app-simple/Documents/application/application.txt";
-      
+
 #else
-      
+
       m_pathApplicationText = "dropbox-app://application.txt";
-      
+
 #endif
 
 
@@ -107,13 +108,13 @@ namespace opengl_land_MyPlace2025
    }
 
 
-   void application::on_request(::request * prequest)
+   void application::on_request(::request* prequest)
    {
 
       if (impact_system("main")->get_document_count() == 0)
       {
 
-         if(prequest->m_egraphicsoutputpurpose & ::graphics::e_output_purpose_screen)
+         if (prequest->m_egraphicsoutputpurpose & ::graphics::e_output_purpose_screen)
          {
 
             information() << "::graphics::e_output_purpose_screen";
@@ -206,10 +207,10 @@ namespace opengl_land_MyPlace2025
                datastream()->set("Absolute Mouse Position", bAbsoluteMousePosition);
 
 
-            bAbsoluteMousePosition = false;
-            datastream()->get("Absolute Mouse Position", bAbsoluteMousePosition);
+               bAbsoluteMousePosition = false;
+               datastream()->get("Absolute Mouse Position", bAbsoluteMousePosition);
 
-            m_bAbsoluteMousePosition = bAbsoluteMousePosition;
+               m_bAbsoluteMousePosition = bAbsoluteMousePosition;
 
                //on_change_synchronize_with_weather();
 
@@ -296,6 +297,111 @@ namespace opengl_land_MyPlace2025
       return m_bAbsoluteMousePosition;
 
    }
+
+
+
+   void application::update_3d_application(int cx, int cy)
+   {
+
+   if (!m_popenglengine)
+   {
+
+      if (!m_pimpact->m_callbackOffscreen)
+      {
+
+         m_pimpact->m_callbackOffscreen = [this](void* p, int w, int h, int stride)
+            {
+
+               {
+
+                  _synchronous_lock synchronouslock(m_pimpact->m_pparticleImageSynchronization);
+
+                  m_pimpact->m_pimage->image32()->copy(m_pimpact->m_pimage->size().minimum(::int_size(w, h)), m_pimpact->m_pimage->m_iScan, (image32_t*)p, stride);
+
+                  for (int y = 0; y < h; y++)
+                  {
+
+                     auto p = (unsigned char*)(m_pimpact->m_pimage->image32() + (y * m_pimpact->m_pimage->m_iScan) / 4);
+
+                     for (int x = 0; x < w; x++)
+                     {
+
+                        //p[0] = p[0] * p[3] / 255;
+                        //p[1] = p[1] * p[3] / 255;
+                        //p[2] = p[2] * p[3] / 255;
+
+                        auto r = p[0];
+                        auto g = p[1];
+                        auto b = p[2];
+                        auto a = p[3];
+                        p[0] = b;
+                        p[2] = r;
+                        //p[3] = 255;
+
+                        /*         if (r > a)
+                                 {
+
+                                    information("What a red!!"_ansi);
+
+                                 }
+
+                                 if (g > a)
+                                 {
+
+                                    information("What a green!!"_ansi);
+
+                                 }
+
+                                 if (b > a)
+                                 {
+
+                                    information("What a blue!!"_ansi);
+
+                                 }*/
+
+                        p += 4;
+
+                     }
+
+                  }
+
+               }
+
+
+               m_pimpact->set_need_redraw();
+               m_pimpact->post_redraw();
+            };
+
+      }
+
+      m_ptask3dEngine = m_popenglengine = m_pimpact->start_opengl_engine();
+
+
+
+         //{
+
+            //            run_vulkan_example();
+
+            
+         //   m_popenglengine->resize(cx, cy);
+         //   m_popenglengine->run_engine();
+         //   m_ptask3dEngine.release();
+
+         //});
+
+
+
+
+   }
+   //else
+   //{
+
+      m_popenglengine->resize(cx, cy);
+
+   //}
+
+
+}
 
 
 } // namespace opengl_land_MyPlace2025

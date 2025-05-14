@@ -9,7 +9,7 @@
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
-
+#include "Common/Types.h"
 #include "Texture.h"
 #include "Mesh.h"
 #include "Shader/Shader.h"
@@ -32,10 +32,15 @@ namespace glc
    class Model
    {
    public:
+      
+
       // model data 
-      vector<Texture> textures_loaded;	// stores all the textures loaded so far, optimization to make sure textures aren't loaded more than once.
-      vector<Mesh>    meshes;
+
+      ::pointer_array<Texture> textures_loaded;	// stores all the textures loaded so far, optimization to make sure textures aren't loaded more than once.
+      ::pointer_array<Mesh>    meshes;
       ::std::string directory;
+
+
       bool gammaCorrection;
 
       // constructor, expects a filepath to a 3D model.
@@ -45,11 +50,7 @@ namespace glc
       }
 
       // draws the model, and thus all its meshes
-      void Draw(glc::Shader& shader)
-      {
-         for (unsigned int i = 0; i < meshes.size(); i++)
-            meshes[i].Draw(shader);
-      }
+      void Draw(glc::Shader* pshader);
 
    //private:
       // loads a model with supported ASSIMP extensions from file and stores the resulting meshes in the meshes vector.
@@ -80,7 +81,7 @@ namespace glc
             // the node object only contains indices to index the actual objects in the scene. 
             // the scene contains all the data, node is just to keep stuff organized (like relations between nodes).
             aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-            meshes.push_back(processMesh(mesh, scene));
+            meshes.add(processMesh(mesh, scene));
          }
          // after we've processed all of the meshes (if any) we then recursively process each of the children nodes
          for (unsigned int i = 0; i < node->mNumChildren; i++)
@@ -90,10 +91,10 @@ namespace glc
 
       }
 
-      Mesh processMesh(aiMesh* mesh, const aiScene* scene)
+      ::pointer < Mesh > processMesh(aiMesh* mesh, const aiScene* scene)
       {
          // data to fill
-         vector<Vertex> vertices;
+         vector<glc::Vertex> vertices;
          vector<unsigned int> indices;
          vector<Texture> textures;
 
@@ -171,7 +172,7 @@ namespace glc
          textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
 
          // return a mesh object created from the extracted mesh data
-         return Mesh(vertices, indices, textures);
+         return __allocate Mesh(vertices, indices, textures);
       }
 
       // checks all material textures of a given type and loads the textures if they're not loaded yet.

@@ -23,6 +23,7 @@ namespace glc
       virtual public ::particle
    {
    public:
+
       RenderData();
       ~RenderData();
 
@@ -38,7 +39,7 @@ namespace glc
 
       void Init();
       void Update(float deltaTime);
-      void Render(Renderer& renderer, Camera& camera);
+      void Render(Renderer *prenderer, Camera *pcamera);
       void LoadModel(std::string& path);
       // Misc
 

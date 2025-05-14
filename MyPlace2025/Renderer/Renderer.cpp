@@ -36,25 +36,25 @@ namespace glc
    }
 
    // Skybox
-   void Renderer::DrawSkybox(const Mesh& skyboxMesh, const Shader& shader) const {
+   void Renderer::DrawSkybox(const Mesh *pskyboxMesh, const Shader *pshader) const {
       GLCheckError();
       // Disable depth writing for the skybox
       glDepthFunc(GL_LEQUAL);
       glEnable(GL_BLEND);
       glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-      shader.Bind();
+      pshader->Bind();
 
-      skyboxMesh.Bind();
-      glDrawElements(GL_TRIANGLES, skyboxMesh.GetIndexCount(), GL_UNSIGNED_INT, nullptr);
-      skyboxMesh.Unbind();
+      pskyboxMesh->Bind();
+      glDrawElements(GL_TRIANGLES, pskyboxMesh->GetIndexCount(), GL_UNSIGNED_INT, nullptr);
+      pskyboxMesh->Unbind();
 
       glDepthFunc(GL_LESS);
-      shader.Unbind();
+      pshader->Unbind();
       GLCheckError();
    }
 
 
-   void Renderer::DrawInstanced(const std::vector<Mesh*>& meshes, const Shader& shader, unsigned int instanceCount) const {
+   void Renderer::DrawInstanced(const std::vector<Mesh*>& meshes, const Shader *pshader, unsigned int instanceCount) const {
       GLCheckError();
 
       for (const Mesh* mesh : meshes) {
@@ -66,7 +66,7 @@ namespace glc
       GLCheckError();
    }
 
-   void Renderer::DrawModel(const std::vector<Mesh*>& mehses, const Shader& shader)
+   void Renderer::DrawModel(const std::vector<Mesh*>& mehses, const Shader *pshader)
    {
 
    }
