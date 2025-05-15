@@ -28,6 +28,8 @@ namespace opengl_land_MyPlace2025
 
    application::application()
    {
+
+       m_bUseDraw2dProtoWindow = true;
       m_bAbsoluteMousePosition = false;
       m_ppaneimpact = nullptr;
       //m_bImaging = false;
@@ -149,6 +151,16 @@ namespace opengl_land_MyPlace2025
       return ::aura::application::preferred_experience();
 
    }
+
+
+
+   ::string application::draw2d_get_default_implementation_name()
+   {
+
+       return system()->implementation_name("draw2d", "opengl");
+
+   }
+
 
 
 #ifdef _DEBUG

@@ -39,6 +39,11 @@ bool m_bAbsoluteMousePosition;
 
 
       virtual string preferred_experience() override;
+
+
+      ::string draw2d_get_default_implementation_name() override;
+
+
       virtual void init_instance() override;
       virtual void term_application() override;
 

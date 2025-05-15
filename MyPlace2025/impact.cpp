@@ -231,6 +231,8 @@ namespace opengl_land_MyPlace2025
 
       }
 
+
+      pgraphics->defer_add_render(get_app()->m_popenglengine);
       
       //return;
 
