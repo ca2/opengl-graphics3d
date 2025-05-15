@@ -8,7 +8,9 @@
 namespace glc
 {
 
-   class Renderer {
+   class Renderer :
+      virtual public ::particle
+   {
    public:
       Renderer();
       ~Renderer();

@@ -201,6 +201,7 @@ namespace opengl
 
                m_pgpucontext->resize_offscreen_buffer({ cx, cy });
 
+               m_prenderer = __allocate glc::Renderer();
                // Initialize the game logic and scene data
                m_pglcapplication->Init();
 
