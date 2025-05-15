@@ -72,7 +72,7 @@ namespace opengl
    // engine Run
    bool engine::render_step() 
    {
-
+       //return true;
 
       float lastFrame = 0.0f;
 
@@ -86,44 +86,79 @@ namespace opengl
 
       //{
 
-      if (m_pglcontainer->m_iWidth <= 0
-         || m_pglcontainer->m_iHeight <= 0)
+      auto containerW = m_pglcontainer->m_iWidth;
+
+      auto containerH = m_pglcontainer->m_iHeight;
+
+      if (containerW <= 0 || containerH <= 0)
       {
 
          return true;
 
       }
-            // Frame Logic
-            float currentFrame = ::time::now().floating_second();
-            float deltaTime = currentFrame - lastFrame;
-            lastFrame = currentFrame;
 
-            deltaTime = minimum_maximum(deltaTime, 0.001, 0.016666666);
+      auto rectangleW = m_rectangle.width();
 
-            ProcessInput(deltaTime);
+      auto rectangleH = m_rectangle.height();
 
-            // Toggle wireframe mode
-            if (m_bWireframeMode) {
-               glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); // Enable wireframe mode
-            }
-            else {
-               glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); // Enable solid mode
-            }
+      glPushMatrix();
+      glPushAttrib(GL_ALL_ATTRIB_BITS);
 
-            // Clear the screen
-            m_prenderer->Clear();
+      glViewport(m_rectangle.left(), m_sizeHost.cy() - rectangleH - m_rectangle.top(), rectangleW, rectangleH);
 
-            // Update and render the game (and the current scene)
-            m_pglcapplication->Update(deltaTime, m_pcamera);
-            m_pglcapplication->Render(m_prenderer, m_pcamera);
+      glMatrixMode(GL_MODELVIEW);
+      glLoadIdentity();
 
-            // Swap buffers and poll for events
-            //m_Window.SwapBuffers();
-            //m_pglcontainer->present();
-            // 
-            // 
+      //glOrtho(0.0f, rectangleW, 0, rectangleH, -1.0f, 1.0f);  // Flip Y
 
-            if (m_pglcontainer->m_callbackOffscreen)
+      glEnable(GL_DEPTH_TEST);
+
+
+      glDepthFunc(GL_LESS);
+
+
+          // Frame Logic
+          float currentFrame = ::time::now().floating_second();
+          float deltaTime = currentFrame - lastFrame;
+          lastFrame = currentFrame;
+
+          deltaTime = minimum_maximum(deltaTime, 0.001, 0.016666666);
+
+          ProcessInput(deltaTime);
+
+          // Toggle wireframe mode
+          if (m_bWireframeMode) {
+              glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); // Enable wireframe mode
+          }
+          else {
+              glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); // Enable solid mode
+          }
+
+          // Clear the screen
+//          m_prenderer->Clear();
+
+          // Update and render the game (and the current scene)
+          m_pglcapplication->Update(deltaTime, m_pcamera);
+          m_pglcapplication->Render(m_prenderer, m_pcamera);
+
+          // Swap buffers and poll for events
+          //m_Window.SwapBuffers();
+          //m_pglcontainer->present();
+          // 
+          // 
+
+          glDisable(GL_DEPTH_TEST);
+
+      //}
+
+//            glDepthFunc(GL_LESS);
+
+            glPopAttrib();
+            glPopMatrix();
+
+
+            if (!m_papplication->m_bUseDraw2dProtoWindow
+                && m_pglcontainer->m_callbackOffscreen)
             {
                void* p = nullptr;
                int w = m_pglcontainer->m_iWidth;
@@ -158,6 +193,19 @@ namespace opengl
                   stride);
 
             }
+            else
+            {
+
+
+                m_pglcontainer->m_callbackOffscreen(
+                    nullptr,
+                    0,
+                    0,
+                    0);
+            }
+
+            //glViewport(0, 0, m_sizeHost.cx(), m_sizeHost.cy());
+
 
             return true;
 
@@ -199,15 +247,22 @@ namespace opengl
 
                m_pglcapplication = m_pglcontainer->start_opengl_application();
 
-               m_pgpucontext->resize_offscreen_buffer({ cx, cy });
+
+               if (!m_papplication->m_bUseDraw2dProtoWindow)
+               {
+                   m_pgpucontext->resize_offscreen_buffer({ cx, cy });
+
+               }
 
                m_prenderer = __allocate glc::Renderer();
+
+               //return;
                // Initialize the game logic and scene data
                m_pglcapplication->Init();
 
                m_pgpucontext->m_timeSample = 1_s/ 60.0;
 
-               m_pgpucontext->m_prender = this;
+               //m_pgpucontext->m_rendera.add_unique(this);
 
             }
             else

@@ -29,7 +29,7 @@ namespace opengl_land_MyPlace2025
    application::application()
    {
 
-       m_bUseDraw2dProtoWindow = true;
+      m_bUseDraw2dProtoWindow = true;
       m_bAbsoluteMousePosition = false;
       m_ppaneimpact = nullptr;
       //m_bImaging = false;
@@ -153,14 +153,12 @@ namespace opengl_land_MyPlace2025
    }
 
 
-
    ::string application::draw2d_get_default_implementation_name()
    {
 
        return system()->implementation_name("draw2d", "opengl");
 
    }
-
 
 
 #ifdef _DEBUG
@@ -324,6 +322,7 @@ namespace opengl_land_MyPlace2025
          m_pimpact->m_callbackOffscreen = [this](void* p, int w, int h, int stride)
             {
 
+                 if(p)
                {
 
                   _synchronous_lock synchronouslock(m_pimpact->m_pparticleImageSynchronization);

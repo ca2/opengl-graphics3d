@@ -15,10 +15,10 @@ namespace glc
    Renderer::Renderer()
    {
 
-      glEnable(GL_DEPTH_TEST);
+      //glEnable(GL_DEPTH_TEST);
 
 
-      glDepthFunc(GL_LESS);
+      //glDepthFunc(GL_LESS);
    }
 
    Renderer::~Renderer()

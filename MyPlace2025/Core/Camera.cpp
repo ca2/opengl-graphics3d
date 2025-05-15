@@ -22,7 +22,7 @@ namespace glc
       m_fYaw = fYaw;
       m_fPitch = fPitch;
       m_Front = glm::vec3(0.0f, 0.0f, -1.0f);
-      m_WorldUp = glm::vec3(0.0f, 1.0f, 0.0f);
+      m_WorldUp = glm::vec3(0.0f, -1.0f, 0.0f);
       m_Zoom = 75.0f;
       m_MovementSpeed = 20.5f;
 
@@ -65,9 +65,9 @@ namespace glc
       m_fPitch = glm::clamp(m_fPitch, -1.5f, 1.5f);
 
       // Optional: wrap yaw
-      if (m_fYaw > 2.0f * MATH_PI) m_fYaw -= 2.0f * MATH_PI;
-      if (m_fYaw < 0.0f) m_fYaw += 2.0f * MATH_PI;
-
+      //if (m_fYaw > 2.0f * MATH_PI) m_fYaw -= 2.0f * MATH_PI;
+      //if (m_fYaw < 0.0f) m_fYaw += 2.0f * MATH_PI;
+      m_fYaw= glm::mod(m_fYaw, glm::two_pi<float>());
       //gameObject.transform.rotation.x = glm::radians(_pitch);
       //gameObject.transform.rotation.y = glm::radians(_yaw);
 

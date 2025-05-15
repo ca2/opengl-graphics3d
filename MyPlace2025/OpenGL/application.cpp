@@ -26,6 +26,5 @@ namespace opengl
 
    }
 
-
       
 } // namespace opengl

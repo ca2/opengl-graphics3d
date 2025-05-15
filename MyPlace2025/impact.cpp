@@ -10,9 +10,13 @@
 #include "apex/database/stream.h"
 #include "aura/message/user.h"
 #include "aura/graphics/draw2d/draw2d.h"
+#include "aura/graphics/graphics/graphics.h"
 #include "aura/graphics/image/context.h"
 #include "aura/graphics/image/image.h"
 #include "aura/graphics/image/drawing.h"
+#include "aura/windowing/window.h"
+#include "draw2d_opengl/_.h"
+#include "draw2d_opengl/graphics.h"
 #include "Common/Types.h"
 
 
@@ -100,6 +104,17 @@ namespace opengl_land_MyPlace2025
 
       auto pengine= ::opengl::start_opengl_engine(this, &m_mousestate);
       pengine->initialize_engine(this);
+      auto pwindow = window();
+
+      auto pgraphicsgraphics = pwindow->get_window_graphics();
+
+      auto pbufferitem = pgraphicsgraphics->get_screen_item();
+
+      auto pgraphics = pbufferitem->g();
+
+      ::cast < ::draw2d_opengl::graphics > pgraphicsOpenGL = pgraphics;
+
+      pengine->m_pgpucontext = pgraphicsOpenGL->m_pgpucontext;
 
       return pengine;
 
@@ -232,7 +247,7 @@ namespace opengl_land_MyPlace2025
       }
 
 
-      pgraphics->defer_add_render(get_app()->m_popenglengine);
+      //pgraphics->defer_add_gpu_render(get_app()->m_popenglengine);
       
       //return;
 
@@ -404,6 +419,28 @@ namespace opengl_land_MyPlace2025
          pgraphics->draw(imagedrawing);
 
       }
+
+      auto papp = get_app();
+
+      if (papp)
+      {
+
+          auto pengine = get_app()->m_popenglengine;
+
+          if(pengine)
+          { 
+
+              auto r = host_rectangle();
+
+              pengine->m_rectangle = r;
+
+              pengine->m_sizeHost = top_level()->raw_rectangle().size();
+          
+              pengine->render_step();
+          }
+      }
+
+      //get_app()->m_popenglengine->render_step();
 
    }
 
