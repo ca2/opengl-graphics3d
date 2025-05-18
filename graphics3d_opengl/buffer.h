@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include "context.h"
+#include "opengl-graphics3d/graphics3d_opengl/context.h"
 
 
 namespace graphics3d_opengl

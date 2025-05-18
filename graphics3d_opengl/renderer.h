@@ -1,17 +1,23 @@
 #pragma once
-#include "Types/Mesh.h"
-#include "Shader/shader.h"
+
+
+#include "mesh.h"
+#include "shader.h"
 //#include "GLFW/glfw3.h"
 #include <memory>
 #include <glm/glm.hpp>
 
+
 namespace graphics3d_opengl
 {
+
 
    class renderer :
       virtual public ::particle
    {
    public:
+
+
       renderer();
       ~renderer();
 

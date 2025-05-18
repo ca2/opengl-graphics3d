@@ -2,11 +2,11 @@
 
 
 #include "apex/platform/app_consumer.h"
-#include "base/user/user/impact.h"
-#include "AppCore/Application.h"
-#include "opengl/engine.h"
-#include "Core/gl_container.h"
-#include "Common/Types.h"
+#include "app-cube/cube/impact.h"
+#include "application.h"
+#include "app-cube/cube/engine.h"
+//#include "app-cube/cube/impact.h"
+#include "app-cube/cube/types.h"
 
 
 namespace opengl_graphics3d_MyPlace2025
@@ -14,7 +14,7 @@ namespace opengl_graphics3d_MyPlace2025
 
 
    class CLASS_DECL_OPENGL_GRAPHICS3D_MYPLACE2025 impact :
-      virtual public ::app_consumer < application, ::user::impact, glc::GlContainer >
+      virtual public ::app_consumer < application, ::cube::impact >
    {
    public:
 

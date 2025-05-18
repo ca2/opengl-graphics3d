@@ -16,10 +16,12 @@ namespace graphics3d_opengl
 {
 
 
-   class application_handler;
+   class engine;
+
+   //class application_handler;
 
    class renderer;
-   class application_object;
+   //class application_object;
 
 
    class model;

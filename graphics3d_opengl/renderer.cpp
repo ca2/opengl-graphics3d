@@ -3,7 +3,7 @@
 //#include "GLFW/glfw3.h"
 #include <vector>
 #include <map>
-#include "GLError.h"
+//#include "GLError.h"
 #include "renderer.h"
 #include "mesh.h"
 

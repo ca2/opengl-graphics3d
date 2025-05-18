@@ -1,13 +1,15 @@
 #pragma once
 //#include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
-#include "Core/gl_container.h"
+//#include "Core/gl_container.h"
 
 
 namespace graphics3d_opengl
 {
 
-   enum CameraMovement {
+
+   enum CameraMovement 
+   {
       FORWARD,
       BACKWARD,
       LEFT,
