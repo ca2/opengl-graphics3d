@@ -3,16 +3,16 @@
 //#include "GLFW/glfw3.h"
 #include <vector>
 #include <map>
-#include "OpenGL/GLError.h"
-#include "Renderer/Renderer.h"
-#include "Renderer/Types/Mesh.h"
+#include "GLError.h"
+#include "renderer.h"
+#include "mesh.h"
 
 
-namespace glc
+namespace graphics3d_opengl
 {
 
 
-   Renderer::Renderer()
+   renderer::renderer()
    {
 
       //glEnable(GL_DEPTH_TEST);
@@ -21,11 +21,11 @@ namespace glc
       //glDepthFunc(GL_LESS);
    }
 
-   Renderer::~Renderer()
+   renderer::~renderer()
    {
    }
 
-   void Renderer::Clear() const
+   void renderer::Clear() const
    {
 
       // Clear the screen 
@@ -36,7 +36,7 @@ namespace glc
    }
 
    // Skybox
-   void Renderer::DrawSkybox(const Mesh *pskyboxMesh, const Shader *pshader) const {
+   void renderer::DrawSkybox(const Mesh *pskyboxMesh, const Shader *pshader) const {
       GLCheckError();
       // Disable depth writing for the skybox
       glDepthFunc(GL_LEQUAL);
@@ -54,7 +54,7 @@ namespace glc
    }
 
 
-   void Renderer::DrawInstanced(const std::vector<Mesh*>& meshes, const Shader *pshader, unsigned int instanceCount) const {
+   void renderer::DrawInstanced(const std::vector<Mesh*>& meshes, const Shader *pshader, unsigned int instanceCount) const {
       GLCheckError();
 
       for (const Mesh* mesh : meshes) {
@@ -66,13 +66,13 @@ namespace glc
       GLCheckError();
    }
 
-   void Renderer::DrawModel(const std::vector<Mesh*>& mehses, const Shader *pshader)
+   void renderer::DrawModel(const std::vector<Mesh*>& mehses, const Shader *pshader)
    {
 
    }
 
 
-} // namespace glc
+} // namespace graphics3d_opengl
 
 
 

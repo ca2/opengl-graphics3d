@@ -1,30 +1,34 @@
 #pragma once
 
+
+#include "app-cube/cube/engine.h"
+
+
 #include <memory>
 #include <vector>
-#include "Core/Window.h"
-#include "Core/Input.h"
-#include "Renderer/Renderer.h"
-#include "Renderer/Types/Mesh.h"
-#include "Shader/Shader.h"
-#include "Core/Camera.h" // Include the Camera header
-#include "AppCore/Application.h"
+//#include "Core/Window.h"
+#include "input.h"
+#include "renderer.h"
+#include "mesh.h"
+#include "shader.h"
+#include "camera.h" // Include the Camera header
+#include "application.h"
 #include "apex/platform/app_consumer.h"
 #include "aura/graphics/gpu/render.h"
 
 
-namespace opengl
+namespace graphics3d_opengl
 {
 
 
 	class engine :
-		virtual public app_consumer < application, ::gpu::render >
+		virtual public ::cube::engine
 	{
 	public:
 
 
-		::pointer < glc::GlContainer > m_pglcontainer;
-		::pointer < glc::Renderer > m_prenderer;
+		::pointer < ::cube::impact > m_pimpact;
+		::pointer < glc::renderer > m_prenderer;
 		::pointer < glc::Camera > m_pcamera;
 		::pointer < glc::Application > m_pglcapplication;  // Game object that manages the scenes
 		::pointer < glc::Input > m_pinput;
@@ -45,13 +49,30 @@ namespace opengl
 
 		::memory m_memoryBuffer;
 
+
+
+		::pointer<RenderData> m_prenderdataCurrentScene;
+
+		bool m_bInitRenderData;
+
+
 		//::pointer<::gpu::context>             m_pgpucontext;
 
 		engine();
 		~engine();
 
 
-		
+
+		//Application();
+		//~Application();
+
+		void Init();       // Initialize the game and load the first scene
+		void Update(float deltaTime, Camera* pcamera);  // Update game logic
+		void Render(Renderer* prenderer, Camera* pcamera);
+
+		//void run_application() override;
+		void resize(int cx, int cy) override;
+
 
 		//void Init();
 
@@ -61,8 +82,8 @@ namespace opengl
 
 		//private:
 		void ProcessInput(float deltaTime);
-		//static void MouseCallback(glc::GlContainer* pglContainer, double xpos, double ypos);
-		virtual void initialize_engine(glc::GlContainer* pglcontainer);
+		//static void MouseCallback(::cube::impact* pglContainer, double xpos, double ypos);
+		virtual void initialize_engine(::cube::impact* pglcontainer);
 
 		virtual void handleMouseMove(double dCursorX, double dCursorY);
 
@@ -73,7 +94,7 @@ namespace opengl
 
 
 
-} // namespace opengl
+} // namespace graphics3d_opengl
 
 
 

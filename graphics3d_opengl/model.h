@@ -24,7 +24,7 @@
 #include <vector>
 using namespace std;
 
-namespace glc
+namespace graphics3d_opengl
 {
 
    unsigned int TextureFromFile(const char* path, const ::std::string& directory, bool gamma = false);

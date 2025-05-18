@@ -7,7 +7,7 @@
 #include "acme/constant/user_key.h"
 
 
-namespace glc
+namespace graphics3d_opengl
 {
 
 
@@ -16,20 +16,20 @@ namespace glc
    {
    public:
 
-      ::pointer < glc::GlContainer> m_pglcontainer;
+      ::pointer < ::cube::impact> m_pimpact;
       bool m_IsFullscreen;
 
       std::unordered_map<::user::e_key, bool> m_KeyPressed; // Store the state of each key
       //static int m_WindowedWidth, m_WindowedHeight;
       //static int m_WindowedPosX, m_WindowedPosY;
 
-      Input(glc::GlContainer* pglcontainer);
+      Input(::cube::impact* pglcontainer);
       ~Input() override;
 
       ::user::enum_key_state  get_key_state(::user::e_key ekey);
       bool IsKeyPressed(::user::e_key ekey); // New method for released keys
       bool IsKeyReleased(::user::e_key ekey); // New method for released keys
-      //void SetGLFWWindow(glc::GlContainer * pglcontainer);
+      //void SetGLFWWindow(::cube::impact * pglcontainer);
       void ToggleFullscreen();  // Fullscreen toggle logic
       void Update(); // Update key states each frame
       bool IsAnyKeyPressed(); // New method to check if any keys are pressed
@@ -41,6 +41,6 @@ namespace glc
 
 
 
-} // namespace glc
+} // namespace graphics3d_opengl
 
 

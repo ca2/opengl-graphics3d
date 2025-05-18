@@ -3,20 +3,20 @@
 #include "Common/Types.h"
 #include "aura/platform/session.h"
 
-namespace glc
+namespace graphics3d_opengl
 {
 
 
    // Initialize static members
-   //glc::GlContainer* Input::m_pglcontainer = nullptr;
+   //::cube::impact* Input::m_pimpact = nullptr;
    //bool Input::m_IsFullscreen = false;
    //int Input::m_WindowedWidth = 1280;
    //int Input::m_WindowedHeight = 720;
    //int Input::m_WindowedPosX = 100;
    //int Input::m_WindowedPosY = 100;
    //std::unordered_map<::user::e_key, bool> Input::m_KeyPressed;
-   Input::Input(glc::GlContainer* pglcontainer) :
-      m_pglcontainer(pglcontainer)
+   Input::Input(::cube::impact* pglcontainer) :
+      m_pimpact(pglcontainer)
    {
 
       initialize(pglcontainer);
@@ -30,7 +30,7 @@ namespace glc
 
 ::user::enum_key_state Input::get_key_state(::user::e_key ekey) 
    {
-      //int state = glfwGetKey(m_pglcontainer, key);
+      //int state = glfwGetKey(m_pimpact, key);
       //return state == GLFW_PRESS || state == GLFW_REPEAT;
 
 
@@ -55,15 +55,15 @@ bool Input::IsKeyPressed(::user::e_key ekey)
       return !get_key_state(ekey);
    }
 
-   //void Input::SetGLFWWindow(glc::GlContainer* window) {
-   //   m_pglcontainer = window;
+   //void Input::SetGLFWWindow(::cube::impact* window) {
+   //   m_pimpact = window;
    //}
 
    // Fullscreen toggle logic
    void Input::ToggleFullscreen() {
       //if (m_IsFullscreen) {
       //   // Exit fullscreen, go back to windowed mode
-      //   glfwSetWindowMonitor(m_pglcontainer, nullptr, m_WindowedPosX, m_WindowedPosY,
+      //   glfwSetWindowMonitor(m_pimpact, nullptr, m_WindowedPosX, m_WindowedPosY,
       //      m_WindowedWidth, m_WindowedHeight, 0);
       //}
       //else {
@@ -72,10 +72,10 @@ bool Input::IsKeyPressed(::user::e_key ekey)
       //   const GLFWvidmode* mode = glfwGetVideoMode(monitor);
 
       //   // Save current window position and size
-      //   glfwGetWindowPos(m_pglcontainer, &m_WindowedPosX, &m_WindowedPosY);
-      //   glfwGetWindowSize(m_pglcontainer, &m_WindowedWidth, &m_WindowedHeight);
+      //   glfwGetWindowPos(m_pimpact, &m_WindowedPosX, &m_WindowedPosY);
+      //   glfwGetWindowSize(m_pimpact, &m_WindowedWidth, &m_WindowedHeight);
 
-      //   glfwSetWindowMonitor(m_pglcontainer, monitor, 0, 0, mode->width, mode->height, mode->refreshRate);
+      //   glfwSetWindowMonitor(m_pimpact, monitor, 0, 0, mode->width, mode->height, mode->refreshRate);
       //}
       //m_IsFullscreen = !m_IsFullscreen;  // Toggle the state
    }
@@ -117,7 +117,7 @@ bool Input::IsKeyPressed(::user::e_key ekey)
 
 
 
-} // namespace glc
+} // namespace graphics3d_opengl
 
 
 

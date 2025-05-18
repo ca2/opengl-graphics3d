@@ -175,7 +175,7 @@ struct mouse_state
 
 #define MAX_BONE_INFLUENCE 4
 
-namespace glc
+namespace graphics3d_opengl
 {
    struct Vertex {
       //float Position[3];
@@ -215,7 +215,7 @@ namespace glc
    //   float m_Weights[MAX_BONE_INFLUENCE];
    //};
 
-} // namespace glc
+} // namespace graphics3d_opengl
 //
 //
 ///** @brief State of mouse/touch input */

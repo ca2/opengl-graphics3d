@@ -5,15 +5,15 @@
 #include <memory>
 #include <glm/glm.hpp>
 
-namespace glc
+namespace graphics3d_opengl
 {
 
-   class Renderer :
+   class renderer :
       virtual public ::particle
    {
    public:
-      Renderer();
-      ~Renderer();
+      renderer();
+      ~renderer();
 
       void Clear() const;
 
@@ -32,7 +32,7 @@ namespace glc
 
 
 
-} // namespace glc
+} // namespace graphics3d_opengl
 
 
 

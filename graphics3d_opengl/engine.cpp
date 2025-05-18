@@ -7,8 +7,8 @@
 #include "engine.h"
 #include "Core/Window.h"
 #include "Core/Input.h"
-#include "Renderer/Renderer.h"
-#include "Renderer/Types/Mesh.h"
+#include "renderer/renderer.h"
+#include "renderer/Types/Mesh.h"
 #include "Shader/Shader.h"
 #include <iostream>
 #include "Core/Camera.h"
@@ -20,7 +20,7 @@
 // Acting weird flag = :   ------------------- **
 
 
-namespace opengl
+namespace graphics3d_opengl
 {
 
 
@@ -28,6 +28,7 @@ namespace opengl
       : m_Running(true)
       //,m_Window("My Universe", 1100, 600),
    {
+      m_bInitRenderData = true;
       //m_bRunEngine = true;
    }
 
@@ -63,7 +64,7 @@ namespace opengl
    }
 
 
-   void engine::initialize_engine(glc::GlContainer* pglcontainer)
+   void engine::initialize_engine(::cube::impact* pglcontainer)
    {
 
 
@@ -77,7 +78,7 @@ namespace opengl
       float lastFrame = 0.0f;
 
       // Main loop
-      if (!m_Running || m_pglcontainer->m_bShouldClose)
+      if (!m_Running || m_pimpact->m_bShouldClose)
       {
 
          return false;
@@ -86,9 +87,9 @@ namespace opengl
 
       //{
 
-      auto containerW = m_pglcontainer->m_iWidth;
+      auto containerW = m_pimpact->m_iWidth;
 
-      auto containerH = m_pglcontainer->m_iHeight;
+      auto containerH = m_pimpact->m_iHeight;
 
       if (containerW <= 0 || containerH <= 0)
       {
@@ -143,7 +144,7 @@ namespace opengl
 
           // Swap buffers and poll for events
           //m_Window.SwapBuffers();
-          //m_pglcontainer->present();
+          //m_pimpact->present();
           // 
           // 
 
@@ -158,11 +159,11 @@ namespace opengl
 
 
             if (!m_papplication->m_bUseDraw2dProtoWindow
-                && m_pglcontainer->m_callbackOffscreen)
+                && m_pimpact->m_callbackOffscreen)
             {
                void* p = nullptr;
-               int w = m_pglcontainer->m_iWidth;
-               int h = m_pglcontainer->m_iHeight;
+               int w = m_pimpact->m_iWidth;
+               int h = m_pimpact->m_iHeight;
                int stride = w * 4;
                m_memoryBuffer.set_size(stride * h);
                if (glReadnPixels)
@@ -186,7 +187,7 @@ namespace opengl
 
                }
 
-               m_pglcontainer->m_callbackOffscreen(
+               m_pimpact->m_callbackOffscreen(
                   m_memoryBuffer.data(),
                   w,
                   h,
@@ -197,7 +198,7 @@ namespace opengl
             {
 
 
-                m_pglcontainer->m_callbackOffscreen(
+                m_pimpact->m_callbackOffscreen(
                     nullptr,
                     0,
                     0,
@@ -241,11 +242,11 @@ namespace opengl
             if (!m_pglcapplication)
             {
 
-               m_pinput = __allocate  glc::Input(m_pglcontainer);
+               m_pinput = __allocate  glc::Input(m_pimpact);
 
-               m_pcamera = __allocate glc::Camera(m_pglcontainer, glm::vec3(0.0f, 3.0f, 3.0f), -90.0f, 0.0f);
+               m_pcamera = __allocate glc::Camera(m_pimpact, glm::vec3(0.0f, 3.0f, 3.0f), -90.0f, 0.0f);
 
-               m_pglcapplication = m_pglcontainer->start_opengl_application();
+               m_pglcapplication = m_pimpact->start_opengl_application();
 
 
                if (!m_papplication->m_bUseDraw2dProtoWindow)
@@ -254,7 +255,7 @@ namespace opengl
 
                }
 
-               m_prenderer = __allocate glc::Renderer();
+               m_prenderer = __allocate glc::renderer();
 
                //return;
                // Initialize the game logic and scene data
@@ -274,8 +275,8 @@ namespace opengl
 
             m_pglcapplication->resize(cx, cy);
 
-            m_pglcontainer->m_iWidth = cx;
-            m_pglcontainer->m_iHeight = cy;
+            m_pimpact->m_iWidth = cx;
+            m_pimpact->m_iHeight = cy;
 
          });
 
@@ -381,7 +382,7 @@ namespace opengl
       double x, y;
       double newx, newy;
 
-      if (m_pglcontainer->is_absolute_mouse_position())
+      if (m_pimpact->is_absolute_mouse_position())
       {
 
          newx = dCursorX * 1.25 * MATH_PI;
@@ -405,22 +406,22 @@ namespace opengl
       //   ypos = _lastY;
       //}
       //else
-      if (!m_pglcontainer->is_absolute_mouse_position())
+      if (!m_pimpact->is_absolute_mouse_position())
       {
 
-         if (m_pglcontainer->m_bFirstMouse)
+         if (m_pimpact->m_bFirstMouse)
          {
             
             m_dMouseLastX = newx;
             m_dMouseLastY = newy;
 
-            m_pglcontainer->m_bFirstMouse = false;
+            m_pimpact->m_bFirstMouse = false;
 
          }
 
       }
 
-      if (m_pglcontainer->is_absolute_mouse_position())
+      if (m_pimpact->is_absolute_mouse_position())
       {
 
          x = m_dMouseLastX + (newx - m_dMouseLastX) * 0.05;
@@ -451,7 +452,7 @@ namespace opengl
 
    //   double xpos, ypos;
    //   double newx, newy;
-   //   if (m_pglcontainer->is_absolute_mouse_position())
+   //   if (m_pimpact->is_absolute_mouse_position())
    //   {
    //      
    //      newx = dCursorX * 1.25 * MATH_PI;
@@ -475,15 +476,15 @@ namespace opengl
    //   //   ypos = _lastY;
    //   //}
    //   //else
-   //   if (!m_pglcontainer->is_absolute_mouse_position())
+   //   if (!m_pimpact->is_absolute_mouse_position())
    //   {
 
-   //      if (m_pglcontainer->m_bFirstMouse)
+   //      if (m_pimpact->m_bFirstMouse)
    //      {
 
    //         dCursorX = newx;
    //         dCursorY = newy;
-   //         m_pglcontainer->m_bFirstMouse = false;
+   //         m_pimpact->m_bFirstMouse = false;
 
    //      }
 
@@ -494,11 +495,11 @@ namespace opengl
 
    //   }
 
-   //   if (m_pglcontainer->is_absolute_mouse_position())
+   //   if (m_pimpact->is_absolute_mouse_position())
    //   {
 
-   //      xpos = m_pglcontainer->m_dMouseLastX + (newx - m_pglcontainer->m_dMouseLastX) * 0.05;
-   //      ypos = m_pglcontainer->m_dMouseLastY + (newy - m_pglcontainer->m_dMouseLastY) * 0.05;
+   //      xpos = m_pimpact->m_dMouseLastX + (newx - m_pimpact->m_dMouseLastX) * 0.05;
+   //      ypos = m_pimpact->m_dMouseLastY + (newy - m_pimpact->m_dMouseLastY) * 0.05;
    //      m_Δx = xpos;
    //      m_Δy = -ypos;  // reversed Y
    //   }
@@ -508,22 +509,22 @@ namespace opengl
    //      xpos = newx;
    //      ypos = newy;
 
-   //      m_Δx = m_Δx + static_cast<float>(xpos - m_pglcontainer->m_dMouseLastX - m_Δx) * 0.05;
-   //      m_Δy = m_Δy + static_cast<float>(m_pglcontainer->m_dMouseLastY - ypos - m_Δy) * 0.05;  // reversed Y
+   //      m_Δx = m_Δx + static_cast<float>(xpos - m_pimpact->m_dMouseLastX - m_Δx) * 0.05;
+   //      m_Δy = m_Δy + static_cast<float>(m_pimpact->m_dMouseLastY - ypos - m_Δy) * 0.05;  // reversed Y
 
 
    //   }
 
-   //   m_pglcontainer->m_dMouseLastX = xpos;
-   //   m_pglcontainer->m_dMouseLastY = ypos;
+   //   m_pimpact->m_dMouseLastX = xpos;
+   //   m_pimpact->m_dMouseLastY = ypos;
    //   //auto x = (double)xpos;
    //   //auto y = (double)ypos;
    //   ////engine* engine = static_cast<engine*>(glfwGetWindowUserPointer(window));
 
-   //   //if (m_pglcontainer->m_bFirstMouse)
+   //   //if (m_pimpact->m_bFirstMouse)
    //   //{
-   //   //   m_pglcontainer->m_dMouseLastX = x;
-   //   //   m_pglcontainer->m_dMouseLastY = Y;
+   //   //   m_pimpact->m_dMouseLastX = x;
+   //   //   m_pimpact->m_dMouseLastY = Y;
    //   //   m_bFirstMouse = false;
    //   //}
 
@@ -541,17 +542,88 @@ namespace opengl
 
 
 
-   ::pointer<::opengl::engine > start_opengl_engine(::glc::GlContainer* pglcontainer, mouseState* pmousestate)
+   ::pointer<::opengl::engine > start_opengl_engine(::::cube::impact* pglcontainer, mouseState* pmousestate)
    {
 
       auto popenglengine = pglcontainer->__create_new <::opengl::engine >();
 
-      popenglengine->m_pglcontainer = pglcontainer;
+      popenglengine->m_pimpact = pglcontainer;
 
       return popenglengine;
 
       }
 
 
+   void Application::Init()
+   {
 
-} // namespace opengl
+      // Create and initialize the first scene  *** EVENTUALLY ADD ACTUAL SCENE CLASS TO MANAGE MULTIPLE UNIQUE RENDER DATA IE SCENE DATA
+      m_prenderdataCurrentScene = __create_new<RenderData>();
+
+      m_bInitRenderData = true;
+
+   }
+
+
+   void Application::Update(float deltaTime, Camera* pcamera)
+   {
+
+      if (m_prenderdataCurrentScene)
+      {
+
+         glm::vec3 cameraPosition = pcamera->GetPosition(); // Get the camera's current position
+         m_prenderdataCurrentScene->Update(deltaTime); // Pass both delta time and camera position
+
+      }
+
+   }
+
+
+   //void Application::run_application()
+   //{
+
+
+
+   //}
+
+
+   void Application::Render(Renderer* prenderer, Camera* pcamera)
+   {
+
+      if (m_prenderdataCurrentScene)
+      {
+
+         m_prenderdataCurrentScene->Render(prenderer, pcamera);  // Call the scene's render function
+
+      }
+
+
+   }
+
+
+   ::pointer<::opengl::application > start_opengl_application(::glc::GlContainer* pvkcontainer, mouseState* pmousestate)
+   {
+
+      auto pglapplication = pvkcontainer->__create_new < Application>();
+
+      return pglapplication;
+
+   }
+
+
+   void Application::resize(int cx, int cy)
+   {
+
+      if (m_bInitRenderData && m_prenderdataCurrentScene)
+      {
+
+         m_bInitRenderData = false;
+
+         m_prenderdataCurrentScene->Init();  // Initialize scene-specific assets like shaders, meshes, etc.
+
+      }
+
+   }
+
+
+} // namespace graphics3d_opengl
