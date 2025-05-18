@@ -1,49 +1,79 @@
-// From application_object by camilo on 2025-05-17 01:09 <3ThomasBorregaardSorensen!!
 #pragma once
 
-
-#include "app-cube/cube/engine.h"
-
-
-#include "scene_object.h"
-
-
-// libs
-#include <glm/gtc/matrix_transform.hpp>
-
-// std
 #include <memory>
-#include <unordered_map>
+#include <vector>
+#include "Core/Window.h"
+#include "Core/Input.h"
+#include "Renderer/Renderer.h"
+#include "Renderer/Types/Mesh.h"
+#include "Shader/Shader.h"
+#include "Core/Camera.h" // Include the Camera header
+#include "AppCore/Application.h"
+#include "apex/platform/app_consumer.h"
+#include "aura/graphics/gpu/render.h"
 
 
-namespace graphics3d_opengl 
+namespace opengl
 {
 
 
-
-	class CLASS_DECL_GRAPHICS3D_OPENGL engine :
-		virtual public ::cube::engine
+	class engine :
+		virtual public app_consumer < application, ::gpu::render >
 	{
 	public:
 
 
-		//::pointer < context >             m_pcontext;
-		::pointer < renderer >				m_prenderer;
+		::pointer < glc::GlContainer > m_pglcontainer;
+		::pointer < glc::Renderer > m_prenderer;
+		::pointer < glc::Camera > m_pcamera;
+		::pointer < glc::Application > m_pglcapplication;  // Game object that manages the scenes
+		::pointer < glc::Input > m_pinput;
+
+		//double m_Δx;
+		//double m_Δy;
+
+		double m_dMouseLastX = 0.0;
+		double m_dMouseLastY = 0.0;
+		double m_Δx = 0.;
+		double m_Δy = 0.;
 
 
-		::pointer <descriptor_pool>		m_pglobalpool;
+		bool m_Running;
 
-		//::cube::application_object::map				m_mapObjects;
+		bool m_bWireframeMode = false;
 
 
+		::memory m_memoryBuffer;
+
+		//::pointer<::gpu::context>             m_pgpucontext;
 
 		engine();
-		~engine() override;
+		~engine();
 
-
-		void run() override;
 
 		
+
+		//void Init();
+
+		void on_initialize_particle() override;
+
+		bool render_step() override;
+
+		//private:
+		void ProcessInput(float deltaTime);
+		//static void MouseCallback(glc::GlContainer* pglContainer, double xpos, double ypos);
+		virtual void initialize_engine(glc::GlContainer* pglcontainer);
+
+		virtual void handleMouseMove(double dCursorX, double dCursorY);
+
+		
+		virtual void resize(int cx, int cy);
+
 	};
 
-}
+
+
+} // namespace opengl
+
+
+

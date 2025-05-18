@@ -1,251 +1,124 @@
 #include "framework.h"
-#include "input.h"
-#include "scene_object.h"
-#include "app-cube/cube/impact.h"
-#include "app-cube/cube/types.h"
-#include <limits>
+#include "Input.h"
+#include "Common/Types.h"
+#include "aura/platform/session.h"
 
-
-namespace graphics3d_opengl
+namespace glc
 {
 
 
-   MNKController::MNKController(float sensitivity, float yaw, float pitch)
+   // Initialize static members
+   //glc::GlContainer* Input::m_pglcontainer = nullptr;
+   //bool Input::m_IsFullscreen = false;
+   //int Input::m_WindowedWidth = 1280;
+   //int Input::m_WindowedHeight = 720;
+   //int Input::m_WindowedPosX = 100;
+   //int Input::m_WindowedPosY = 100;
+   //std::unordered_map<::user::e_key, bool> Input::m_KeyPressed;
+   Input::Input(glc::GlContainer* pglcontainer) :
+      m_pglcontainer(pglcontainer)
    {
-      _sensitivity = sensitivity;
-      _yaw = yaw;
-      _pitch = pitch;
-      _cameraDirection = glm::vec3(0.0f, 0.0f, -1.0f);
-      _cameraPosition = glm::vec3(0.0f, 0.0f, 3.0f);
+
+      initialize(pglcontainer);
    }
-   //void MNKController::moveInPlaneXZ(
-   //    ::cube::impact * pimpact, float dt, application_object& gameObject) {
-   //    glm::vec3 rotate{ 0 };
-   //    if (key(e_key_lookRight) == ::user::e_key_state_pressed) rotate.y += 1.f;
-   //    if (key(e_key_lookLeft) == ::user::e_key_state_pressed) rotate.y -= 1.f;
-   //    if (key(e_key_lookUp) == ::user::e_key_state_pressed) rotate.x += 1.f;
-   //    if (key(e_key_lookDown) == ::user::e_key_state_pressed) rotate.x -= 1.f;
 
-   //    if (glm::dot(rotate, rotate) > std::numeric_limits<float>::epsilon()) {
-   //        gameObject.transform.rotation += lookSpeed * dt * glm::normalize(rotate);
-   //    }
+   Input::~Input()
+   {
 
-   //    // limit pitch values between about +/- 85ish degrees
-   //    gameObject.transform.rotation.x = glm::clamp(gameObject.transform.rotation.x, -1.5f, 1.5f);
-   //    gameObject.transform.rotation.y = glm::mod(gameObject.transform.rotation.y, glm::two_pi<float>());
 
-   //    float yaw = gameObject.transform.rotation.y;
-   //    const glm::vec3 forwardDir{ sin(yaw), 0.f, cos(yaw) };
-   //    const glm::vec3 rightDir{ forwardDir.z, 0.f, -forwardDir.x };
-   //    const glm::vec3 upDir{ 0.f, -1.f, 0.f };
+   }
 
-   //    glm::vec3 moveDir{ 0.f };
-   //    if (key(e_key_moveForward) == ::user::e_key_state_pressed) moveDir += forwardDir;
-   //    if (key(e_key_moveBackward) == ::user::e_key_state_pressed) moveDir -= forwardDir;
-   //    if (key(e_key_moveRight) == ::user::e_key_state_pressed) moveDir += rightDir;
-   //    if (key(e_key_moveLeft) == ::user::e_key_state_pressed) moveDir -= rightDir;
-   //    if (key(e_key_moveUp) == ::user::e_key_state_pressed) moveDir += upDir;
-   //    if (key(e_key_moveDown) == ::user::e_key_state_pressed) moveDir -= upDir;
+::user::enum_key_state Input::get_key_state(::user::e_key ekey) 
+   {
+      //int state = glfwGetKey(m_pglcontainer, key);
+      //return state == GLFW_PRESS || state == GLFW_REPEAT;
 
-   //    if (glm::dot(moveDir, moveDir) > std::numeric_limits<float>::epsilon()) {
-   //        gameObject.transform.translation += moveSpeed * dt * glm::normalize(moveDir);
-   //    }
 
-   //    if (key(e_key_Exit) == ::user::e_key_state_pressed)
-   //    {
-   //       //glfwSetWindowShouldClose(window, GLFW_TRUE);
+      if (session()->is_key_pressed(ekey))
+      {
 
-   //    }
+
+         return ::user::e_key_state_pressed;
+
+      }
+
+      return ::user::e_key_state_none;
+   }
+
+bool Input::IsKeyPressed(::user::e_key ekey)
+{
+   return get_key_state(ekey) & ::user::e_key_state_pressed;
+}
+
+   bool Input::IsKeyReleased(::user::e_key ekey) 
+   {
+      return !get_key_state(ekey);
+   }
+
+   //void Input::SetGLFWWindow(glc::GlContainer* window) {
+   //   m_pglcontainer = window;
    //}
 
-
-
-   void MNKController::processMouseMovement(float xOffset, float yOffset)
-   {
-      // Apply sensitivity factor
-      xOffset *= _sensitivity;
-      yOffset *= _sensitivity;
-
-      // Update yaw and pitch based on offsets
-      _yaw += xOffset;
-      _pitch += yOffset;
-
-      // Constrain the pitch if necessary
-      if (_pitch > 89.0f)
-         _pitch = 89.0f;
-      if (_pitch < -89.0f)
-         _pitch = -89.0f;
-
-      // Update camera direction based on yaw and pitch
-      glm::vec3 direction;
-      direction.x = cos(glm::radians(_yaw)) * cos(glm::radians(_pitch));
-      direction.y = sin(glm::radians(_pitch));
-      direction.z = sin(glm::radians(_yaw)) * cos(glm::radians(_pitch));
-      _cameraDirection = glm::normalize(direction);
-   }
-   //void MNKController::processKeyboardInput(GLFWwindow* window, float deltaTime) {
-   //    float cameraSpeed = 2.5f * deltaTime; // adjust speed as necessary
-
-   //    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
-   //        _cameraPosition += _cameraDirection * cameraSpeed;
-   //    }
-   //    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
-   //        _cameraPosition -= _cameraDirection * cameraSpeed;
-   //    }
-   //    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
-   //        _cameraPosition -= glm::normalize(glm::cross(_cameraDirection, glm::vec3(0.0f, 1.0f, 0.0f))) * cameraSpeed;
-   //    }
-   //    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
-   //        _cameraPosition += glm::normalize(glm::cross(_cameraDirection, glm::vec3(0.0f, 1.0f, 0.0f))) * cameraSpeed;
-   //    }
-   //}
-
-
-   void MNKController::updateLook(float xOffset, float yOffset, ::cube::scene_object * pobject)
-   {
-
-      xOffset *= _sensitivity;
-      yOffset *= _sensitivity;
-
-      // limit pitch values between about +/- 85ish degrees
-      pobject->m_transform.rotation.x = glm::clamp(pobject->m_transform.rotation.x, -1.5f, 1.5f);
-      pobject->m_transform.rotation.y = glm::mod(pobject->m_transform.rotation.y, glm::two_pi<float>());
-
-      if (m_pimpact->is_absolute_mouse_position())
-      {
-
-         _yaw = xOffset;
-         _pitch = yOffset;
-
-      }
-      else
-      {
-
-         _yaw += xOffset;
-         _pitch += yOffset;
-
-      }
-
-      // Clamp pitch to avoid flipping
-      _pitch = glm::clamp(_pitch, -89.0f, 89.0f);
-
-      // Optional: wrap yaw
-      if (_yaw > 360.0f) _yaw -= 360.0f;
-      if (_yaw < 0.0f) _yaw += 360.0f;
-
-      pobject->m_transform.rotation.x = glm::radians(_pitch);
-      pobject->m_transform.rotation.y = glm::radians(_yaw);
-
-   }
-
-
-   void MNKController::updateMovement(float dt, ::cube::scene_object* pobject)
-   {
-
-      float yaw = pobject->m_transform.rotation.y;
-      const glm::vec3 forwardDir{ sin(yaw), 0.f, cos(yaw) };
-      const glm::vec3 rightDir{ forwardDir.z, 0.f, -forwardDir.x };
-      const glm::vec3 upDir{ 0.f, -1.f, 0.f };
-
-      glm::vec3 moveDir{ 0.f };
-      {
-         using namespace cube;
-         if (key(e_key_moveForward) == ::user::e_key_state_pressed) moveDir += forwardDir;
-         if (key(e_key_moveBackward) == ::user::e_key_state_pressed) moveDir -= forwardDir;
-         if (key(e_key_moveRight) == ::user::e_key_state_pressed) moveDir += rightDir;
-         if (key(e_key_moveLeft) == ::user::e_key_state_pressed) moveDir -= rightDir;
-         if (key(e_key_moveUp) == ::user::e_key_state_pressed) moveDir += upDir;
-         if (key(e_key_moveDown) == ::user::e_key_state_pressed) moveDir -= upDir;
-
-         if (glm::dot(moveDir, moveDir) > std::numeric_limits<float>::epsilon()) {
-            pobject->m_transform.translation += moveSpeed * dt * glm::normalize(moveDir);
-         }
-
-         if (key(e_key_Exit) == ::user::e_key_state_pressed)
-         {
-            m_pimpact->m_bShouldClose = true;
-
-         }
-
-      }
-
-   }
-
-
-   glm::vec3 MNKController::getCameraDirection() const { return _cameraDirection; }
-
-   glm::vec3 MNKController::getCameraPosition() const { return _cameraPosition; }
-
-   void MNKController::handleMouseInput()
-   {
-      
-      double x, y;
-      double newx, newy;
-
-      if (m_pimpact->is_absolute_mouse_position())
-      {
-
-         newx = m_pimpact->m_dCursorX * 1.25 * MATH_PI;
-         newy = m_pimpact->m_dCursorY * 1.25 * MATH_PI/2.0;
-
-      }
-      else
-      {
-
-         newx = m_pimpact->m_dCursorX;
-         newy = m_pimpact->m_dCursorY;
-
-      }
-      //glfwGetCursorPos(window, &xpos, &ypos);
-
-      //if (m_pimpact->m_bFirstMouse) {
-      //   _lastX = newx;
-      //   _lastY = newy;
-      //   m_pimpact->m_bFirstMouse = false;
-      //   xpos = _lastX;
-      //   ypos = _lastY;
+   // Fullscreen toggle logic
+   void Input::ToggleFullscreen() {
+      //if (m_IsFullscreen) {
+      //   // Exit fullscreen, go back to windowed mode
+      //   glfwSetWindowMonitor(m_pglcontainer, nullptr, m_WindowedPosX, m_WindowedPosY,
+      //      m_WindowedWidth, m_WindowedHeight, 0);
       //}
-      //else
-      if (!m_pimpact->is_absolute_mouse_position())
-      {
+      //else {
+      //   // Enter fullscreen mode
+      //   GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+      //   const GLFWvidmode* mode = glfwGetVideoMode(monitor);
 
-         if (m_pimpact->m_bFirstMouse)
-         {
-            m_dMouseLastX = newx;
-            m_dMouseLastY = newy;
-            m_pimpact->m_bFirstMouse = false;
+      //   // Save current window position and size
+      //   glfwGetWindowPos(m_pglcontainer, &m_WindowedPosX, &m_WindowedPosY);
+      //   glfwGetWindowSize(m_pglcontainer, &m_WindowedWidth, &m_WindowedHeight);
 
+      //   glfwSetWindowMonitor(m_pglcontainer, monitor, 0, 0, mode->width, mode->height, mode->refreshRate);
+      //}
+      //m_IsFullscreen = !m_IsFullscreen;  // Toggle the state
+   }
+
+   // Check if any movement keys are pressed (W, A, S, D)
+   bool Input::IsAnyKeyPressed() {
+      return IsKeyPressed(::user::e_key_w) ||
+         IsKeyPressed(::user::e_key_a) ||
+         IsKeyPressed(::user::e_key_s) ||
+         IsKeyPressed(::user::e_key_d);
+   }
+   // Update the state of keys every frame
+   void Input::Update() {
+      for (auto& [ekey, wasPressed] : m_KeyPressed) {
+         auto state = get_key_state(ekey);
+         if (state & ::user::e_key_state_pressed) {
+            if (!wasPressed) {
+               m_KeyPressed[ekey] = true;
+            }
          }
-
+         else if (!state) {
+            m_KeyPressed[ekey] = false;
+         }
       }
+   }
 
-      if (m_pimpact->is_absolute_mouse_position())
-      {
-
-         x = m_dMouseLastX + (newx - m_dMouseLastX) * 0.05;
-         y = m_dMouseLastY + (newy - m_dMouseLastY) * 0.05;
-         m_Δx = x;
-         m_Δy = -y;  // reversed Y
-
+   bool Input::WasKeyPressed(::user::e_key ekey) {
+      if (IsKeyPressed(ekey)) {
+         if (!m_KeyPressed[ekey]) {
+            m_KeyPressed[ekey] = true;
+            return true;  // Only return true once when key is initially pressed
+         }
       }
-      else
-      {
-
-         x = newx;
-         y = newy;
-
-         m_Δx = m_Δx + static_cast<float>(x - m_dMouseLastX - m_Δx) * 0.05;
-         m_Δy = m_Δy + static_cast<float>(m_dMouseLastY - y - m_Δy) * 0.05;  // reversed Y
-
-
+      else {
+         m_KeyPressed[ekey] = false;
       }
-
-      m_dMouseLastX = x;
-      m_dMouseLastY = y;
-
+      return false;
    }
 
 
-} // namespace graphics3d_opengl
+
+} // namespace glc
+
+
 
 

@@ -1,241 +1,557 @@
-// From application_object by camilo on 2025-05-17 01:10 <3ThomasBorregaardSorensen!!
 #include "framework.h"
-#include "descriptors.h"
-#include "buffer.h"
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+#include "aura/graphics/gpu/approach.h"
+#include "aura/graphics/gpu/context.h"
 #include "engine.h"
-#include "frame_info.h"
-#include "input.h"
-#include "offscreen_render_pass.h"
-#include "renderer.h"
-#include "swap_chain_render_pass.h"
-#include "app-cube/cube/application.h"
-#include "app-cube/cube/camera.h"
-#include "app-cube/cube/impact.h"
-#include "app-cube/cube/scene.h"
-#include "system/basic_render_system.h"
-#include "system/point_light_system.h"
-#include "acme/platform/application.h"
-#include "apex/database/client.h"
-#include "apex/database/stream.h"
-//#include "app-cube/cube/container.h"
-#include <chrono>
+#include "Core/Window.h"
+#include "Core/Input.h"
+#include "Renderer/Renderer.h"
+#include "Renderer/Types/Mesh.h"
+#include "Shader/Shader.h"
+#include <iostream>
+#include "Core/Camera.h"
+#include "AppCore/Application.h"
+
+#pragma comment( lib, "glu32" )
+#pragma comment( lib, "opengl32" )
+//.lib; opengl32.lib;
+// Acting weird flag = :   ------------------- **
 
 
-namespace graphics3d_opengl
+namespace opengl
 {
 
 
-
    engine::engine()
+      : m_Running(true)
+      //,m_Window("My Universe", 1100, 600),
    {
+      //m_bRunEngine = true;
+   }
+
+   
+   void engine::on_initialize_particle()
+   {
+
+      ::particle::on_initialize_particle();
+
+//      gladLoadGL();
+
+
+//      m_pcamera->initialize(this);
+
+
+
+      
+
+      // Set the window for input management
+      //Input::SetGLFWWindow(m_Window.GetGLFWWindow());
+
+      // Set up mouse callback and user pointer
+      //glfwSetWindowUserPointer(m_Window.GetGLFWWindow(), this);
+      //glfwSetCursorPosCallback(m_Window.GetGLFWWindow(), MouseCallback);
+      //glfwSetInputMode(m_Window.GetGLFWWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);  // Hide cursor
 
 
    }
 
-
+   // Destroy Game
    engine::~engine()
    {
+   }
+
+
+   void engine::initialize_engine(glc::GlContainer* pglcontainer)
+   {
 
 
    }
 
-
-   void engine::run()
+   // engine Run
+   bool engine::render_step() 
    {
+       //return true;
 
-      auto papp = get_app();
+      float lastFrame = 0.0f;
 
-      __øconstruct(m_pcontext);
-
-      m_pcontext->initialize_context(papp->m_pimpact);
-
-      __construct_new(m_prenderer);
-
-      m_prenderer->initialize_renderer(papp->m_pimpact, m_pcontext);
-
-      auto pglobalpoolbuilder = __allocate descriptor_pool::Builder();
-
-      pglobalpoolbuilder->initialize_builder(m_pcontext);
-      pglobalpoolbuilder->setMaxSets(render_pass::MAX_FRAMES_IN_FLIGHT);
-      pglobalpoolbuilder->addPoolSize(VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, render_pass::MAX_FRAMES_IN_FLIGHT);
-
-      m_pglobalpool = pglobalpoolbuilder->build();
-
-      //m_pglobalpool->initialize_pool(pcontext);
-
-      //= __allocate
-      //   descriptor_pool::Builder(pcontext)
-      //   .setMaxSets(swap_chain_render_pass::MAX_FRAMES_IN_FLIGHT)
-      //   .addPoolSize(VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, swap_chain_render_pass::MAX_FRAMES_IN_FLIGHT)
-      //   .build();
-      m_pscene->on_load_scene();
-
-      //pcontext = __allocate context(m_popengldevice);
-
-      ::pointer_array<buffer> uboBuffers;
-
-      uboBuffers.set_size(render_pass::MAX_FRAMES_IN_FLIGHT);
-
-      ::cast < context > pcontext = m_pcontext;
-
-      for (int i = 0; i < uboBuffers.size(); i++)
+      // Main loop
+      if (!m_Running || m_pglcontainer->m_bShouldClose)
       {
 
-         uboBuffers[i] = __allocate buffer();
-
-         uboBuffers[i]->initialize_buffer(
-            pcontext,
-            sizeof(GlobalUbo),
-            1,
-            VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT,
-            VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT);
-
-         uboBuffers[i]->map();
-
-      }
-      auto globalSetLayout = set_descriptor_layout::Builder(pcontext)
-         .addBinding(0, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, VK_SHADER_STAGE_ALL_GRAPHICS)
-         .build();
-
-
-      std::vector<VkDescriptorSet> globalDescriptorSets(render_pass::MAX_FRAMES_IN_FLIGHT);
-
-      for (int i = 0; i < globalDescriptorSets.size(); i++)
-      {
-
-         auto bufferInfo = uboBuffers[i]->descriptorInfo();
-
-         descriptor_writer(*globalSetLayout, *m_pglobalpool)
-            .writeBuffer(0, &bufferInfo)
-            .build(globalDescriptorSets[i]);
+         return false;
 
       }
 
-      SimpleRenderSystem simpleRenderSystem{
-          pcontext,
-          m_prenderer->getRenderPass(),
-          globalSetLayout->getDescriptorSetLayout() };
+      //{
 
-      point_light_system pointLightSystem{
-          pcontext,
-          m_prenderer->getRenderPass(),
-          globalSetLayout->getDescriptorSetLayout()
-      };
+      auto containerW = m_pglcontainer->m_iWidth;
 
-      //camera camera{ glm::vec3(0.0f, 2.0f, -15.0f), -90.0f, 0.0f };
-      //{ glm::vec3(0.0f, 2.0f, -15.0f), -90.0f, 0.0f };
-      auto camera = papp->get_default_camera();
+      auto containerH = m_pglcontainer->m_iHeight;
 
-      //VkcCamera camera(glm::vec3(0.0f, 2.0f, -10.0f), .0f, 0.0f);
-
-      auto viewerObject = __øcreate <::cube::scene_object>();
-      papp->m_pimpact->m_bLastMouse = true;
-      viewerObject->m_transform.translation.z = -2.5f;
-      MNKController cameraController;
-
-      cameraController.m_pimpact = papp->m_pimpact;
-      cameraController.m_pkeymap = papp->m_pimpact->m_pkeymap;
-      /*    glfwSetInputMode(_window.getGLFWwindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-          glfwSetWindowUserPointer(_window.getGLFWwindow(), &cameraController);*/
-      cameraController.m_bMouseAbsolute;
-
-      ::pointer <::database::client> pdatabaseclient = m_papplication;
-
-      if (pdatabaseclient)
+      if (containerW <= 0 || containerH <= 0)
       {
 
-         pdatabaseclient->datastream()->get_block("camera", as_memory_block(camera));
-         pdatabaseclient->datastream()->get_block("transform", as_memory_block(viewerObject->m_transform));
-         pdatabaseclient->datastream()->get_block("camera_controller", cameraController.as_block());
+         return true;
 
       }
 
-      auto pimpact = papp->m_pimpact;
+      auto rectangleW = m_rectangle.width();
 
-      auto currentTime = std::chrono::high_resolution_clock::now();
-      //while (!_window.shouldClose())
-      while (!pimpact->m_bShouldClose && task_get_run())
-      {
+      auto rectangleH = m_rectangle.height();
 
-         task_iteration();
-         //glfwPollEvents();
+      glPushMatrix();
+      glPushAttrib(GL_ALL_ATTRIB_BITS);
 
-         auto newTime = std::chrono::high_resolution_clock::now();
+      glViewport(m_rectangle.left(), m_sizeHost.cy() - rectangleH - m_rectangle.top(), rectangleW, rectangleH);
 
-         float frameTime = std::chrono::duration<float, std::chrono::seconds::period>(newTime - currentTime).count();
+      glMatrixMode(GL_MODELVIEW);
+      glLoadIdentity();
 
-         currentTime = newTime;
+      //glOrtho(0.0f, rectangleW, 0, rectangleH, -1.0f, 1.0f);  // Flip Y
 
-         cameraController.handleMouseInput();
+      glEnable(GL_DEPTH_TEST);
 
-         cameraController.updateLook(cameraController.getX(), cameraController.getY(), viewerObject);
 
-         cameraController.updateMovement(frameTime, viewerObject);
+      glDepthFunc(GL_LESS);
 
-         //cameraController.moveInPlaneXZ(m_pimpact, frameTime, viewerObject);
 
-         camera.setViewYXZ(viewerObject->m_transform.translation, viewerObject->m_transform.rotation);
+          // Frame Logic
+          float currentFrame = ::time::now().floating_second();
+          float deltaTime = currentFrame - lastFrame;
+          lastFrame = currentFrame;
 
-         if (m_prenderer->m_pvkcrenderpass->width() > 0
-            && m_prenderer->m_pvkcrenderpass->height() > 0)
-         {
+          deltaTime = minimum_maximum(deltaTime, 0.001, 0.016666666);
 
-            float aspect = m_prenderer->getAspectRatio();
+          ProcessInput(deltaTime);
 
-            camera.setPerspectiveProjection(glm::radians(50.f), aspect, 0.1f, 100.f);
+          // Toggle wireframe mode
+          if (m_bWireframeMode) {
+              glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); // Enable wireframe mode
+          }
+          else {
+              glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); // Enable solid mode
+          }
 
-            if (auto commandBuffer = m_prenderer->beginFrame())
+          // Clear the screen
+//          m_prenderer->Clear();
+
+          // Update and render the game (and the current scene)
+          m_pglcapplication->Update(deltaTime, m_pcamera);
+          m_pglcapplication->Render(m_prenderer, m_pcamera);
+
+          // Swap buffers and poll for events
+          //m_Window.SwapBuffers();
+          //m_pglcontainer->present();
+          // 
+          // 
+
+          glDisable(GL_DEPTH_TEST);
+
+      //}
+
+//            glDepthFunc(GL_LESS);
+
+            glPopAttrib();
+            glPopMatrix();
+
+
+            if (!m_papplication->m_bUseDraw2dProtoWindow
+                && m_pglcontainer->m_callbackOffscreen)
             {
+               void* p = nullptr;
+               int w = m_pglcontainer->m_iWidth;
+               int h = m_pglcontainer->m_iHeight;
+               int stride = w * 4;
+               m_memoryBuffer.set_size(stride * h);
+               if (glReadnPixels)
+               {
+                  glReadnPixels(
+                     0, 0,
+                     w, h,
+                     GL_BGRA,
+                     GL_UNSIGNED_BYTE,
+                     m_memoryBuffer.size(),
+                     m_memoryBuffer.data());
+               }
+               else
+               {
+                  glReadPixels(
+                     0, 0,
+                     w, h,
+                     GL_BGRA,
+                     GL_UNSIGNED_BYTE,
+                     m_memoryBuffer.data());
 
-               int frameIndex = m_prenderer->getFrameIndex();
+               }
 
-               FrameInfo frameInfo{ frameIndex, frameTime, commandBuffer, camera, globalDescriptorSets[frameIndex], m_pscene->m_mapObjects };
-
-               // update
-               GlobalUbo ubo{};
-               ubo.projection = camera.getProjection();
-               ubo.view = camera.getView();
-               ubo.inverseView = camera.getInverseView();
-               pointLightSystem.update(frameInfo, ubo);
-               uboBuffers[frameIndex]->writeToBuffer(&ubo);
-               uboBuffers[frameIndex]->flush();
-
-               // render
-               m_prenderer->beginRenderPass(commandBuffer);
-
-               simpleRenderSystem.renderGameObjects(frameInfo);
-               pointLightSystem.render(frameInfo);
-
-               m_prenderer->endRenderPass(commandBuffer);
-               m_prenderer->endFrame();
+               m_pglcontainer->m_callbackOffscreen(
+                  m_memoryBuffer.data(),
+                  w,
+                  h,
+                  stride);
 
             }
+            else
+            {
+
+
+                m_pglcontainer->m_callbackOffscreen(
+                    nullptr,
+                    0,
+                    0,
+                    0);
+            }
+
+            //glViewport(0, 0, m_sizeHost.cx(), m_sizeHost.cy());
+
+
+            return true;
+
+         //}
+
+      //   //)
+
+      //   //m_Window.PollEvents();
+      //   ::task_iteration();
+      //}
+   }
+
+
+   //void task::run_loop()
+   //{
+
+   //   while (task_get_run())
+   //   {
+
+   //      task_run(0_s);
+
+   //   }
+
+   //}
+
+
+   void engine::resize(int cx, int cy)
+   {
+
+      m_pgpucontext->post([this, cx, cy]
+         {
+
+            if (!m_pglcapplication)
+            {
+
+               m_pinput = __allocate  glc::Input(m_pglcontainer);
+
+               m_pcamera = __allocate glc::Camera(m_pglcontainer, glm::vec3(0.0f, 3.0f, 3.0f), -90.0f, 0.0f);
+
+               m_pglcapplication = m_pglcontainer->start_opengl_application();
+
+
+               if (!m_papplication->m_bUseDraw2dProtoWindow)
+               {
+                   m_pgpucontext->resize_offscreen_buffer({ cx, cy });
+
+               }
+
+               m_prenderer = __allocate glc::Renderer();
+
+               //return;
+               // Initialize the game logic and scene data
+               m_pglcapplication->Init();
+
+               m_pgpucontext->m_timeSample = 1_s/ 60.0;
+
+               //m_pgpucontext->m_rendera.add_unique(this);
+
+            }
+            else
+            {
+
+               m_pgpucontext->resize_offscreen_buffer({ cx, cy });
+
+            }
+
+            m_pglcapplication->resize(cx, cy);
+
+            m_pglcontainer->m_iWidth = cx;
+            m_pglcontainer->m_iHeight = cy;
+
+         });
+
+   }
+
+
+   // Keyboard event listeners
+   void engine::ProcessInput(float deltaTime) 
+   {
+
+      if (m_pinput->IsKeyPressed(::user::e_key_w)) 
+      {
+
+         m_pcamera->ProcessKeyboardInput(glc::FORWARD, deltaTime);
+
+         if (m_pinput->IsKeyPressed(::user::e_key_left_shift))
+         {
+
+            m_pcamera->TeleportInDirection(glc::FORWARD);
 
          }
 
       }
 
-      if (pdatabaseclient)
+      if (m_pinput->IsKeyPressed(::user::e_key_s)) 
       {
 
-         pdatabaseclient->datastream()->set("camera_controller", cameraController.as_block());
-         pdatabaseclient->datastream()->set("transform", as_memory_block(viewerObject->m_transform));
-         pdatabaseclient->datastream()->set("camera", as_memory_block(camera));
+         m_pcamera->ProcessKeyboardInput(glc::BACKWARD, deltaTime);
+
+         if (m_pinput->IsKeyPressed(::user::e_key_left_shift))
+         {
+
+            m_pcamera->TeleportInDirection(glc::BACKWARD);
+
+         }
 
       }
 
-      if (pcontext->logicalDevice() != VK_NULL_HANDLE)
+      if (m_pinput->IsKeyPressed(::user::e_key_a)) 
       {
 
-         vkDeviceWaitIdle(pcontext->logicalDevice());
+         m_pcamera->ProcessKeyboardInput(glc::LEFT, deltaTime);
+
+         if (m_pinput->IsKeyPressed(::user::e_key_left_shift))
+         {
+
+            m_pcamera->TeleportInDirection(glc::LEFT);
+
+         }
 
       }
 
+      if (m_pinput->IsKeyPressed(::user::e_key_d))
+      {
+
+         m_pcamera->ProcessKeyboardInput(glc::RIGHT, deltaTime);
+
+         if (m_pinput->IsKeyPressed(::user::e_key_left_shift))
+         {
+
+            m_pcamera->TeleportInDirection(glc::RIGHT);
+
+         }
+      }
+
+      if (m_pinput->IsKeyPressed(::user::e_key_escape))
+      {
+
+         m_Running = false;
+
+      }
+      if (m_pinput->IsKeyPressed(::user::e_key_4))
+      {
+         m_bWireframeMode = !m_bWireframeMode;
+
+      }
+      // Check for jump (Space key)
+      if (m_pinput->IsKeyPressed(::user::e_key_space))
+      {
+         float jumpHeight = 0.20f;  // Define how high the jump should be
+         m_pcamera->Jump(jumpHeight);
+      }
+      // Teleport down (Left Control key)
+      if (m_pinput->IsKeyPressed(::user::e_key_left_shift)) 
+      {
+         float teleportDistance = 0.1081f;  // Define the downward distance
+         m_pcamera->TeleportDownward(teleportDistance);
+      }
+
+      // Idle movement
+      if (!m_pinput->IsAnyKeyPressed()) { // You might want to implement IsAnyKeyPressed to check for movement keys
+         // m_pcamera->UpdateIdleMovement(deltaTime);
+      }
 
 
    }
 
 
-} // graphics3d_opengl
+   // Mouse event listeners
+   void engine::handleMouseMove(double dCursorX, double dCursorY)
+   {
+
+      double x, y;
+      double newx, newy;
+
+      if (m_pglcontainer->is_absolute_mouse_position())
+      {
+
+         newx = dCursorX * 1.25 * MATH_PI;
+         newy = dCursorY * 1.25 * MATH_PI / 2.0;
+
+      }
+      else
+      {
+
+         newx = dCursorX;
+         newy = dCursorY;
+
+      }
+      //glfwGetCursorPos(window, &xpos, &ypos);
+
+      //if (pvkcontainer->m_bFirstMouse) {
+      //   _lastX = newx;
+      //   _lastY = newy;
+      //   pvkcontainer->m_bFirstMouse = false;
+      //   xpos = _lastX;
+      //   ypos = _lastY;
+      //}
+      //else
+      if (!m_pglcontainer->is_absolute_mouse_position())
+      {
+
+         if (m_pglcontainer->m_bFirstMouse)
+         {
+            
+            m_dMouseLastX = newx;
+            m_dMouseLastY = newy;
+
+            m_pglcontainer->m_bFirstMouse = false;
+
+         }
+
+      }
+
+      if (m_pglcontainer->is_absolute_mouse_position())
+      {
+
+         x = m_dMouseLastX + (newx - m_dMouseLastX) * 0.05;
+         y = m_dMouseLastY + (newy - m_dMouseLastY) * 0.05;
+         m_Δx = x;
+         m_Δy = -y;  // reversed Y
+
+      }
+      else
+      {
+
+         x = newx;
+         y = newy;
+
+         m_Δx = m_Δx + static_cast<float>(x - m_dMouseLastX - m_Δx) * 0.05;
+         m_Δy = m_Δy + static_cast<float>(m_dMouseLastY - y - m_Δy) * 0.05;  // reversed Y
 
 
+      }
+
+      m_dMouseLastX = x;
+      m_dMouseLastY = y;
+
+      m_pcamera->ProcessMouseMovement(m_Δx, m_Δy);
+
+   }
+   //{
+
+   //   double xpos, ypos;
+   //   double newx, newy;
+   //   if (m_pglcontainer->is_absolute_mouse_position())
+   //   {
+   //      
+   //      newx = dCursorX * 1.25 * MATH_PI;
+   //      newy = dCursorY * 1.25 * MATH_PI / 2.0;
+
+   //   }
+   //   else
+   //   {
+
+   //      newx = dCursorX;
+   //      newy = dCursorY;
+
+   //   }
+   //   //glfwGetCursorPos(window, &xpos, &ypos);
+
+   //   //if (pvkcontainer->m_bFirstMouse) {
+   //   //   _lastX = newx;
+   //   //   _lastY = newy;
+   //   //   pvkcontainer->m_bFirstMouse = false;
+   //   //   xpos = _lastX;
+   //   //   ypos = _lastY;
+   //   //}
+   //   //else
+   //   if (!m_pglcontainer->is_absolute_mouse_position())
+   //   {
+
+   //      if (m_pglcontainer->m_bFirstMouse)
+   //      {
+
+   //         dCursorX = newx;
+   //         dCursorY = newy;
+   //         m_pglcontainer->m_bFirstMouse = false;
+
+   //      }
+
+   //   }
+   //   {
+
+
+
+   //   }
+
+   //   if (m_pglcontainer->is_absolute_mouse_position())
+   //   {
+
+   //      xpos = m_pglcontainer->m_dMouseLastX + (newx - m_pglcontainer->m_dMouseLastX) * 0.05;
+   //      ypos = m_pglcontainer->m_dMouseLastY + (newy - m_pglcontainer->m_dMouseLastY) * 0.05;
+   //      m_Δx = xpos;
+   //      m_Δy = -ypos;  // reversed Y
+   //   }
+   //   else
+   //   {
+
+   //      xpos = newx;
+   //      ypos = newy;
+
+   //      m_Δx = m_Δx + static_cast<float>(xpos - m_pglcontainer->m_dMouseLastX - m_Δx) * 0.05;
+   //      m_Δy = m_Δy + static_cast<float>(m_pglcontainer->m_dMouseLastY - ypos - m_Δy) * 0.05;  // reversed Y
+
+
+   //   }
+
+   //   m_pglcontainer->m_dMouseLastX = xpos;
+   //   m_pglcontainer->m_dMouseLastY = ypos;
+   //   //auto x = (double)xpos;
+   //   //auto y = (double)ypos;
+   //   ////engine* engine = static_cast<engine*>(glfwGetWindowUserPointer(window));
+
+   //   //if (m_pglcontainer->m_bFirstMouse)
+   //   //{
+   //   //   m_pglcontainer->m_dMouseLastX = x;
+   //   //   m_pglcontainer->m_dMouseLastY = Y;
+   //   //   m_bFirstMouse = false;
+   //   //}
+
+   //   //float Δx = x - m_fLastX;
+   //   //float Δy = m_fLastY - y;  // Y-coordinates go from bottom to top
+   //   //m_fLastX = x;
+   //   //m_fLastY = y;
+
+
+   //   m_pcamera->ProcessMouseMovement(m_Δx, m_Δy);
+
+   //}
+
+
+
+
+
+   ::pointer<::opengl::engine > start_opengl_engine(::glc::GlContainer* pglcontainer, mouseState* pmousestate)
+   {
+
+      auto popenglengine = pglcontainer->__create_new <::opengl::engine >();
+
+      popenglengine->m_pglcontainer = pglcontainer;
+
+      return popenglengine;
+
+      }
+
+
+
+} // namespace opengl
