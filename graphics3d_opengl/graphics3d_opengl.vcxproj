@@ -724,6 +724,23 @@
     </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="opengl\AppCore\Application.cpp" />
+    <ClCompile Include="opengl\AppCore\Player.cpp" />
+    <ClCompile Include="opengl\AppCore\Scene.cpp" />
+    <ClCompile Include="opengl\Core\Camera.cpp" />
+    <ClCompile Include="opengl\Core\gl_container.cpp" />
+    <ClCompile Include="opengl\Core\Input.cpp" />
+    <ClCompile Include="opengl\Core\ResourceManager.cpp" />
+    <ClCompile Include="opengl\Core\Window.cpp" />
+    <ClCompile Include="opengl\OpenGL\application.cpp" />
+    <ClCompile Include="opengl\OpenGL\engine.cpp" />
+    <ClCompile Include="opengl\Renderer\RenderData.cpp" />
+    <ClCompile Include="opengl\Renderer\Renderer.cpp" />
+    <ClCompile Include="opengl\Renderer\Types\CubeMap.cpp" />
+    <ClCompile Include="opengl\Renderer\Types\Mesh.cpp" />
+    <ClCompile Include="opengl\Renderer\Types\Model.cpp" />
+    <ClCompile Include="opengl\Renderer\Types\Texture.cpp" />
+    <ClCompile Include="opengl\Shader\Shader.cpp" />
     <ClCompile Include="scene_object.cpp" />
     <ClCompile Include="buffer.cpp" />
     <ClCompile Include="descriptors.cpp" />
@@ -754,6 +771,35 @@
   <ItemGroup>
     <ClInclude Include="aaa_vkc_types.h" />
     <ClInclude Include="aaa_window.h" />
+    <ClInclude Include="opengl\AppCore\Application.h" />
+    <ClInclude Include="opengl\AppCore\Player.h" />
+    <ClInclude Include="opengl\AppCore\Scene.h" />
+    <ClInclude Include="opengl\Common\Defines.h" />
+    <ClInclude Include="opengl\Common\Types.h" />
+    <ClInclude Include="opengl\Common\_constant.h" />
+    <ClInclude Include="opengl\Core\Camera.h" />
+    <ClInclude Include="opengl\Core\FileSystem.h" />
+    <ClInclude Include="opengl\Core\gl_container.h" />
+    <ClInclude Include="opengl\Core\Input.h" />
+    <ClInclude Include="opengl\Core\ResourceManager.h" />
+    <ClInclude Include="opengl\Core\Window.h" />
+    <ClInclude Include="opengl\OpenGL\application.h" />
+    <ClInclude Include="opengl\OpenGL\engine.h" />
+    <ClInclude Include="opengl\OpenGL\GLError.h" />
+    <ClInclude Include="opengl\OpenGL\GLRenderer.h" />
+    <ClInclude Include="opengl\Renderer\RenderData.h" />
+    <ClInclude Include="opengl\Renderer\Renderer.h" />
+    <ClInclude Include="opengl\Renderer\Types\aaa_filesystem.h" />
+    <ClInclude Include="opengl\Renderer\Types\aaa_Gizmo.h" />
+    <ClInclude Include="opengl\Renderer\Types\CubeMap.h" />
+    <ClInclude Include="opengl\Renderer\Types\Mesh.h" />
+    <ClInclude Include="opengl\Renderer\Types\Model.h" />
+    <ClInclude Include="opengl\Renderer\Types\ModelMesh.h" />
+    <ClInclude Include="opengl\Renderer\Types\Shapes.h" />
+    <ClInclude Include="opengl\Renderer\Types\Texture.h" />
+    <ClInclude Include="opengl\Shader\ModelShader.h" />
+    <ClInclude Include="opengl\Shader\Shader.h" />
+    <ClInclude Include="opengl\Utils\Transform.h" />
     <ClInclude Include="scene_object.h" />
     <ClInclude Include="buffer.h" />
     <ClInclude Include="descriptors.h" />
