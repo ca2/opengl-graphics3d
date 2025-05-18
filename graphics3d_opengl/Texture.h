@@ -4,7 +4,7 @@
 #include <string>
 #include <glad.h>  
 
-namespace glc
+namespace graphics3d_opengl
 {
 
    class Texture :
@@ -25,6 +25,6 @@ namespace glc
 
    //*/
 
-} // namespace glc
+} // namespace graphics3d_opengl
 
 

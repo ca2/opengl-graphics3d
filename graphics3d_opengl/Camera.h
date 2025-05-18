@@ -4,7 +4,7 @@
 #include "Core/gl_container.h"
 
 
-namespace glc
+namespace graphics3d_opengl
 {
 
    enum CameraMovement {
@@ -92,6 +92,6 @@ namespace glc
    };
 
 
-} // namespace glc
+} // namespace graphics3d_opengl
 
 

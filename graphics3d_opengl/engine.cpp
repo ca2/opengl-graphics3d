@@ -13,6 +13,8 @@
 #include <iostream>
 #include "Core/Camera.h"
 #include "AppCore/Application.h"
+#include "app-cube/cube/impact.h"
+
 
 #pragma comment( lib, "glu32" )
 #pragma comment( lib, "opengl32" )
@@ -558,7 +560,7 @@ namespace graphics3d_opengl
    {
 
       // Create and initialize the first scene  *** EVENTUALLY ADD ACTUAL SCENE CLASS TO MANAGE MULTIPLE UNIQUE RENDER DATA IE SCENE DATA
-      m_prenderdataCurrentScene = __create_new<RenderData>();
+      m_prenderdataCurrentScene = __create_new<render_data>();
 
       m_bInitRenderData = true;
 

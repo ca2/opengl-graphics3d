@@ -35,7 +35,7 @@ namespace graphics3d_opengl
       GLCheckError();
    }
 
-   // Skybox
+   // sky_box
    void renderer::DrawSkybox(const Mesh *pskyboxMesh, const Shader *pshader) const {
       GLCheckError();
       // Disable depth writing for the skybox

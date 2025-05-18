@@ -6,7 +6,7 @@
 #include <cmath> // For sin and cos functions
 
 
-namespace glc
+namespace graphics3d_opengl
 {
 
 
@@ -175,7 +175,7 @@ namespace glc
 
 
 
-} // namespace glc
+} // namespace graphics3d_opengl
 
 
 

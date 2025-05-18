@@ -14,7 +14,7 @@
 #define MAX_BONE_INFLUENCE 4
 using namespace std;
 
-namespace glc
+namespace graphics3d_opengl
 {
 
    struct Vertex {
@@ -148,7 +148,7 @@ namespace glc
    };
 
 
-} // namespace glc
+} // namespace graphics3d_opengl
 
 
 

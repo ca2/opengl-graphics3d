@@ -1,26 +1,26 @@
 #include "framework.h"
-#include "RenderData.h"
-#include "Renderer/Renderer.h"
-#include "Shader/Shader.h"
-#include "Types/CubeMap.h"
+#include "render_data.h"
+#include "renderer.h"
+#include "shader.h"
+#include "cube_map.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-#include "Renderer/Types/Mesh.h"
+#include "mesh.h"
 #include <cmath>
 #include <vector>
 #include <stb_image.h>
-#include "Types/Shapes.h"
-#include "Common.h"
+#include "shapes.h"
+//#include "common.h"
 #include <random>
 #include <glm/gtc/matrix_transform.hpp>  // For matrix transforms like rotate, translate
 #include <glm/gtc/constants.hpp> 
 
 
-namespace glc
+namespace graphics3d_opengl
 {
 
 
-   void RenderData::Init()
+   void render_data::Init()
    {
 
 
@@ -50,7 +50,7 @@ namespace glc
         // m_PlaneTexture -> initialize(this);
          //m_SphereTexture -> initialize(this);
          //m_Misc -> initialize(this);
-      // Skybox textures
+      // sky_box textures
       std::vector<std::string> facesCubemap = {
 
          // Cloudy skybox
@@ -73,7 +73,7 @@ namespace glc
        */
 
 
-       // Space Skybox
+       // Space sky_box
         "matter://textures/SpaceSkybox/right.png",
         "matter://textures/SpaceSkybox/left.png",
         "matter://textures/SpaceSkybox/bot.png",
@@ -82,7 +82,7 @@ namespace glc
         "matter://textures/SpaceSkybox/back.png"
       };
 
-      m_Skybox = __allocate Skybox(this, facesCubemap);
+      m_Skybox = __allocate sky_box(this, facesCubemap);
 
       // Initialize skybox shader
       m_SkyboxShader = __allocate Shader(
@@ -153,7 +153,7 @@ namespace glc
       m_WallMesh->SetInstanceModelMatrices(wallModelMatricies);
    }
 
-   void RenderData::Update(float deltaTime) {
+   void render_data::Update(float deltaTime) {
       glm::vec3 rotationAxis(0.0f, 1.0f, 0.0f);
       float rotationSpeed = glm::radians(50.0f) * deltaTime;
 
@@ -169,7 +169,7 @@ namespace glc
    }
 
 
-   RenderData::RenderData()
+   render_data::render_data()
       : m_Shader(nullptr),
       m_WallShader(nullptr),
       boxModelMatrices(m_BoxInstanceCount, glm::mat4(1.0f)),
@@ -229,7 +229,7 @@ namespace glc
          combinedVertices, combinedIndices, planeVertexOffset, planeIndexOffset, planeIndexCount
       );
 
-      // Create Skybox Mesh object
+      // Create sky_box Mesh object
       m_SkyboxMesh = __allocate Mesh(
          skyboxCube.vertices, skyboxCube.indices, 0, 0, skyboxCube.indices.size()
       );
@@ -254,7 +254,7 @@ namespace glc
    }
 
 
-   void RenderData::Render(Renderer *prenderer, Camera *pcamera) 
+   void render_data::Render(Renderer *prenderer, Camera *pcamera) 
    {
 
 
@@ -262,7 +262,7 @@ namespace glc
       glm::mat4 view = pcamera->GetViewMatrix();
       glm::mat4 projection = glm::perspective(glm::radians(pcamera->GetZoom()), 1280.0f / 720.0f, 0.1f, 1000.0f);
 
-      // Skybox
+      // sky_box
       glm::mat4 skyboxView = glm::mat4(glm::mat3(view)); // Remove translation from the view matrix
       m_SkyboxShader->Bind();
       m_SkyboxShader->SetUniformMat4f("view", skyboxView);
@@ -318,11 +318,11 @@ namespace glc
 
 
 
-   RenderData::~RenderData() {}
+   render_data::~render_data() {}
 
 
 
-} // namespace glc
+} // namespace graphics3d_opengl
 
 
 

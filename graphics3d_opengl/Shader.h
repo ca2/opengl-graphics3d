@@ -7,7 +7,7 @@
 #include <string>
 
 
-namespace glc
+namespace graphics3d_opengl
 {
 
    class Shader :
@@ -38,7 +38,7 @@ namespace glc
 
 
 
-} // namespace glc
+} // namespace graphics3d_opengl
 
 
 

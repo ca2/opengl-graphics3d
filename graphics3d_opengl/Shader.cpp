@@ -9,7 +9,7 @@
 #include <sstream>
 #include <iostream>
 
-namespace glc
+namespace graphics3d_opengl
 {
 
    // Constructor to load and compile shaders
@@ -149,6 +149,6 @@ namespace glc
 
 
 
-} // namespace glc
+} // namespace graphics3d_opengl
 
 

@@ -5,16 +5,16 @@
 #include <vector>
 
 
-namespace glc
+namespace graphics3d_opengl
 {
 
-   class Skybox :
+   class sky_box :
    virtual public ::particle 
    
    {
    public:
-      Skybox(::particle * pparticle, const std::vector<std::string>& faces);
-      ~Skybox();
+      sky_box(::particle * pparticle, const std::vector<std::string>& faces);
+      ~sky_box();
 
       void SetupSkybox();
 
@@ -29,7 +29,7 @@ namespace glc
 
 
 
-} // namespace glc
+} // namespace graphics3d_opengl
 
 
 

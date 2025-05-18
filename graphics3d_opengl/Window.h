@@ -4,7 +4,7 @@
 #include "Core/gl_container.h"
 
 
-namespace glc
+namespace graphics3d_opengl
 {
 
    class Window :
@@ -30,7 +30,7 @@ namespace glc
 
 
 
-} // namespace glc
+} // namespace graphics3d_opengl
 
 
 

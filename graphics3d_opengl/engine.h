@@ -51,7 +51,7 @@ namespace graphics3d_opengl
 
 
 
-		::pointer<RenderData> m_prenderdataCurrentScene;
+		::pointer<render_data> m_prenderdataCurrentScene;
 
 		bool m_bInitRenderData;
 

@@ -7,7 +7,7 @@
 #include <vector>
 
 
-namespace glc
+namespace graphics3d_opengl
 {
 
    Mesh::Mesh(const std::vector<float>& vertices, const std::vector<unsigned int>& indices,
@@ -143,7 +143,7 @@ namespace glc
    }
 
 
-} // namespace glc
+} // namespace graphics3d_opengl
 
 
 

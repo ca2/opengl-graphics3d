@@ -1,15 +1,15 @@
 #include "framework.h"
-#include "CubeMap.h"
+#include "cube_map.h"
 #include "acme/filesystem/filesystem/file_context.h"
 #include <stb_image.h>
 #include <iostream>
 
 
-namespace glc
+namespace graphics3d_opengl
 {
 
    // Constructor
-   Skybox::Skybox(::particle * pparticle, const std::vector<std::string>& faces)
+   sky_box::sky_box(::particle * pparticle, const std::vector<std::string>& faces)
       : facesCubemap(faces)
    {
       initialize(pparticle);
@@ -17,14 +17,14 @@ namespace glc
    }
 
    // Destructor
-   Skybox::~Skybox() {
+   sky_box::~sky_box() {
       glDeleteVertexArrays(1, &skyboxVAO);
       glDeleteBuffers(1, &skyboxVBO);
       glDeleteTextures(1, &cubemapTexture);
    }
 
    // Setup the skybox (VAO, VBO, EBO, and cubemap textures)
-   void Skybox::SetupSkybox() {
+   void sky_box::SetupSkybox() {
       // Generate buffers
       glGenVertexArrays(1, &skyboxVAO);
       glGenBuffers(1, &skyboxVBO);
@@ -45,7 +45,7 @@ namespace glc
    }
 
    // Load cubemap textures
-   void Skybox::LoadCubemapTextures() {
+   void sky_box::LoadCubemapTextures() {
       glGenTextures(1, &cubemapTexture);
       glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTexture);
 
@@ -84,7 +84,7 @@ namespace glc
 
 
 
-} // namespace glc
+} // namespace graphics3d_opengl
 
 
 

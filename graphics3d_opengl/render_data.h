@@ -10,22 +10,22 @@
 #include "Renderer/Types/Texture.h"
 
 
-namespace glc
+namespace graphics3d_opengl
 {
 
    class Renderer;
    class Shader;
    class Mesh;
    class Camera;
-   class Skybox;
+   class sky_box;
 
-   class RenderData :
+   class render_data :
       virtual public ::particle
    {
    public:
 
-      RenderData();
-      ~RenderData();
+      render_data();
+      ~render_data();
 
 
 
@@ -91,7 +91,7 @@ namespace glc
       float scaleFactorY = 20.0f;
       float scaleFactorZ = 20.0f;
 
-      ::pointer<Skybox> m_Skybox;
+      ::pointer<sky_box> m_Skybox;
 
 
    };
@@ -100,7 +100,7 @@ namespace glc
 
 
 
-} //  namespace glc
+} //  namespace graphics3d_opengl
 
 
 

@@ -6,7 +6,7 @@
 #include <iostream>
 
 
-namespace glc
+namespace graphics3d_opengl
 {
 
 
@@ -75,7 +75,7 @@ namespace glc
    //*/
 
 
-} // namespace glc
+} // namespace graphics3d_opengl
 
 
 

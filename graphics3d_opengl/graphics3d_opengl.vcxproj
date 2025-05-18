@@ -733,7 +733,6 @@
     <ClCompile Include="player.cpp" />
     <ClCompile Include="render_data.cpp" />
     <ClCompile Include="renderer.cpp" />
-    <ClCompile Include="resource_manager.cpp" />
     <ClCompile Include="scene.cpp" />
     <ClCompile Include="scene_object.cpp" />
     <ClCompile Include="buffer.cpp" />
@@ -826,7 +825,6 @@
     <ClInclude Include="render_data.h" />
     <ClInclude Include="renderer.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="resource_manager.h" />
     <ClInclude Include="scene.h" />
     <ClInclude Include="scene_object.h" />
     <ClInclude Include="buffer.h" />
