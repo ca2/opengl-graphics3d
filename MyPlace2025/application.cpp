@@ -186,7 +186,7 @@ namespace opengl_land_MyPlace2025
    void application::create_options_body(::user::interaction* pparent)
    {
 
-      auto pstillTitle = create_label<::user::still>(pparent, "vulkan-land continuum Options");
+      auto pstillTitle = create_label<::user::still>(pparent, "opengl-land continuum Options");
 
       __defer_construct(pstillTitle->m_pfont);
 
@@ -391,7 +391,7 @@ namespace opengl_land_MyPlace2025
 
          //{
 
-            //            run_vulkan_example();
+            //            run_opengl_example();
 
             
          //   m_popenglengine->resize(cx, cy);
