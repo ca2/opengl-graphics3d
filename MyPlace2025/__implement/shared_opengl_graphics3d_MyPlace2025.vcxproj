@@ -21,10 +21,10 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{66ca2fc3-cc12-4d4f-b66c-c6a4fb0b74eb}</ProjectGuid>
+    <ProjectGuid>{100CE846-1D14-4FD2-99E3-3D40AA6118D7}</ProjectGuid>
     <RootNamespace>sharedappsimpleapplication</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>shared_opengl_graphics3d_myplace2025</ProjectName>
+    <ProjectName>shared_opengl_graphics3d_MyPlace2025</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
