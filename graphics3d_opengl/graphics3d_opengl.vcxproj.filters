@@ -17,50 +17,8 @@
     <Filter Include="Header Files\opengl">
       <UniqueIdentifier>{dc726e79-2657-468a-8221-4f3bfb52b999}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\opengl\AppCore">
-      <UniqueIdentifier>{44f3acea-a75b-4672-b700-750801e2eff2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\opengl\Common">
-      <UniqueIdentifier>{6280df76-1500-4066-ac35-044ac6ac24f5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\opengl">
       <UniqueIdentifier>{43100a6f-894a-4b7e-af32-dba941a5f6a7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\opengl\AppCore">
-      <UniqueIdentifier>{a9ac9b84-eb79-461b-8d3a-ab1a78de1c33}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\opengl\Core">
-      <UniqueIdentifier>{c49eb9e3-8e3f-4b37-bea4-38d0ee69176a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\opengl\Core">
-      <UniqueIdentifier>{933c9ece-7e6a-409a-82f4-3f688904c9d1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\opengl\OpenGL">
-      <UniqueIdentifier>{80a41370-7545-42d1-8a7f-6e4739d78b20}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\opengl\OpenGL">
-      <UniqueIdentifier>{3cf30db7-b139-46a8-a065-a5a8ec564c37}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\opengl\Renderer">
-      <UniqueIdentifier>{d7a33955-38fc-47c3-a4f5-09db8eb14a25}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\opengl\Renderer\Types">
-      <UniqueIdentifier>{12eda3d0-45f0-496d-b915-89855deb5a7f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\opengl\Renderer">
-      <UniqueIdentifier>{592f39af-e817-47b3-9d76-225d6ac4a85e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\opengl\Renderer\Types">
-      <UniqueIdentifier>{f3f0b8d9-332f-4dc3-b4e0-a2d66620dec1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\opengl\Shader">
-      <UniqueIdentifier>{cad7774d-83ce-48ba-b8b9-b00bd68b4c47}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\opengl\Shader">
-      <UniqueIdentifier>{6836e5f3-bbb3-428c-b696-44e684834ee3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\opengl\Utils">
-      <UniqueIdentifier>{9253bcd6-0385-427e-ad05-efad48fd8640}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -115,56 +73,53 @@
     <ClCompile Include="_factory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="opengl\AppCore\Application.cpp">
-      <Filter>Source Files\opengl\AppCore</Filter>
+    <ClCompile Include="opengl\Application.cpp">
+      <Filter>Source Files\opengl</Filter>
     </ClCompile>
-    <ClCompile Include="opengl\AppCore\Player.cpp">
-      <Filter>Source Files\opengl\AppCore</Filter>
+    <ClCompile Include="opengl\Camera.cpp">
+      <Filter>Source Files\opengl</Filter>
     </ClCompile>
-    <ClCompile Include="opengl\AppCore\Scene.cpp">
-      <Filter>Source Files\opengl\AppCore</Filter>
+    <ClCompile Include="opengl\CubeMap.cpp">
+      <Filter>Source Files\opengl</Filter>
     </ClCompile>
-    <ClCompile Include="opengl\Core\Camera.cpp">
-      <Filter>Source Files\opengl\Core</Filter>
+    <ClCompile Include="opengl\engine.cpp">
+      <Filter>Source Files\opengl</Filter>
     </ClCompile>
-    <ClCompile Include="opengl\Core\gl_container.cpp">
-      <Filter>Source Files\opengl\Core</Filter>
+    <ClCompile Include="opengl\gl_container.cpp">
+      <Filter>Source Files\opengl</Filter>
     </ClCompile>
-    <ClCompile Include="opengl\Core\Input.cpp">
-      <Filter>Source Files\opengl\Core</Filter>
+    <ClCompile Include="opengl\Input.cpp">
+      <Filter>Source Files\opengl</Filter>
     </ClCompile>
-    <ClCompile Include="opengl\Core\ResourceManager.cpp">
-      <Filter>Source Files\opengl\Core</Filter>
+    <ClCompile Include="opengl\Mesh.cpp">
+      <Filter>Source Files\opengl</Filter>
     </ClCompile>
-    <ClCompile Include="opengl\Core\Window.cpp">
-      <Filter>Source Files\opengl\Core</Filter>
+    <ClCompile Include="opengl\Model.cpp">
+      <Filter>Source Files\opengl</Filter>
     </ClCompile>
-    <ClCompile Include="opengl\OpenGL\application.cpp">
-      <Filter>Source Files\opengl\OpenGL</Filter>
+    <ClCompile Include="opengl\Player.cpp">
+      <Filter>Source Files\opengl</Filter>
     </ClCompile>
-    <ClCompile Include="opengl\OpenGL\engine.cpp">
-      <Filter>Source Files\opengl\OpenGL</Filter>
+    <ClCompile Include="opengl\RenderData.cpp">
+      <Filter>Source Files\opengl</Filter>
     </ClCompile>
-    <ClCompile Include="opengl\Renderer\RenderData.cpp">
-      <Filter>Source Files\opengl\Renderer</Filter>
+    <ClCompile Include="opengl\Renderer.cpp">
+      <Filter>Source Files\opengl</Filter>
     </ClCompile>
-    <ClCompile Include="opengl\Renderer\Renderer.cpp">
-      <Filter>Source Files\opengl\Renderer</Filter>
+    <ClCompile Include="opengl\ResourceManager.cpp">
+      <Filter>Source Files\opengl</Filter>
     </ClCompile>
-    <ClCompile Include="opengl\Renderer\Types\CubeMap.cpp">
-      <Filter>Source Files\opengl\Renderer\Types</Filter>
+    <ClCompile Include="opengl\Scene.cpp">
+      <Filter>Source Files\opengl</Filter>
     </ClCompile>
-    <ClCompile Include="opengl\Renderer\Types\Mesh.cpp">
-      <Filter>Source Files\opengl\Renderer\Types</Filter>
+    <ClCompile Include="opengl\Shader.cpp">
+      <Filter>Source Files\opengl</Filter>
     </ClCompile>
-    <ClCompile Include="opengl\Renderer\Types\Model.cpp">
-      <Filter>Source Files\opengl\Renderer\Types</Filter>
+    <ClCompile Include="opengl\Texture.cpp">
+      <Filter>Source Files\opengl</Filter>
     </ClCompile>
-    <ClCompile Include="opengl\Renderer\Types\Texture.cpp">
-      <Filter>Source Files\opengl\Renderer\Types</Filter>
-    </ClCompile>
-    <ClCompile Include="opengl\Shader\Shader.cpp">
-      <Filter>Source Files\opengl\Shader</Filter>
+    <ClCompile Include="opengl\Window.cpp">
+      <Filter>Source Files\opengl</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -231,92 +186,92 @@
     <ClInclude Include="system\point_light_system.h">
       <Filter>Header Files\system</Filter>
     </ClInclude>
-    <ClInclude Include="opengl\Common\_constant.h">
-      <Filter>Header Files\opengl\Common</Filter>
+    <ClInclude Include="opengl\_constant.h">
+      <Filter>Header Files\opengl</Filter>
     </ClInclude>
-    <ClInclude Include="opengl\Common\Defines.h">
-      <Filter>Header Files\opengl\Common</Filter>
+    <ClInclude Include="opengl\aaa_filesystem.h">
+      <Filter>Header Files\opengl</Filter>
     </ClInclude>
-    <ClInclude Include="opengl\Common\Types.h">
-      <Filter>Header Files\opengl\Common</Filter>
+    <ClInclude Include="opengl\aaa_Gizmo.h">
+      <Filter>Header Files\opengl</Filter>
     </ClInclude>
-    <ClInclude Include="opengl\AppCore\Scene.h">
-      <Filter>Header Files\opengl\AppCore</Filter>
+    <ClInclude Include="opengl\app.h">
+      <Filter>Header Files\opengl</Filter>
     </ClInclude>
-    <ClInclude Include="opengl\AppCore\Player.h">
-      <Filter>Header Files\opengl\AppCore</Filter>
+    <ClInclude Include="opengl\Application.h">
+      <Filter>Header Files\opengl</Filter>
     </ClInclude>
-    <ClInclude Include="opengl\AppCore\Application.h">
-      <Filter>Header Files\opengl\AppCore</Filter>
+    <ClInclude Include="opengl\Camera.h">
+      <Filter>Header Files\opengl</Filter>
     </ClInclude>
-    <ClInclude Include="opengl\Core\Window.h">
-      <Filter>Header Files\opengl\Core</Filter>
+    <ClInclude Include="opengl\CubeMap.h">
+      <Filter>Header Files\opengl</Filter>
     </ClInclude>
-    <ClInclude Include="opengl\Core\ResourceManager.h">
-      <Filter>Header Files\opengl\Core</Filter>
+    <ClInclude Include="opengl\Defines.h">
+      <Filter>Header Files\opengl</Filter>
     </ClInclude>
-    <ClInclude Include="opengl\Core\Input.h">
-      <Filter>Header Files\opengl\Core</Filter>
+    <ClInclude Include="opengl\engine.h">
+      <Filter>Header Files\opengl</Filter>
     </ClInclude>
-    <ClInclude Include="opengl\Core\gl_container.h">
-      <Filter>Header Files\opengl\Core</Filter>
+    <ClInclude Include="opengl\FileSystem.h">
+      <Filter>Header Files\opengl</Filter>
     </ClInclude>
-    <ClInclude Include="opengl\Core\FileSystem.h">
-      <Filter>Header Files\opengl\Core</Filter>
+    <ClInclude Include="opengl\gl_container.h">
+      <Filter>Header Files\opengl</Filter>
     </ClInclude>
-    <ClInclude Include="opengl\Core\Camera.h">
-      <Filter>Header Files\opengl\Core</Filter>
+    <ClInclude Include="opengl\GLError.h">
+      <Filter>Header Files\opengl</Filter>
     </ClInclude>
-    <ClInclude Include="opengl\OpenGL\GLRenderer.h">
-      <Filter>Header Files\opengl\OpenGL</Filter>
+    <ClInclude Include="opengl\GLRenderer.h">
+      <Filter>Header Files\opengl</Filter>
     </ClInclude>
-    <ClInclude Include="opengl\OpenGL\GLError.h">
-      <Filter>Header Files\opengl\OpenGL</Filter>
+    <ClInclude Include="opengl\Input.h">
+      <Filter>Header Files\opengl</Filter>
     </ClInclude>
-    <ClInclude Include="opengl\OpenGL\engine.h">
-      <Filter>Header Files\opengl\OpenGL</Filter>
+    <ClInclude Include="opengl\Mesh.h">
+      <Filter>Header Files\opengl</Filter>
     </ClInclude>
-    <ClInclude Include="opengl\OpenGL\application.h">
-      <Filter>Header Files\opengl\OpenGL</Filter>
+    <ClInclude Include="opengl\Model.h">
+      <Filter>Header Files\opengl</Filter>
     </ClInclude>
-    <ClInclude Include="opengl\Renderer\Renderer.h">
-      <Filter>Header Files\opengl\Renderer</Filter>
+    <ClInclude Include="opengl\ModelMesh.h">
+      <Filter>Header Files\opengl</Filter>
     </ClInclude>
-    <ClInclude Include="opengl\Renderer\RenderData.h">
-      <Filter>Header Files\opengl\Renderer</Filter>
+    <ClInclude Include="opengl\ModelShader.h">
+      <Filter>Header Files\opengl</Filter>
     </ClInclude>
-    <ClInclude Include="opengl\Renderer\Types\Texture.h">
-      <Filter>Header Files\opengl\Renderer\Types</Filter>
+    <ClInclude Include="opengl\Player.h">
+      <Filter>Header Files\opengl</Filter>
     </ClInclude>
-    <ClInclude Include="opengl\Renderer\Types\Shapes.h">
-      <Filter>Header Files\opengl\Renderer\Types</Filter>
+    <ClInclude Include="opengl\RenderData.h">
+      <Filter>Header Files\opengl</Filter>
     </ClInclude>
-    <ClInclude Include="opengl\Renderer\Types\ModelMesh.h">
-      <Filter>Header Files\opengl\Renderer\Types</Filter>
+    <ClInclude Include="opengl\Renderer.h">
+      <Filter>Header Files\opengl</Filter>
     </ClInclude>
-    <ClInclude Include="opengl\Renderer\Types\Model.h">
-      <Filter>Header Files\opengl\Renderer\Types</Filter>
+    <ClInclude Include="opengl\ResourceManager.h">
+      <Filter>Header Files\opengl</Filter>
     </ClInclude>
-    <ClInclude Include="opengl\Renderer\Types\Mesh.h">
-      <Filter>Header Files\opengl\Renderer\Types</Filter>
+    <ClInclude Include="opengl\Scene.h">
+      <Filter>Header Files\opengl</Filter>
     </ClInclude>
-    <ClInclude Include="opengl\Renderer\Types\CubeMap.h">
-      <Filter>Header Files\opengl\Renderer\Types</Filter>
+    <ClInclude Include="opengl\Shader.h">
+      <Filter>Header Files\opengl</Filter>
     </ClInclude>
-    <ClInclude Include="opengl\Renderer\Types\aaa_Gizmo.h">
-      <Filter>Header Files\opengl\Renderer\Types</Filter>
+    <ClInclude Include="opengl\Shapes.h">
+      <Filter>Header Files\opengl</Filter>
     </ClInclude>
-    <ClInclude Include="opengl\Renderer\Types\aaa_filesystem.h">
-      <Filter>Header Files\opengl\Renderer\Types</Filter>
+    <ClInclude Include="opengl\Texture.h">
+      <Filter>Header Files\opengl</Filter>
     </ClInclude>
-    <ClInclude Include="opengl\Shader\Shader.h">
-      <Filter>Header Files\opengl\Shader</Filter>
+    <ClInclude Include="opengl\Transform.h">
+      <Filter>Header Files\opengl</Filter>
     </ClInclude>
-    <ClInclude Include="opengl\Shader\ModelShader.h">
-      <Filter>Header Files\opengl\Shader</Filter>
+    <ClInclude Include="opengl\Types.h">
+      <Filter>Header Files\opengl</Filter>
     </ClInclude>
-    <ClInclude Include="opengl\Utils\Transform.h">
-      <Filter>Header Files\opengl\Utils</Filter>
+    <ClInclude Include="opengl\Window.h">
+      <Filter>Header Files\opengl</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
