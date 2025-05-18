@@ -1,11 +1,12 @@
 #pragma once
 
 //#include "GLFW/glfw3.h"
-#include <unordered_map>
 //#include "Core/gl_container.h"
 #include "opengl-graphics3d/graphics3d_opengl/types.h"
 #include "acme/constant/user_key.h"
-#include "app-cube/cube/graphics3d/types.h"
+//#include "app-cube/cube/graphics3d/types.h"
+#include <unordered_map>
+
 
 
 namespace graphics3d_opengl
@@ -20,7 +21,7 @@ namespace graphics3d_opengl
       ::pointer < ::cube::impact> m_pimpact;
       bool m_IsFullscreen;
 
-      std::unordered_map<::user::e_key, bool> m_KeyPressed; // Store the state of each key
+      //std::unordered_map<::user::e_key, bool> m_KeyPressed; // Store the state of each key
       //static int m_WindowedWidth, m_WindowedHeight;
       //static int m_WindowedPosX, m_WindowedPosY;
 
