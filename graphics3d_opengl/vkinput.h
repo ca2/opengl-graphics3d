@@ -30,9 +30,9 @@ namespace graphics3d_opengl
 
 
       float _sensitivity;  // Sensitivity factor for mouse movement
-      float _yaw;          // Camera yaw (horizontal rotation)
-      float _pitch;        // Camera pitch (vertical rotation)
-      glm::vec3 _cameraDirection; // Camera direction vector
+      float _yaw;          // ::graphics3d::camera yaw (horizontal rotation)
+      float _pitch;        // ::graphics3d::camera pitch (vertical rotation)
+      glm::vec3 _cameraDirection; // ::graphics3d::camera direction vector
       glm::vec3 _cameraPosition;
 
       ::block as_block()

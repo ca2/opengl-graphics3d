@@ -17,7 +17,7 @@
 #include "aura/windowing/window.h"
 #include "draw2d_opengl/_.h"
 #include "draw2d_opengl/graphics.h"
-#include "Common/Types.h"
+#include "app-cube/cube/graphics3d/types.h"
 
 
 CLASS_DECL_AURA ::color::color dk_red(); // <3 tbs
@@ -499,12 +499,12 @@ namespace opengl_graphics3d_MyPlace2025
    }
 
 
-   ::pointer < ::opengl::application> impact::start_opengl_application()
-   {
+   //::pointer < ::opengl::application> impact::start_opengl_application()
+   //{
 
-      return ::glc::start_opengl_application(this, &m_mousestate);
+   //   return ::glc::start_opengl_application(this, &m_mousestate);
 
-   }
+   //}
 
 
    void impact::reset_mouse_last_position()
@@ -535,12 +535,15 @@ namespace opengl_graphics3d_MyPlace2025
 
             print_line("on_click : e_element_client");
             
-            ::array < ::file::file_dialog_filter > filtera;
+            ::file::file_dialog_filter filedialogfilter;
             
-            filtera.add({"application.txt", "application.txt"});
+            filedialogfilter.add({"application.txt", "application.txt"});
             
-            pick_single_file_to_open(filtera, [ this ] (const ::file::path & path)
+            pick_single_file_to_open(filedialogfilter,
+               [ this ] (::file::file_dialog * pdialog)
                              {
+
+                  auto path = pdialog->get_file_path();
                
                try {
                   auto memory = file()->as_memory(path);
@@ -573,7 +576,7 @@ namespace opengl_graphics3d_MyPlace2025
    bool impact::is_absolute_mouse_position()
    {
 
-      return get_app()->is_absolute_mouse_position();
+      return m_bAbsoluteMousePosition;
 
    }
 

@@ -22,11 +22,11 @@ namespace opengl_graphics3d_MyPlace2025
       ::write_text::font_pointer       m_pfontThomasBS_;
       string                           m_strFont1;
       int                              m_iSequence;
-      mouseState                       m_mousestate;
+      //mouseState                       m_mousestate;
 
-      ::image::image_pointer m_pimage;
+      //::image::image_pointer m_pimage;
 
-      ::particle_pointer         m_pparticleImageSynchronization;
+      //::particle_pointer         m_pparticleImageSynchronization;
 
       impact();
       ~impact() override;
@@ -39,9 +39,9 @@ namespace opengl_graphics3d_MyPlace2025
       virtual long long decrement_reference_count() override;
 #endif
 
-      virtual ::pointer < ::opengl::engine > start_opengl_engine();
+      //virtual ::pointer < ::opengl::engine > start_opengl_engine();
 
-      ::pointer < ::opengl::application > start_opengl_application() override;
+      //::pointer < ::opengl::application > start_opengl_application() override;
 
 
       virtual void install_message_routing(::channel * psender) override;
@@ -55,14 +55,14 @@ namespace opengl_graphics3d_MyPlace2025
       document * get_document();
 
 
-      void reset_mouse_last_position();
+      //void reset_mouse_last_position();
 
       void on_layout(::draw2d::graphics_pointer & pgraphics) override;
 
       DECLARE_MESSAGE_HANDLER(on_message_create);
       DECLARE_MESSAGE_HANDLER(on_message_destroy);
-      DECLARE_MESSAGE_HANDLER(on_message_mouse_move);
-      DECLARE_MESSAGE_HANDLER(on_message_mouse_leave);
+      //DECLARE_MESSAGE_HANDLER(on_message_mouse_move);
+      //DECLARE_MESSAGE_HANDLER(on_message_mouse_leave);
       
       
       bool on_click(::item * pitem, ::user::mouse * pmouse) override;

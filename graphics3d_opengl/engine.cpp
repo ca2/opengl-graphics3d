@@ -1,19 +1,20 @@
 #include "framework.h"
+#include "context.h"
+#include "engine.h"
+//#include "Core/Window.h"
+#include "app-cube/cube/graphics3d/input.h"
+#include "renderer.h"
+#include "mesh.h"
+#include "shader.h"
+#include <iostream>
+#include "camera.h"
+#include "aura/graphics/gpu/approach.h"
+#include "aura/graphics/gpu/context.h"
+//#include "AppCore/Application.h"
+#include "app-cube/cube/impact.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-#include "aura/graphics/gpu/approach.h"
-#include "aura/graphics/gpu/context.h"
-#include "engine.h"
-#include "Core/Window.h"
-#include "Core/input.h"
-#include "renderer/renderer.h"
-#include "renderer/Types/mesh.h"
-#include "shader/shader.h"
-#include <iostream>
-#include "Core/Camera.h"
-#include "AppCore/Application.h"
-#include "app-cube/cube/impact.h"
 
 
 #pragma comment( lib, "glu32" )
@@ -72,20 +73,19 @@ namespace graphics3d_opengl
 
    }
 
+
    // engine Run
-   bool engine::render_step() 
+   void engine::run() 
    {
        //return true;
 
       float lastFrame = 0.0f;
 
       // Main loop
-      if (!m_Running || m_pimpact->m_bShouldClose)
+      while (m_Running && !m_pimpact->m_bShouldClose)
       {
 
-         return false;
-
-      }
+         ::task_iteration();
 
       //{
 
@@ -96,18 +96,22 @@ namespace graphics3d_opengl
       if (containerW <= 0 || containerH <= 0)
       {
 
-         return true;
+         continue;
 
       }
 
-      auto rectangleW = m_rectangle.width();
+      auto rectangle = m_pimpact->host_rectangle();
 
-      auto rectangleH = m_rectangle.height();
+      auto sizeHost = m_pimpact->top_level()->raw_rectangle().size();
+
+      auto rectangleW = rectangle.width();
+
+      auto rectangleH = rectangle.height();
 
       glPushMatrix();
       glPushAttrib(GL_ALL_ATTRIB_BITS);
 
-      glViewport(m_rectangle.left(), m_sizeHost.cy() - rectangleH - m_rectangle.top(), rectangleW, rectangleH);
+      glViewport(rectangle.left(), sizeHost.cy() - rectangleH - rectangle.top(), rectangleW, rectangleH);
 
       glMatrixMode(GL_MODELVIEW);
       glLoadIdentity();
@@ -141,8 +145,8 @@ namespace graphics3d_opengl
 //          m_prenderer->Clear();
 
           // Update and render the game (and the current scene)
-          m_pglcapplication->Update(deltaTime, m_pcamera);
-          m_pglcapplication->Render(m_prenderer, m_pcamera);
+          Update(deltaTime, m_pcamera);
+          Render(m_prenderer, m_pcamera);
 
           // Swap buffers and poll for events
           //m_Window.SwapBuffers();
@@ -210,7 +214,7 @@ namespace graphics3d_opengl
             //glViewport(0, 0, m_sizeHost.cx(), m_sizeHost.cy());
 
 
-            return true;
+            //return true;
 
          //}
 
@@ -218,7 +222,8 @@ namespace graphics3d_opengl
 
       //   //m_Window.PollEvents();
       //   ::task_iteration();
-      //}
+      }
+
    }
 
 
@@ -235,35 +240,44 @@ namespace graphics3d_opengl
    //}
 
 
-   void engine::resize(int cx, int cy)
+   void engine::on_layout(int cx, int cy)
    {
 
-      m_pgpucontext->post([this, cx, cy]
+      ::cast < context > pcontext = m_pcontext;
+
+      pcontext->m_pgpucontext->post([this, cx, cy]
          {
 
-            if (!m_pglcapplication)
+            ::cast < context > pcontext = m_pcontext;
+
+            if (!m_prenderer)
             {
 
-               m_pinput = __allocate  glc::input(m_pimpact);
+               m_pinput = __allocate ::graphics3d::input();
 
-               m_pcamera = __allocate glc::Camera(m_pimpact, glm::vec3(0.0f, 3.0f, 3.0f), -90.0f, 0.0f);
+               m_pinput->m_pimpact = m_pimpact;
 
-               m_pglcapplication = m_pimpact->start_opengl_application();
+               m_pcamera = __allocate ::graphics3d::camera(glm::vec3(0.0f, 3.0f, 3.0f), -90.0f, 0.0f);
 
+               //m_pcamera->m_pimpact
+
+               //m_pglcapplication = m_pimpact->start_opengl_application();
+               //__øconstruct(m_pcontext);
 
                if (!m_papplication->m_bUseDraw2dProtoWindow)
                {
-                   m_pgpucontext->resize_offscreen_buffer({ cx, cy });
+                   
+                  pcontext->m_pgpucontext->resize_offscreen_buffer({ cx, cy });
 
                }
 
-               m_prenderer = __allocate glc::renderer();
+               m_prenderer = __allocate ::graphics3d_opengl::renderer();
 
                //return;
                // Initialize the game logic and scene data
-               m_pglcapplication->Init();
+               Init();
 
-               m_pgpucontext->m_timeSample = 1_s/ 60.0;
+               pcontext->m_pgpucontext->m_timeSample = 1_s/ 60.0;
 
                //m_pgpucontext->m_rendera.add_unique(this);
 
@@ -271,11 +285,11 @@ namespace graphics3d_opengl
             else
             {
 
-               m_pgpucontext->resize_offscreen_buffer({ cx, cy });
+               pcontext->m_pgpucontext->resize_offscreen_buffer({ cx, cy });
 
             }
 
-            m_pglcapplication->resize(cx, cy);
+            on_layout(cx, cy);
 
             m_pimpact->m_iWidth = cx;
             m_pimpact->m_iHeight = cy;
@@ -567,7 +581,7 @@ namespace graphics3d_opengl
    }
 
 
-   void Application::Update(float deltaTime, Camera* pcamera)
+   void Application::Update(float deltaTime, ::graphics3d::camera* pcamera)
    {
 
       if (m_prenderdataCurrentScene)
@@ -589,7 +603,7 @@ namespace graphics3d_opengl
    //}
 
 
-   void Application::Render(Renderer* prenderer, Camera* pcamera)
+   void Application::Render(Renderer* prenderer, ::graphics3d::camera* pcamera)
    {
 
       if (m_prenderdataCurrentScene)

@@ -48,6 +48,8 @@ namespace graphics3d_opengl
       const bool enableValidationLayers = true;
 #endif
 
+      ::pointer<::gpu::context>             m_pgpucontext;
+
       //context(VkWindow& window);
       //context(VkPhysicalDevice physicalDevice);
       //context(::graphics3d_opengl::OpenGLDevice * pdevice);
@@ -96,11 +98,11 @@ namespace graphics3d_opengl
 
    public:
       void createInstance();
-      void setupDebugMessenger();
-      void createSurface();
-      void pickPhysicalDevice();
-      void createLogicalDevice();
-      void createCommandPool();
+      //void setupDebugMessenger();
+      //void createSurface();
+      //void pickPhysicalDevice();
+      //void createLogicalDevice();
+      //void createCommandPool();
 
       //// helper functions
       //bool isDeviceSuitable(VkPhysicalDevice pvkcdevice);

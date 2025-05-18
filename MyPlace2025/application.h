@@ -21,7 +21,7 @@ bool m_bAbsoluteMousePosition;
       ::file::path                                    m_pathApplicationText;
       ::user::document *                              m_pdocMenu;
       //::pointer<::user::single_document_template>  m_ptemplateSimpleDrawingMain;
-      //pane_impact *                                     m_ppaneimpact;
+      pane_impact *                                     m_ppaneimpact;
       ::pointer < ::user::plain_edit >             m_peditYeeColor;
 
       //::pointer<impact> m_pimpact;

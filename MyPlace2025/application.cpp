@@ -301,118 +301,118 @@ namespace opengl_graphics3d_MyPlace2025
    }
 
 
-   bool application::is_absolute_mouse_position()
-   {
-
-      return m_bAbsoluteMousePosition;
-
-   }
-
-
-
-   void application::update_3d_application(int cx, int cy)
-   {
-
-   if (!m_popenglengine)
-   {
-
-      if (!m_pimpact->m_callbackOffscreen)
-      {
-
-         m_pimpact->m_callbackOffscreen = [this](void* p, int w, int h, int stride)
-            {
-
-                 if(p)
-               {
-
-                  _synchronous_lock synchronouslock(m_pimpact->m_pparticleImageSynchronization);
-
-                  m_pimpact->m_pimage->image32()->copy(m_pimpact->m_pimage->size().minimum(::int_size(w, h)), m_pimpact->m_pimage->m_iScan, (image32_t*)p, stride);
-
-                  for (int y = 0; y < h; y++)
-                  {
-
-                     auto p = (unsigned char*)(m_pimpact->m_pimage->image32() + (y * m_pimpact->m_pimage->m_iScan) / 4);
-
-                     for (int x = 0; x < w; x++)
-                     {
-
-                        //p[0] = p[0] * p[3] / 255;
-                        //p[1] = p[1] * p[3] / 255;
-                        //p[2] = p[2] * p[3] / 255;
-
-                        auto r = p[0];
-                        auto g = p[1];
-                        auto b = p[2];
-                        auto a = p[3];
-                        p[0] = b;
-                        p[2] = r;
-                        //p[3] = 255;
-
-                        /*         if (r > a)
-                                 {
-
-                                    information("What a red!!"_ansi);
-
-                                 }
-
-                                 if (g > a)
-                                 {
-
-                                    information("What a green!!"_ansi);
-
-                                 }
-
-                                 if (b > a)
-                                 {
-
-                                    information("What a blue!!"_ansi);
-
-                                 }*/
-
-                        p += 4;
-
-                     }
-
-                  }
-
-               }
-
-
-               m_pimpact->set_need_redraw();
-               m_pimpact->post_redraw();
-            };
-
-      }
-
-      m_ptask3dEngine = m_popenglengine = m_pimpact->start_opengl_engine();
-
-
-
-         //{
-
-            //            run_opengl_example();
-
-            
-         //   m_popenglengine->resize(cx, cy);
-         //   m_popenglengine->run_engine();
-         //   m_ptask3dEngine.release();
-
-         //});
-
-
-
-
-   }
-   //else
+   //bool application::is_absolute_mouse_position()
    //{
 
-      m_popenglengine->resize(cx, cy);
+   //   return m_bAbsoluteMousePosition;
 
    //}
 
 
-}
+
+   //void application::update_3d_application(int cx, int cy)
+   //{
+
+   //if (!m_popenglengine)
+   //{
+
+   //   if (!m_pimpact->m_callbackOffscreen)
+   //   {
+
+   //      m_pimpact->m_callbackOffscreen = [this](void* p, int w, int h, int stride)
+   //         {
+
+   //              if(p)
+   //            {
+
+   //               _synchronous_lock synchronouslock(m_pimpact->m_pparticleImageSynchronization);
+
+   //               m_pimpact->m_pimage->image32()->copy(m_pimpact->m_pimage->size().minimum(::int_size(w, h)), m_pimpact->m_pimage->m_iScan, (image32_t*)p, stride);
+
+   //               for (int y = 0; y < h; y++)
+   //               {
+
+   //                  auto p = (unsigned char*)(m_pimpact->m_pimage->image32() + (y * m_pimpact->m_pimage->m_iScan) / 4);
+
+   //                  for (int x = 0; x < w; x++)
+   //                  {
+
+   //                     //p[0] = p[0] * p[3] / 255;
+   //                     //p[1] = p[1] * p[3] / 255;
+   //                     //p[2] = p[2] * p[3] / 255;
+
+   //                     auto r = p[0];
+   //                     auto g = p[1];
+   //                     auto b = p[2];
+   //                     auto a = p[3];
+   //                     p[0] = b;
+   //                     p[2] = r;
+   //                     //p[3] = 255;
+
+   //                     /*         if (r > a)
+   //                              {
+
+   //                                 information("What a red!!"_ansi);
+
+   //                              }
+
+   //                              if (g > a)
+   //                              {
+
+   //                                 information("What a green!!"_ansi);
+
+   //                              }
+
+   //                              if (b > a)
+   //                              {
+
+   //                                 information("What a blue!!"_ansi);
+
+   //                              }*/
+
+   //                     p += 4;
+
+   //                  }
+
+   //               }
+
+   //            }
+
+
+   //            m_pimpact->set_need_redraw();
+   //            m_pimpact->post_redraw();
+   //         };
+
+   //   }
+
+   //   m_ptask3dEngine = m_popenglengine = m_pimpact->start_opengl_engine();
+
+
+
+   //      //{
+
+   //         //            run_opengl_example();
+
+   //         
+   //      //   m_popenglengine->resize(cx, cy);
+   //      //   m_popenglengine->run_engine();
+   //      //   m_ptask3dEngine.release();
+
+   //      //});
+
+
+
+
+   //}
+   ////else
+   ////{
+
+   //   m_popenglengine->resize(cx, cy);
+
+   ////}
+
+
+//}
 
 
 } // namespace opengl_graphics3d_MyPlace2025

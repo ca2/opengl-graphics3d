@@ -11,7 +11,7 @@
 #include "renderer.h"
 #include "mesh.h"
 #include "shader.h"
-#include "camera.h" // Include the Camera header
+#include "camera.h" // Include the ::graphics3d::camera header
 //#include "application.h"
 //#include "apex/platform/app_consumer.h"
 #include "aura/graphics/gpu/render.h"
@@ -28,10 +28,11 @@ namespace graphics3d_opengl
 
 
 		::pointer < ::cube::impact > m_pimpact;
-		::pointer < glc::renderer > m_prenderer;
-		::pointer < glc::Camera > m_pcamera;
-		::pointer < glc::Application > m_pglcapplication;  // Game object that manages the scenes
-		::pointer < glc::input > m_pinput;
+		::pointer < ::graphics3d_opengl::renderer > m_prenderer;
+		::pointer < ::graphics3d::camera > m_pcamera;
+		//::pointer < glc::Application > m_pglcapplication;  // Game object that manages the scenes
+		::pointer < ::graphics3d::input > m_pinput;
+		//::pointer<::graphics3d_opengl::render_data> m_prenderdataCurrentScene;
 
 		//double m_Δx;
 		//double m_Δy;
@@ -51,7 +52,6 @@ namespace graphics3d_opengl
 
 
 
-		::pointer<render_data> m_prenderdataCurrentScene;
 
 		bool m_bInitRenderData;
 
@@ -67,28 +67,33 @@ namespace graphics3d_opengl
 		//~Application();
 
 		void Init();       // Initialize the game and load the first scene
-		void Update(float deltaTime, Camera* pcamera);  // Update game logic
-		void Render(Renderer* prenderer, Camera* pcamera);
+		void Update(float deltaTime, ::graphics3d::camera* pcamera);  // Update game logic
+		void Render(renderer* prenderer, ::graphics3d::camera* pcamera);
 
 		//void run_application() override;
-		void resize(int cx, int cy) override;
+		//void resize(int cx, int cy) override;
 
 
 		//void Init();
 
 		void on_initialize_particle() override;
 
-		bool render_step() override;
+		void run() override;
 
 		//private:
 		void ProcessInput(float deltaTime);
 		//static void MouseCallback(::cube::impact* pglContainer, double xpos, double ypos);
 		virtual void initialize_engine(::cube::impact* pimpact);
 
-		virtual void handleMouseMove(double dCursorX, double dCursorY);
+		//virtual void handle_mouse_move(double dCursorX, double dCursorY) override;
 
-		
-		virtual void resize(int cx, int cy);
+		//
+		//void on_layout(int cx, int cy) override;
+
+		virtual void on_layout(int cx, int cy) override;
+
+		virtual void on_mouse_move(int x, int y) override;
+
 
 	};
 

@@ -26,7 +26,7 @@
 //      float m_MouseDeadZone;
 //      // Inertia
 //      glm::vec3 m_Velocity;
-//      // Camera attributes
+//      // ::graphics3d::camera attributes
 //      glm::vec3 m_Position;
 //      glm::vec3 m_Front;
 //      glm::vec3 m_Up;
@@ -37,14 +37,14 @@
 //      float m_fYaw;
 //      float m_fPitch;
 //
-//      // Camera options
+//      // ::graphics3d::camera options
 //      float m_Zoom;
 //      float m_MovementSpeed;  // Added movement speed
 //
 //
 //   };
 //
-//   class Camera :
+//   class ::graphics3d::camera :
 //      virtual public ::particle,
 //      virtual public camera_t
 //   {
@@ -53,7 +53,7 @@
 //      ::pointer < ::glc::GlContainer > m_pimpact;
 //
 //
-//      Camera(glc::GlContainer * pimpact, glm::vec3 position, float yaw, float pitch);
+//      ::graphics3d::camera(glc::GlContainer * pimpact, glm::vec3 position, float yaw, float pitch);
 //
 //      // Process input for mouse movement
 //      void ProcessMouseMovement(float xoffset, float yoffset, bool constrainPitch = true);

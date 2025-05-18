@@ -1,5 +1,5 @@
 #include "framework.h"
-//#include "Camera.h"
+//#include "::graphics3d::camera.h"
 //#include <glm/glm.hpp>
 //#include <glm/gtc/matrix_transform.hpp>
 //#include <glm/gtc/type_ptr.hpp>
@@ -11,7 +11,7 @@
 //
 //
 //   // Constructor
-//   Camera::Camera(glc::GlContainer* pimpact, glm::vec3 position, float fYaw, float fPitch)
+//   ::graphics3d::camera::::graphics3d::camera(glc::GlContainer* pimpact, glm::vec3 position, float fYaw, float fPitch)
 //   {
 //
 //      m_pimpact = pimpact;
@@ -31,7 +31,7 @@
 //
 //
 //   // Mouse movement processing
-//   void Camera::ProcessMouseMovement(float Δx, float Δy, bool constrainPitch) 
+//   void ::graphics3d::camera::ProcessMouseMovement(float Δx, float Δy, bool constrainPitch) 
 //   {
 //
 //      const float sensitivity = 0.01f;  // Adjust this value to your liking
@@ -76,7 +76,7 @@
 //
 //
 //   // Keyboard input processing (with adjustable speed)
-//   void Camera::ProcessKeyboardInput(int direction, float deltaTime) {
+//   void ::graphics3d::camera::ProcessKeyboardInput(int direction, float deltaTime) {
 //      float velocity = m_MovementSpeed * deltaTime;  // Use movement speed
 //      if (direction == FORWARD)
 //         m_Position += m_Front * velocity;
@@ -88,15 +88,15 @@
 //         m_Position += m_Right * velocity;
 //   }
 //
-//   void Camera::Jump(float jumpHeight) {
+//   void ::graphics3d::camera::Jump(float jumpHeight) {
 //      m_Position.y += jumpHeight;  // Move up by jumpHeight units
 //   }
 //
-//   void Camera::TeleportDownward(float distance) {
+//   void ::graphics3d::camera::TeleportDownward(float distance) {
 //      m_Position.y -= distance;  // Move down by the specified distance
 //   }
 //
-//   void Camera::TeleportInDirection(int direction) {
+//   void ::graphics3d::camera::TeleportInDirection(int direction) {
 //      const float teleportDistance = 0.40f; // Set teleport distance to 50 units
 //
 //      if (direction == FORWARD) {
@@ -114,7 +114,7 @@
 //   }
 //
 //   // Function to update idle movement
-//   void Camera::UpdateIdleMovement(float deltaTime) {
+//   void ::graphics3d::camera::UpdateIdleMovement(float deltaTime) {
 //      static float elapsedTime = 0.0f;
 //      elapsedTime += deltaTime;
 //
@@ -131,7 +131,7 @@
 //      m_Position.y += offsetY;
 //   }
 //   // Update the camera vectors based on yaw and pitch
-//   void Camera::UpdateCameraVectors() {
+//   void ::graphics3d::camera::UpdateCameraVectors() {
 //      glm::vec3 front;
 //      front.x = cos(m_fYaw) * cos(m_fPitch);
 //      front.y = sin(m_fPitch);
@@ -144,25 +144,25 @@
 //   }
 //
 //   // Get the camera's zoom (field of view)
-//   float Camera::GetZoom() const {
+//   float ::graphics3d::camera::GetZoom() const {
 //      return m_Zoom;
 //   }
 //
 //   // Set the movement speed of the camera
-//   void Camera::SetMovementSpeed(float speed) {
+//   void ::graphics3d::camera::SetMovementSpeed(float speed) {
 //      m_MovementSpeed = speed;
 //   }
 //   // Get the view matrix
-//   glm::mat4 Camera::GetViewMatrix() const {
+//   glm::mat4 ::graphics3d::camera::GetViewMatrix() const {
 //      return glm::lookAt(m_Position, m_Position + m_Front, m_Up);
 //   }
 //   // Get the camera position
-//   glm::vec3 Camera::GetPosition() const {
+//   glm::vec3 ::graphics3d::camera::GetPosition() const {
 //      return m_Position;
 //   }
 //
 //
-//   void Camera::scroll_callback(glc::GlContainer* pimpact, double xoffset, double yoffset)
+//   void ::graphics3d::camera::scroll_callback(glc::GlContainer* pimpact, double xoffset, double yoffset)
 //   {
 //      m_Zoom -= (float)yoffset;
 //      if (m_Zoom < 1.0f)
