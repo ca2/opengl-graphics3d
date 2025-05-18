@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include "app-cube/cube/engine.h"
+#include "app-cube/cube/graphics3d/engine.h"
 
 
 #include <memory>
@@ -12,8 +12,8 @@
 #include "mesh.h"
 #include "shader.h"
 #include "camera.h" // Include the Camera header
-#include "application.h"
-#include "apex/platform/app_consumer.h"
+//#include "application.h"
+//#include "apex/platform/app_consumer.h"
 #include "aura/graphics/gpu/render.h"
 
 
@@ -22,7 +22,7 @@ namespace graphics3d_opengl
 
 
 	class engine :
-		virtual public ::cube::engine
+		virtual public ::graphics3d::engine
 	{
 	public:
 
@@ -31,7 +31,7 @@ namespace graphics3d_opengl
 		::pointer < glc::renderer > m_prenderer;
 		::pointer < glc::Camera > m_pcamera;
 		::pointer < glc::Application > m_pglcapplication;  // Game object that manages the scenes
-		::pointer < glc::Input > m_pinput;
+		::pointer < glc::input > m_pinput;
 
 		//double m_Δx;
 		//double m_Δy;
@@ -83,7 +83,7 @@ namespace graphics3d_opengl
 		//private:
 		void ProcessInput(float deltaTime);
 		//static void MouseCallback(::cube::impact* pglContainer, double xpos, double ypos);
-		virtual void initialize_engine(::cube::impact* pglcontainer);
+		virtual void initialize_engine(::cube::impact* pimpact);
 
 		virtual void handleMouseMove(double dCursorX, double dCursorY);
 

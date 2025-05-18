@@ -7,13 +7,13 @@
 namespace graphics3d_opengl
 {
 
-   class Texture :
+   class texture :
       virtual public ::particle
    
    {
    public:
-      Texture(::particle * pparticle,const std::string& filePath);
-      ~Texture();
+      texture(::particle * pparticle,const std::string& filePath);
+      ~texture();
 
       void Bind(unsigned int slot = 0) const;
       void Unbind() const;

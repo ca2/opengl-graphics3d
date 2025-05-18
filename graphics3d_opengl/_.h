@@ -30,7 +30,11 @@ namespace graphics3d_opengl
    //class camera;
    class pipeline;
 
+   
    class descriptor_pool;
+
+   class shader;
+   class texture;
 
 } // namespace graphics3d_opengl
 

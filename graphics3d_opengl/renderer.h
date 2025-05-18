@@ -24,12 +24,12 @@ namespace graphics3d_opengl
       void Clear() const;
 
       // Draws the skybox using the given mesh and shader
-      void DrawSkybox(const Mesh *pskyboxMesh, const Shader * pshader) const;
+      void DrawSkybox(const mesh *pskyboxMesh, const shader * pshader) const;
 
-      void DrawInstanced(const std::vector<Mesh*>& meshes, const Shader *pshader, unsigned int instanceCount) const;
+      void DrawInstanced(const std::vector<mesh*>& meshes, const shader *pshader, unsigned int instanceCount) const;
       void MultiDrawIndirectCommand() {}
 
-      void DrawModel(const std::vector<Mesh*>& mehses, const Shader *pshader);
+      void DrawModel(const std::vector<mesh*>& mehses, const shader *pshader);
 
 
    private:

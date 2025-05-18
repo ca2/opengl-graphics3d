@@ -1,34 +1,36 @@
 #include "framework.h"
-#include "Input.h"
-#include "Common/Types.h"
+#include "input.h"
+#include "types.h"
 #include "aura/platform/session.h"
+
 
 namespace graphics3d_opengl
 {
 
 
    // Initialize static members
-   //::cube::impact* Input::m_pimpact = nullptr;
-   //bool Input::m_IsFullscreen = false;
-   //int Input::m_WindowedWidth = 1280;
-   //int Input::m_WindowedHeight = 720;
-   //int Input::m_WindowedPosX = 100;
-   //int Input::m_WindowedPosY = 100;
-   //std::unordered_map<::user::e_key, bool> Input::m_KeyPressed;
-   Input::Input(::cube::impact* pglcontainer) :
-      m_pimpact(pglcontainer)
+   //::cube::impact* input::m_pimpact = nullptr;
+   //bool input::m_IsFullscreen = false;
+   //int input::m_WindowedWidth = 1280;
+   //int input::m_WindowedHeight = 720;
+   //int input::m_WindowedPosX = 100;
+   //int input::m_WindowedPosY = 100;
+   //std::unordered_map<::user::e_key, bool> input::m_KeyPressed;
+   input::input(::cube::impact* pimpact) :
+      m_pimpact(pimpact)
    {
 
-      initialize(pglcontainer);
-   }
-
-   Input::~Input()
-   {
-
+      initialize(pimpact);
 
    }
 
-::user::enum_key_state Input::get_key_state(::user::e_key ekey) 
+   input::~input()
+   {
+
+
+   }
+
+::user::enum_key_state input::get_key_state(::user::e_key ekey) 
    {
       //int state = glfwGetKey(m_pimpact, key);
       //return state == GLFW_PRESS || state == GLFW_REPEAT;
@@ -45,22 +47,22 @@ namespace graphics3d_opengl
       return ::user::e_key_state_none;
    }
 
-bool Input::IsKeyPressed(::user::e_key ekey)
+bool input::IsKeyPressed(::user::e_key ekey)
 {
    return get_key_state(ekey) & ::user::e_key_state_pressed;
 }
 
-   bool Input::IsKeyReleased(::user::e_key ekey) 
+   bool input::IsKeyReleased(::user::e_key ekey) 
    {
       return !get_key_state(ekey);
    }
 
-   //void Input::SetGLFWWindow(::cube::impact* window) {
+   //void input::SetGLFWWindow(::cube::impact* window) {
    //   m_pimpact = window;
    //}
 
    // Fullscreen toggle logic
-   void Input::ToggleFullscreen() {
+   void input::ToggleFullscreen() {
       //if (m_IsFullscreen) {
       //   // Exit fullscreen, go back to windowed mode
       //   glfwSetWindowMonitor(m_pimpact, nullptr, m_WindowedPosX, m_WindowedPosY,
@@ -81,14 +83,14 @@ bool Input::IsKeyPressed(::user::e_key ekey)
    }
 
    // Check if any movement keys are pressed (W, A, S, D)
-   bool Input::IsAnyKeyPressed() {
+   bool input::IsAnyKeyPressed() {
       return IsKeyPressed(::user::e_key_w) ||
          IsKeyPressed(::user::e_key_a) ||
          IsKeyPressed(::user::e_key_s) ||
          IsKeyPressed(::user::e_key_d);
    }
    // Update the state of keys every frame
-   void Input::Update() {
+   void input::Update() {
       for (auto& [ekey, wasPressed] : m_KeyPressed) {
          auto state = get_key_state(ekey);
          if (state & ::user::e_key_state_pressed) {
@@ -102,7 +104,7 @@ bool Input::IsKeyPressed(::user::e_key ekey)
       }
    }
 
-   bool Input::WasKeyPressed(::user::e_key ekey) {
+   bool input::WasKeyPressed(::user::e_key ekey) {
       if (IsKeyPressed(ekey)) {
          if (!m_KeyPressed[ekey]) {
             m_KeyPressed[ekey] = true;

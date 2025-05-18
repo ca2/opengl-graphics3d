@@ -760,7 +760,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='StaticRelease|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="initializers.cpp" />
     <ClCompile Include="vkinput.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='StaticDebug|Win32'">true</ExcludedFromBuild>
@@ -811,10 +810,7 @@
   <ItemGroup>
     <ClInclude Include="camera.h" />
     <ClInclude Include="cube_map.h" />
-    <ClInclude Include="defines.h" />
     <ClInclude Include="engine.h" />
-    <ClInclude Include="file_system.h" />
-    <ClInclude Include="frame.h" />
     <ClInclude Include="input.h" />
     <ClInclude Include="mesh.h" />
     <ClInclude Include="model.h" />
@@ -845,7 +841,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='StaticRelease|x64'">true</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="initializers.h" />
     <ClInclude Include="vkinput.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='StaticDebug|Win32'">true</ExcludedFromBuild>

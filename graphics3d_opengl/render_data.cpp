@@ -25,14 +25,14 @@ namespace graphics3d_opengl
 
 
       // Initialize shaders
-      m_Shader = __allocate Shader(this,
+      m_Shader = __allocate shader(this,
          "matter://shaders/default.vert",
          "matter://shaders/default.frag"
       );
 
       //m_Shader->initialize(this);
 
-      m_WallShader = __allocate Shader(
+      m_WallShader = __allocate shader(
          this,
          "matter://shaders/misc.vert",
          "matter://shaders/misc.frag"
@@ -41,10 +41,10 @@ namespace graphics3d_opengl
       //m_WallShader->initialize(this);
 
       // Load textures
-      m_BoxTexture      = __allocate Texture(this, "matter://textures/stoneWall.jpg");
-      m_PlaneTexture    = __allocate Texture(this, "matter://textures/spaceFloor.jpg");
-      m_SphereTexture   = __allocate Texture(this, "matter://textures/greenWall.jpg");
-      m_Misc            = __allocate Texture(this, "matter://textures/mystical1.jpg");
+      m_BoxTexture      = __allocate texture(this, "matter://textures/stoneWall.jpg");
+      m_PlaneTexture    = __allocate texture(this, "matter://textures/spaceFloor.jpg");
+      m_SphereTexture   = __allocate texture(this, "matter://textures/greenWall.jpg");
+      m_Misc            = __allocate texture(this, "matter://textures/mystical1.jpg");
 
       //m_BoxTexture->initialize(this);
         // m_PlaneTexture -> initialize(this);
@@ -85,7 +85,7 @@ namespace graphics3d_opengl
       m_Skybox = __allocate sky_box(this, facesCubemap);
 
       // Initialize skybox shader
-      m_SkyboxShader = __allocate Shader(
+      m_SkyboxShader = __allocate shader(
          this,
          "matter://shaders/skybox.vert",
          "matter://shaders/skybox.frag"
@@ -219,27 +219,27 @@ namespace graphics3d_opengl
       combinedIndices.insert(combinedIndices.end(), wall.indices.begin(), wall.indices.end());
 
 
-      // Create Cube Mesh object
-      m_BoxMesh = __allocate Mesh(
+      // Create Cube mesh object
+      m_BoxMesh = __allocate mesh(
          combinedVertices, combinedIndices, cubeVertexOffset, cubeIndexOffset, cubeIndexCount
       );
 
-      // Create Plane Mesh object
-      m_PlaneMesh = __allocate Mesh(
+      // Create Plane mesh object
+      m_PlaneMesh = __allocate mesh(
          combinedVertices, combinedIndices, planeVertexOffset, planeIndexOffset, planeIndexCount
       );
 
-      // Create sky_box Mesh object
-      m_SkyboxMesh = __allocate Mesh(
+      // Create sky_box mesh object
+      m_SkyboxMesh = __allocate mesh(
          skyboxCube.vertices, skyboxCube.indices, 0, 0, skyboxCube.indices.size()
       );
 
-      // Create Sphere Mesh object
-      m_SphereMesh = __allocate Mesh(
+      // Create Sphere mesh object
+      m_SphereMesh = __allocate mesh(
          combinedVertices, combinedIndices, sphereVertexOffset, sphereIndexOffset, sphereIndexCount
       );
 
-      m_WallMesh = __allocate  Mesh(
+      m_WallMesh = __allocate  mesh(
          combinedVertices, combinedIndices, wallVertexOffset, wallIndexOffset, wallIndexCount
       );
 
@@ -254,7 +254,7 @@ namespace graphics3d_opengl
    }
 
 
-   void render_data::Render(Renderer *prenderer, Camera *pcamera) 
+   void render_data::Render(renderer *prenderer, ::graphics3d:: *pcamera) 
    {
 
 

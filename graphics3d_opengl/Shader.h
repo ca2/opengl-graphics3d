@@ -10,12 +10,14 @@
 namespace graphics3d_opengl
 {
 
-   class Shader :
+   class shader :
       virtual public ::particle
    {
    public:
-      Shader(::particle * pparticle, const std::string& vertexPath, const std::string& fragmentPath);
-      ~Shader();
+
+
+      shader(::particle * pparticle, const std::string& vertexPath, const std::string& fragmentPath);
+      ~shader();
 
       void Bind() const;
       void Unbind() const;

@@ -1,16 +1,16 @@
 #include "framework.h"
 #include "glad.h"
 //#include "GLFW/glfw3.h"  
-#include "Mesh.h"
-#include "Texture.h"
-#include "Shader/Shader.h"
+#include "mesh.h"
+#include "texture.h"
+#include "shader.h"
 #include <vector>
 
 
 namespace graphics3d_opengl
 {
 
-   Mesh::Mesh(const std::vector<float>& vertices, const std::vector<unsigned int>& indices,
+   mesh::mesh(const std::vector<float>& vertices, const std::vector<unsigned int>& indices,
       unsigned int vertexOffset, unsigned int indexOffset, unsigned int indexCount)
       : m_Vertices(vertices), m_Indices(indices), m_VertexOffset(vertexOffset),
       m_IndexOffset(indexOffset), m_IndexCount(indexCount) 
@@ -22,7 +22,7 @@ namespace graphics3d_opengl
 
    }
 
-   Mesh::~Mesh() {
+   mesh::~mesh() {
       glDeleteVertexArrays(1, &m_VAO);
       glDeleteBuffers(1, &m_VBO);
       glDeleteBuffers(1, &m_EBO);
@@ -32,19 +32,19 @@ namespace graphics3d_opengl
 
 
    // render the mesh
-   void Mesh::Draw(Shader *pshader)
+   void mesh::Draw(shader *pshader)
    {
       // bind appropriate textures
       unsigned int diffuseNr = 1;
       unsigned int specularNr = 1;
       unsigned int normalNr = 1;
       unsigned int heightNr = 1;
-      for (unsigned int i = 0; i < textures.size(); i++)
+      for (unsigned int i = 0; i < m_texturea.size(); i++)
       {
          glActiveTexture(GL_TEXTURE0 + i); // active proper texture unit before binding
          // retrieve texture number (the N in diffuse_textureN)
          ::std::string number;
-         ::std::string name = textures[i]->type;
+         ::std::string name = m_texturea[i]->type;
          if (name == "texture_diffuse")
             number = std::to_string(diffuseNr++);
          else if (name == "texture_specular")
@@ -57,7 +57,7 @@ namespace graphics3d_opengl
          // now set the sampler to the correct texture unit
          glUniform1i(glGetUniformLocation(pshader->m_ProgramID, (name + number).c_str()), i);
          // and finally bind the texture
-         glBindTexture(GL_TEXTURE_2D, textures[i]->m_TextureID);
+         glBindTexture(GL_TEXTURE_2D, m_texturea[i]->m_TextureID);
       }
 
       // draw mesh
@@ -69,7 +69,7 @@ namespace graphics3d_opengl
       glActiveTexture(GL_TEXTURE0);
    }
 
-   void Mesh::SetupMesh() {
+   void mesh::SetupMesh() {
       glGenVertexArrays(1, &m_VAO);
       glGenBuffers(1, &m_VBO);
       glGenBuffers(1, &m_EBO);
@@ -92,7 +92,7 @@ namespace graphics3d_opengl
       glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(m_VertexOffset * 8 * sizeof(float) + 3 * sizeof(float)));
       glEnableVertexAttribArray(1);
 
-      // Texture coord attribute
+      // texture coord attribute
       glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(m_VertexOffset * 8 * sizeof(float) + 6 * sizeof(float)));
       glEnableVertexAttribArray(2);
 
@@ -100,7 +100,7 @@ namespace graphics3d_opengl
       glBindVertexArray(0);
    }
 
-   void Mesh::SetInstanceModelMatrices(const std::vector<glm::mat4>& modelMatrices) {
+   void mesh::SetInstanceModelMatrices(const std::vector<glm::mat4>& modelMatrices) {
       // Bind VAO
       glBindVertexArray(m_VAO);
 
@@ -117,7 +117,7 @@ namespace graphics3d_opengl
 
       glBindVertexArray(0);  // Unbind VAO
    }
-   void Mesh::UpdateInstanceModelMatrices(const std::vector<glm::mat4>& modelMatrices) {
+   void mesh::UpdateInstanceModelMatrices(const std::vector<glm::mat4>& modelMatrices) {
       glBindVertexArray(m_VAO);
       glBindBuffer(GL_ARRAY_BUFFER, m_InstanceVBO);
       glBufferSubData(GL_ARRAY_BUFFER, 0, modelMatrices.size() * sizeof(glm::mat4), modelMatrices.data());
@@ -126,19 +126,19 @@ namespace graphics3d_opengl
 
 
 
-   void Mesh::Bind() const {
+   void mesh::Bind() const {
       glBindVertexArray(m_VAO);
    }
 
-   void Mesh::Unbind() const {
+   void mesh::Unbind() const {
       glBindVertexArray(0);
    }
 
-   unsigned int Mesh::GetIndexCount() const {
+   unsigned int mesh::GetIndexCount() const {
       return m_IndexCount;
    }
 
-   unsigned int Mesh::GetIndexOffset() const {
+   unsigned int mesh::GetIndexOffset() const {
       return m_IndexOffset;
    }
 

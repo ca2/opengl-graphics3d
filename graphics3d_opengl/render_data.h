@@ -3,20 +3,20 @@
 #include <string>
 #include <memory>
 #include <glm/glm.hpp>
-#include "Renderer/Renderer.h"
-#include "Shader/Shader.h"
-#include "Renderer/Types/Mesh.h"
-#include "Core/Camera.h"
-#include "Renderer/Types/Texture.h"
+#include "renderer.h"
+#include "shader.h"
+#include "mesh.h"
+#include "camera.h"
+#include "texture.h"
 
 
 namespace graphics3d_opengl
 {
 
-   class Renderer;
-   class Shader;
-   class Mesh;
-   class Camera;
+   class renderer;
+   class shader;
+   class mesh;
+   //class Camera;
    class sky_box;
 
    class render_data :
@@ -39,35 +39,35 @@ namespace graphics3d_opengl
 
       void Init();
       void Update(float deltaTime);
-      void Render(Renderer *prenderer, Camera *pcamera);
+      void Render(renderer *prenderer, ::graphics3d::camera *pcamera);
       void LoadModel(std::string& path);
       // Misc
 
 
    private:
       // Shaders
-      ::pointer<Shader> m_Shader;
-      ::pointer<Shader> m_LightingShader;
-      ::pointer<Shader> m_LightSourceShader;
-      ::pointer<Shader> m_SkyboxShader;
-      ::pointer<Shader> m_WallShader;
+      ::pointer<shader> m_Shader;
+      ::pointer<shader> m_LightingShader;
+      ::pointer<shader> m_LightSourceShader;
+      ::pointer<shader> m_SkyboxShader;
+      ::pointer<shader> m_WallShader;
 
       // Textures
-      ::pointer<Texture> m_PlaneTexture;
-      ::pointer<Texture> m_BoxTexture;
-      ::pointer<Texture> m_Specular;
-      ::pointer<Texture> m_SphereTexture;
-      ::pointer<Texture> m_Misc;
+      ::pointer<texture> m_PlaneTexture;
+      ::pointer<texture> m_BoxTexture;
+      ::pointer<texture> m_Specular;
+      ::pointer<texture> m_SphereTexture;
+      ::pointer<texture> m_Misc;
 
       // Meshes
-      ::pointer<Mesh> m_BoxMesh;
-      ::pointer<Mesh> m_PlaneMesh;
-      ::pointer<Mesh> m_SkyboxMesh;
-      ::pointer<Mesh> m_SphereMesh;
-      ::pointer<Mesh> m_WallMesh;
+      ::pointer<mesh> m_BoxMesh;
+      ::pointer<mesh> m_PlaneMesh;
+      ::pointer<mesh> m_SkyboxMesh;
+      ::pointer<mesh> m_SphereMesh;
+      ::pointer<mesh> m_WallMesh;
 
       // Models
-      std::vector<::pointer<Mesh>> m_Meshes;
+      std::vector<::pointer<mesh>> m_Meshes;
 
       //Instances
       int m_PlaneInstanceCount = 1;

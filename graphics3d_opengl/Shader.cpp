@@ -4,16 +4,17 @@
 #include "glm/gtc/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
 #include "acme/filesystem/filesystem/file_context.h"
-#include "Shader/Shader.h"
+#include "shader.h"
 #include <fstream>
 #include <sstream>
 #include <iostream>
+
 
 namespace graphics3d_opengl
 {
 
    // Constructor to load and compile shaders
-   Shader::Shader(::particle * pparticle, const std::string& vertexPath, const std::string& fragmentPath)
+   shader::shader(::particle * pparticle, const std::string& vertexPath, const std::string& fragmentPath)
    {
       initialize(pparticle);
       // Load and compile vertex and fragment shaders
@@ -32,24 +33,24 @@ namespace graphics3d_opengl
    }
 
    // Destructor to clean up shader program
-   Shader::~Shader()
+   shader::~shader()
    {
       glDeleteProgram(m_ProgramID);
    }
 
    // Bind the shader program
-   void Shader::Bind() const
+   void shader::Bind() const
    {
       glUseProgram(m_ProgramID);
    }
 
    // Unbind the shader program
-   void Shader::Unbind() const
+   void shader::Unbind() const
    {
       glUseProgram(0);
    }
 
-   void Shader::SetUniformMat4f(const std::string& name, const glm::mat4& matrix) const {
+   void shader::SetUniformMat4f(const std::string& name, const glm::mat4& matrix) const {
       GLint location = glGetUniformLocation(m_ProgramID, name.c_str());
       if (location == -1) {
          std::cerr << "Uniform " << name << " not found!" << std::endl;
@@ -60,7 +61,7 @@ namespace graphics3d_opengl
 
 
    // Read shader source code from file
-   std::string Shader::ParseShader(const std::string& filePath)
+   std::string shader::ParseShader(const std::string& filePath)
    {
       //std::ifstream file(filePath);
       //std::stringstream stream;
@@ -79,7 +80,7 @@ namespace graphics3d_opengl
    }
 
    // Compile a shader of a given type
-   GLuint Shader::CompileShader(GLenum type, const std::string& source)
+   GLuint shader::CompileShader(GLenum type, const std::string& source)
    {
       GLuint shaderID = glCreateShader(type);
       const char* sourceCStr = source.c_str();
@@ -95,14 +96,14 @@ namespace graphics3d_opengl
          glGetShaderiv(shaderID, GL_INFO_LOG_LENGTH, &logSize);
          std::string log(logSize, '\0');
          glGetShaderInfoLog(shaderID, logSize, &logSize, &log[0]);
-         std::cerr << "Shader compilation failed:\n" << log << std::endl;
+         std::cerr << "shader compilation failed:\n" << log << std::endl;
       }
 
       return shaderID;
    }
 
    // Link vertex and fragment shaders into a shader program
-   void Shader::LinkShaders(GLuint vertexShader, GLuint fragmentShader)
+   void shader::LinkShaders(GLuint vertexShader, GLuint fragmentShader)
    {
       m_ProgramID = glCreateProgram();
       glAttachShader(m_ProgramID, vertexShader);
@@ -122,13 +123,13 @@ namespace graphics3d_opengl
       }
    }
 
-   void Shader::SetUniform3f(const std::string& name, float v0, float v1, float v2) const {
+   void shader::SetUniform3f(const std::string& name, float v0, float v1, float v2) const {
       Bind();  // Ensure the shader program is bound
       GLint location = glGetUniformLocation(m_ProgramID, name.c_str());
 
       glUniform3f(location, v0, v1, v2);
    }
-   void Shader::setVec3(const std::string& name, const glm::vec3& value) const {
+   void shader::setVec3(const std::string& name, const glm::vec3& value) const {
       Bind();  // Ensure the shader program is bound
       GLint location = glGetUniformLocation(m_ProgramID, name.c_str());
       if (location == -1) {
@@ -137,7 +138,7 @@ namespace graphics3d_opengl
       }
       glUniform3f(location, value.x, value.y, value.z);
    }
-   void Shader::setFloat(const std::string& name, float value) const {
+   void shader::setFloat(const std::string& name, float value) const {
       Bind();  // Ensure the shader program is bound
       GLint location = glGetUniformLocation(m_ProgramID, name.c_str());
       if (location == -1) {

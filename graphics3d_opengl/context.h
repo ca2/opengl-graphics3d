@@ -3,7 +3,7 @@
 // camilo on 2025-05-17 03:00 <3ThomasBorregaardSorensen!!
 #pragma once
 
-#include "app-cube/cube/context.h"
+#include "app-cube/cube/graphics3d/context.h"
 //#include "window.h"
 //#include "opengl-cube/graphics3d_opengl/context.h"
 #include "opengl-graphics3d/graphics3d_opengl/_opengl.h"
@@ -38,7 +38,7 @@ namespace graphics3d_opengl
 
 
    class CLASS_DECL_GRAPHICS3D_OPENGL context :
-      virtual public ::cube::context
+      virtual public ::graphics3d::context
    {
    public:
 

@@ -100,7 +100,7 @@ namespace graphics3d_opengl
 
          // Vertices for a plane
          shape.vertices = {
-            // Position               // Color           // Texture coords 
+            // Position               // Color           // texture coords 
             -halfWidth, 0.0f, -halfDepth,  1.0f, 0.0f, 0.0f,  0.0f, 0.0f,
              halfWidth, 0.0f, -halfDepth,  0.0f, 1.0f, 0.0f,  1.0f, 0.0f,
              halfWidth, 0.0f,  halfDepth,  0.0f, 0.0f, 1.0f,  1.0f, 1.0f,
@@ -124,7 +124,7 @@ namespace graphics3d_opengl
 
          // Vertices for a wall
          shape.vertices = {
-            // Position               // Color           // Texture coords 
+            // Position               // Color           // texture coords 
             -halfWidth, -halfHeight, 0.0f,  -0.5f, -0.5f,  0.5f,   0.0f, 0.0f,   // bottom-left (red)
              halfWidth, -halfHeight, 0.0f,   0.5f, -0.5f,  0.5f,   1.0f, 0.0f,   // bottom-right (green)
              halfWidth,  halfHeight, 0.0f,    0.5f,  0.5f,  0.5f,   1.0f, 1.0f,   // top-right (blue)

@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include "base/user/simple/frame_window.h"
+#include "app-cube/cube/frame.h"
 
 
 namespace opengl_graphics3d_MyPlace2025
@@ -9,7 +9,7 @@ namespace opengl_graphics3d_MyPlace2025
 
 
    class CLASS_DECL_OPENGL_GRAPHICS3D_MYPLACE2025 main_frame :
-      virtual public simple_frame_window
+      virtual public ::cube::frame
    {
    public:
 

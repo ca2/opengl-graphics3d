@@ -1,5 +1,5 @@
 #include "framework.h"
-#include "Texture.h"
+#include "texture.h"
 #include "acme/filesystem/filesystem/file_context.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
@@ -10,7 +10,7 @@ namespace graphics3d_opengl
 {
 
 
-   Texture::Texture(::particle * pparticle, const std::string& filePath)
+   texture::texture(::particle * pparticle, const std::string& filePath)
       : m_FilePath(filePath), m_TextureID(0)
    {
       initialize(pparticle);
@@ -59,17 +59,17 @@ namespace graphics3d_opengl
       }
    }
 
-   Texture::~Texture() {
+   texture::~texture() {
       glDeleteTextures(1, &m_TextureID);
    }
 
-   void Texture::Bind(unsigned int slot) const {
+   void texture::Bind(unsigned int slot) const {
       glActiveTexture(GL_TEXTURE0 + slot);
       glBindTexture(GL_TEXTURE_2D, m_TextureID);
 
    }
 
-   void Texture::Unbind() const {
+   void texture::Unbind() const {
       glBindTexture(GL_TEXTURE_2D, 0);
    }
    //*/

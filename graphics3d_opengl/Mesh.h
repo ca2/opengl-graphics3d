@@ -6,16 +6,18 @@ namespace graphics3d_opengl
 {
 
 
-   class Shader;
-   class Texture;
 
-   class Mesh:
-   virtual public ::particle
+   class mesh:
+      virtual public ::particle
    {
    public:
-      Mesh(const std::vector<float>& vertices, const std::vector<unsigned int>& indices,
+
+
+      mesh(const std::vector<float>& vertices, const std::vector<unsigned int>& indices,
          unsigned int vertexOffset, unsigned int indexOffset, unsigned int indexCount);
-      ~Mesh();
+      ~mesh() override;
+
+
       void Bind() const;
       void Unbind() const;
       unsigned int GetIndexCount() const;
@@ -25,11 +27,11 @@ namespace graphics3d_opengl
 
 
 
-      void Draw(Shader * pshader);
+      void Draw(shader * pshader);
    //private:
       void SetupMesh();
 
-      ::pointer_array<Texture>      textures;
+      ::pointer_array<texture>      m_texturea;
       std::vector<float> m_Vertices;
       std::vector<unsigned int> m_Indices;
       unsigned int m_VAO, m_VBO, m_EBO;
@@ -39,6 +41,8 @@ namespace graphics3d_opengl
       std::vector<glm::mat4> m_ModelMatrices;
       // New instance buffer
       unsigned int m_InstanceVBO;
+
+
    };
 
 

@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include "base/user/user/document.h"
+#include "app-cube/cube/document.h"
 
 
 namespace opengl_graphics3d_MyPlace2025
@@ -9,7 +9,7 @@ namespace opengl_graphics3d_MyPlace2025
 
 
    class CLASS_DECL_OPENGL_GRAPHICS3D_MYPLACE2025 document :
-      public ::user::document
+      public ::cube::document
    {
    public:
       

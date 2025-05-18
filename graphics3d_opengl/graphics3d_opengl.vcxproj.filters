@@ -34,9 +34,6 @@
     <ClCompile Include="vkengine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="initializers.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="vkinput.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -129,9 +126,6 @@
     <ClInclude Include="vkengine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="initializers.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="vkinput.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -181,15 +175,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="cube_map.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="defines.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="file_system.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="frame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="mesh.h">

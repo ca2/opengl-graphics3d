@@ -4,9 +4,9 @@
 #include "apex/platform/app_consumer.h"
 #include "app-cube/cube/impact.h"
 #include "application.h"
-#include "app-cube/cube/engine.h"
+#include "app-cube/cube/graphics3d/engine.h"
 //#include "app-cube/cube/impact.h"
-#include "app-cube/cube/types.h"
+#include "app-cube/cube/graphics3d/types.h"
 
 
 namespace opengl_graphics3d_MyPlace2025

@@ -10,7 +10,7 @@ Model::Model(std::string const& path, bool gamma) : gammaCorrection(gamma)
 }
 
 // Draws the model and all its meshes
-void Model::Draw(glc::Shader *pshader)
+void Model::Draw(glc::shader *pshader)
 {
 	for (unsigned int i = 0; i < meshes.size(); i++)
 		meshes[i]->Draw(pshader);
@@ -166,7 +166,7 @@ unsigned int TextureFromFile(const char* path, const std::string& directory, boo
 	}
 	else
 	{
-		std::cout << "Texture failed to load at path: " << path << std::endl;
+		std::cout << "texture failed to load at path: " << path << std::endl;
 		stbi_image_free(data);
 	}
 

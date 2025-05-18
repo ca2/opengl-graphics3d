@@ -1,8 +1,8 @@
 #pragma once
 
 
-#include "core/platform/application.h"
-#include "opengl/engine.h"
+#include "app-cube/cube/application.h"
+//#include "opengl/engine.h"
 
 
 namespace opengl_graphics3d_MyPlace2025
@@ -10,23 +10,23 @@ namespace opengl_graphics3d_MyPlace2025
 
 
    class CLASS_DECL_OPENGL_GRAPHICS3D_MYPLACE2025 application :
-      virtual public ::core::application
+      virtual public ::cube::application
    {
    public:
 
 
-bool m_bAbsoluteMousePosition;
+bool m_bAbsoluteMousePosition;   
 
-      pane_impact* m_ppaneimpact;
+      //pane_impact* m_ppaneimpact;
       ::file::path                                    m_pathApplicationText;
       ::user::document *                              m_pdocMenu;
       //::pointer<::user::single_document_template>  m_ptemplateSimpleDrawingMain;
       //pane_impact *                                     m_ppaneimpact;
       ::pointer < ::user::plain_edit >             m_peditYeeColor;
 
-      ::pointer<impact> m_pimpact;
-      ::task_pointer m_ptask3dEngine;
-      ::pointer < ::opengl::engine > m_popenglengine;
+      //::pointer<impact> m_pimpact;
+      //::task_pointer m_ptask3dEngine;
+      //::pointer < ::opengl::engine > m_popenglengine;
 
       application();
       ~application() override;
@@ -56,9 +56,9 @@ bool m_bAbsoluteMousePosition;
       void create_options_body(::user::interaction* pparent);
 
 
-bool is_absolute_mouse_position();
+//bool is_absolute_mouse_position();
 
-virtual void update_3d_application(int cx, int cy);
+//virtual void update_3d_application(int cx, int cy);
 
    };
 

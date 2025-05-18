@@ -36,7 +36,7 @@ namespace graphics3d_opengl
    }
 
    // sky_box
-   void renderer::DrawSkybox(const Mesh *pskyboxMesh, const Shader *pshader) const {
+   void renderer::DrawSkybox(const mesh *pskyboxMesh, const shader *pshader) const {
       GLCheckError();
       // Disable depth writing for the skybox
       glDepthFunc(GL_LEQUAL);
@@ -54,10 +54,10 @@ namespace graphics3d_opengl
    }
 
 
-   void renderer::DrawInstanced(const std::vector<Mesh*>& meshes, const Shader *pshader, unsigned int instanceCount) const {
+   void renderer::DrawInstanced(const std::vector<mesh*>& meshes, const shader *pshader, unsigned int instanceCount) const {
       GLCheckError();
 
-      for (const Mesh* mesh : meshes) {
+      for (const mesh* mesh : meshes) {
          mesh->Bind();
          glDrawElementsInstanced(GL_TRIANGLES, mesh->GetIndexCount(), GL_UNSIGNED_INT, (void*)(mesh->GetIndexOffset() * sizeof(unsigned int)), instanceCount);
          mesh->Unbind();
@@ -66,7 +66,7 @@ namespace graphics3d_opengl
       GLCheckError();
    }
 
-   void renderer::DrawModel(const std::vector<Mesh*>& mehses, const Shader *pshader)
+   void renderer::DrawModel(const std::vector<mesh*>& mehses, const shader *pshader)
    {
 
    }

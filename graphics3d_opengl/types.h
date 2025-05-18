@@ -1,9 +1,32 @@
 ﻿// opengl_guide.h : Include file for standard system include files,
 // or project specific include files.
 #pragma once
+
+
+#include "app-cube/cube/graphics3d/types.h"
+
 #define GLM_FORCE_RADIANS
 #define GLM_FORCE_DEPTH_ZERO_TO_ONE
 #define GLM_ENABLE_EXPERIMENTAL
+
+#pragma once
+#pragma warning(push, 0)
+#define GLM_FORCE_SILENT_WARNINGS
+#define GLM_ENABLE_EXPERIMENTAL
+#define GLM_FORCE_DEPTH_ZERO_TO_ONE
+#include <glad.h>
+//#include <GLFW/glfw3.h>
+#include <glm/glm.hpp>
+#include <string>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+#include "glm/gtx/hash.hpp"
+//#include "Math.h"
+#pragma warning(pop)
+//#include "Defines.h"
+#include "_constant.h"
+
+
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/matrix_inverse.hpp>
@@ -19,7 +42,7 @@
 #include <functional>
 #include <deque>
 
-#include <opengl/opengl.h>
+//#include <opengl/opengl.h>
 ///#include <opengl/vk_enum_string_helper.h>
 //#include <vma/vk_mem_alloc.h>
 
@@ -29,17 +52,17 @@
 #include <glm/vec4.hpp>
 
 #include <cstdlib> // For abort()
-
-#define VK_CHECK(x)                                                              \
-    do {                                                                         \
-        VkResult err = x;                                                        \
-        if (err) {                                                               \
-            std::cerr << "Detected OpenGL error: " << string_VkResult(err)       \
-                      << std::endl;                                              \
-            abort();                                                             \
-        }                                                                        \
-    } while (0)
-
+//
+//#define VK_CHECK(x)                                                              \
+//    do {                                                                         \
+//        VkResult err = x;                                                        \
+//        if (err) {                                                               \
+//            std::cerr << "Detected OpenGL error: " << string_VkResult(err)       \
+//                      << std::endl;                                              \
+//            abort();                                                             \
+//        }                                                                        \
+//    } while (0)
+//
 
 // struct AllocatedBuffer {
 //     VkBuffer buffer;
@@ -64,11 +87,11 @@ struct Vertex {
 //     VkDeviceAddress vertexBufferAddress;
 // };
 
-// push constants for our mesh object draws
-struct GPUDrawPushConstants {
-    glm::mat4 worldMatrix;
-    VkDeviceAddress vertexBuffer;
-};
+//// push constants for our mesh object draws
+//struct GPUDrawPushConstants {
+//    glm::mat4 worldMatrix;
+//    VkDeviceAddress vertexBuffer;
+//};
 // struct AllocatedImage {
 //     VkImage image;
 //     VkImageView imageView;
@@ -92,16 +115,16 @@ enum class MaterialPass :uint8_t {
     Transparent,
     Other
 };
-struct MaterialPipeline {
-    VkPipeline pipeline;
-    VkPipelineLayout layout;
-};
-
-struct MaterialInstance {
-    MaterialPipeline* pipeline;
-    VkDescriptorSet materialSet;
-    MaterialPass passType;
-};
+//struct MaterialPipeline {
+//    VkPipeline pipeline;
+//    VkPipelineLayout layout;
+//};
+//
+//struct MaterialInstance {
+//    MaterialPipeline* pipeline;
+//    VkDescriptorSet materialSet;
+//    MaterialPass passType;
+//};
 
 struct DrawContext;
 
@@ -110,10 +133,16 @@ class IRenderable {
     virtual void Draw(const glm::mat4& topMatrix, DrawContext& ctx) = 0;
 };
 
+
+namespace graphics3d_opengl
+{
+
+
 // implementation of a drawable scene node.
 // the scene node can hold children and will also keep a transform to propagate
 // to them
-struct Node : public IRenderable {
+struct Node : 
+   public IRenderable {
 
     // parent pointer must be a weak pointer to avoid circular dependencies
     std::weak_ptr<Node> parent;
@@ -139,38 +168,20 @@ struct Node : public IRenderable {
     }
 };
 
-/** @brief State of mouse/touch input */
-struct mouse_state
-{
-   struct {
-      bool left = false;
-      bool right = false;
-      bool middle = false;
-   } m_buttons;
-   glm::vec2 position;
-};
+///** @brief State of mouse/touch input */
+//struct mouse_state
+//{
+//   struct {
+//      bool left = false;
+//      bool right = false;
+//      bool middle = false;
+//   } m_buttons;
+//   glm::vec2 position;
+//};
+//
+//
 
 
-
-
-
-
-#pragma once
-#pragma warning(push, 0)
-#define GLM_FORCE_SILENT_WARNINGS
-#define GLM_ENABLE_EXPERIMENTAL
-#define GLM_FORCE_DEPTH_ZERO_TO_ONE
-#include <glad.h>
-//#include <GLFW/glfw3.h>
-#include <glm/glm.hpp>
-#include <string>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
-#include "glm/gtx/hash.hpp"
-//#include "Math.h"
-#pragma warning(pop)
-#include "Defines.h"
-#include "_constant.h"
 
 
 #define MAX_BONE_INFLUENCE 4

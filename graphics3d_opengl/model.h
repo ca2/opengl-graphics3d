@@ -9,10 +9,9 @@
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
-#include "Common/Types.h"
-#include "Texture.h"
-#include "Mesh.h"
-#include "Shader/Shader.h"
+#include "types.h"
+#include "texture.h"
+#include "shader.h"
 //#include <learnopengl/mesh.h>
 ///#include <learnopengl/shader.h>
 
@@ -36,8 +35,8 @@ namespace graphics3d_opengl
 
       // model data 
 
-      ::pointer_array<Texture> textures_loaded;	// stores all the textures loaded so far, optimization to make sure textures aren't loaded more than once.
-      ::pointer_array<Mesh>    meshes;
+      ::pointer_array<texture> textures_loaded;	// stores all the textures loaded so far, optimization to make sure textures aren't loaded more than once.
+      ::pointer_array<mesh>    meshes;
       ::std::string directory;
 
 
@@ -50,7 +49,7 @@ namespace graphics3d_opengl
       }
 
       // draws the model, and thus all its meshes
-      void Draw(glc::Shader* pshader);
+      void Draw(shader* pshader);
 
    //private:
       // loads a model with supported ASSIMP extensions from file and stores the resulting meshes in the meshes vector.
@@ -91,12 +90,12 @@ namespace graphics3d_opengl
 
       }
 
-      ::pointer < Mesh > processMesh(aiMesh* mesh, const aiScene* scene)
+      ::pointer < mesh > processMesh(aiMesh* mesh, const aiScene* scene)
       {
          // data to fill
          vector<glc::Vertex> vertices;
          vector<unsigned int> indices;
-         vector<Texture> textures;
+         vector<texture> textures;
 
          // walk through each of the mesh's vertices
          for (unsigned int i = 0; i < mesh->mNumVertices; i++)
@@ -159,27 +158,27 @@ namespace graphics3d_opengl
          // normal: texture_normalN
 
          // 1. diffuse maps
-         vector<Texture> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
+         vector<texture> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
          textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
          // 2. specular maps
-         vector<Texture> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
+         vector<texture> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
          textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
          // 3. normal maps
-         std::vector<Texture> normalMaps = loadMaterialTextures(material, aiTextureType_HEIGHT, "texture_normal");
+         std::vector<texture> normalMaps = loadMaterialTextures(material, aiTextureType_HEIGHT, "texture_normal");
          textures.insert(textures.end(), normalMaps.begin(), normalMaps.end());
          // 4. height maps
-         std::vector<Texture> heightMaps = loadMaterialTextures(material, aiTextureType_AMBIENT, "texture_height");
+         std::vector<texture> heightMaps = loadMaterialTextures(material, aiTextureType_AMBIENT, "texture_height");
          textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
 
          // return a mesh object created from the extracted mesh data
-         return __allocate Mesh(vertices, indices, textures);
+         return __allocate mesh(vertices, indices, textures);
       }
 
       // checks all material textures of a given type and loads the textures if they're not loaded yet.
-      // the required info is returned as a Texture struct.
-      vector<Texture> loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName)
+      // the required info is returned as a texture struct.
+      vector<texture> loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName)
       {
-         vector<Texture> textures;
+         vector<texture> textures;
          for (unsigned int i = 0; i < mat->GetTextureCount(type); i++)
          {
             aiString str;
@@ -197,7 +196,7 @@ namespace graphics3d_opengl
             }
             if (!skip)
             {   // if texture hasn't been loaded already, load it
-               Texture texture;
+               texture texture;
                texture.id = TextureFromFile(str.C_Str(), this->directory);
                texture.type = typeName;
                texture.path = str.C_Str();
@@ -243,7 +242,7 @@ namespace graphics3d_opengl
       }
       else
       {
-         std::cout << "Texture failed to load at path: " << path << std::endl;
+         std::cout << "texture failed to load at path: " << path << std::endl;
          stbi_image_free(data);
       }
 

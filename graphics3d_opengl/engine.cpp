@@ -6,10 +6,10 @@
 #include "aura/graphics/gpu/context.h"
 #include "engine.h"
 #include "Core/Window.h"
-#include "Core/Input.h"
+#include "Core/input.h"
 #include "renderer/renderer.h"
-#include "renderer/Types/Mesh.h"
-#include "Shader/Shader.h"
+#include "renderer/Types/mesh.h"
+#include "shader/shader.h"
 #include <iostream>
 #include "Core/Camera.h"
 #include "AppCore/Application.h"
@@ -50,7 +50,7 @@ namespace graphics3d_opengl
       
 
       // Set the window for input management
-      //Input::SetGLFWWindow(m_Window.GetGLFWWindow());
+      //input::SetGLFWWindow(m_Window.GetGLFWWindow());
 
       // Set up mouse callback and user pointer
       //glfwSetWindowUserPointer(m_Window.GetGLFWWindow(), this);
@@ -66,7 +66,7 @@ namespace graphics3d_opengl
    }
 
 
-   void engine::initialize_engine(::cube::impact* pglcontainer)
+   void engine::initialize_engine(::cube::impact* pimpact)
    {
 
 
@@ -244,7 +244,7 @@ namespace graphics3d_opengl
             if (!m_pglcapplication)
             {
 
-               m_pinput = __allocate  glc::Input(m_pimpact);
+               m_pinput = __allocate  glc::input(m_pimpact);
 
                m_pcamera = __allocate glc::Camera(m_pimpact, glm::vec3(0.0f, 3.0f, 3.0f), -90.0f, 0.0f);
 
@@ -544,12 +544,12 @@ namespace graphics3d_opengl
 
 
 
-   ::pointer<::opengl::engine > start_opengl_engine(::::cube::impact* pglcontainer, mouseState* pmousestate)
+   ::pointer<::opengl::engine > start_opengl_engine(::::cube::impact* pimpact, mouseState* pmousestate)
    {
 
-      auto popenglengine = pglcontainer->__create_new <::opengl::engine >();
+      auto popenglengine = pimpact->__create_new <::opengl::engine >();
 
-      popenglengine->m_pimpact = pglcontainer;
+      popenglengine->m_pimpact = pimpact;
 
       return popenglengine;
 

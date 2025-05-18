@@ -113,7 +113,7 @@ private:
             glGetShaderiv(shaderID, GL_INFO_LOG_LENGTH, &logSize);
             std::string log(logSize, '\0');
             glGetShaderInfoLog(shaderID, logSize, &logSize, &log[0]);
-            std::cerr << "Shader compilation failed:\n" << log << std::endl;
+            std::cerr << "shader compilation failed:\n" << log << std::endl;
         }
 
         return shaderID;

@@ -13,17 +13,17 @@ namespace graphics3d_opengl
    public:
 
 
-      Window(const char* title, int width, int height, glc::GlContainer* pglcontainer);
+      Window(const char* title, int width, int height, glc::GlContainer* pimpact);
       ~Window();
 
       bool ShouldClose() const;
       void SwapBuffers() const;
       void PollEvents() const;
 
-      glc::GlContainer* GetGlContainer() const { return m_pglcontainer; }
+      glc::GlContainer* GetGlContainer() const { return m_pimpact; }
 
    //private:
-      ::pointer < glc::GlContainer > m_pglcontainer;
+      ::pointer < glc::GlContainer > m_pimpact;
       int m_Width, m_Height;
       bool m_bShouldClose;
    };
