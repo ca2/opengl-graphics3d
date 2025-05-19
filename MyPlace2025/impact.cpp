@@ -45,6 +45,7 @@ namespace opengl_graphics3d_MyPlace2025
    impact::impact()
    {
 
+      m_ekeyboard = ::cube::e_keyboard_spaceExplorer;
       m_flagNonClient -= e_non_client_background;
       m_iSequence = 0;
       m_bNeedFullRedrawOnResize = true;
@@ -99,78 +100,78 @@ namespace opengl_graphics3d_MyPlace2025
 
 
 
-   ::pointer < ::opengl::engine > impact::start_opengl_engine()
-   {
+   //::pointer < ::opengl::engine > impact::start_opengl_engine()
+   //{
 
-      auto pengine= ::opengl::start_opengl_engine(this, &m_mousestate);
-      pengine->initialize_engine(this);
-      auto pwindow = window();
+   //   auto pengine= ::opengl::start_opengl_engine(this, &m_mousestate);
+   //   pengine->initialize_engine(this);
+   //   auto pwindow = window();
 
-      auto pgraphicsgraphics = pwindow->get_window_graphics();
+   //   auto pgraphicsgraphics = pwindow->get_window_graphics();
 
-      auto pbufferitem = pgraphicsgraphics->get_screen_item();
+   //   auto pbufferitem = pgraphicsgraphics->get_screen_item();
 
-      auto pgraphics = pbufferitem->g();
+   //   auto pgraphics = pbufferitem->g();
 
-      ::cast < ::draw2d_opengl::graphics > pgraphicsOpenGL = pgraphics;
+   //   ::cast < ::draw2d_opengl::graphics > pgraphicsOpenGL = pgraphics;
 
-      pengine->m_pgpucontext = pgraphicsOpenGL->m_pgpucontext;
+   //   pengine->m_pgpucontext = pgraphicsOpenGL->m_pgpucontext;
 
-      return pengine;
+   //   return pengine;
 
-   }
+   //}
 
 
 
-   void impact::on_message_mouse_move(::message::message* pmessage)
-   {
+   //void impact::on_message_mouse_move(::message::message* pmessage)
+   //{
 
-      auto pmouse = pmessage->m_union.m_pmouse;
+   //   auto pmouse = pmessage->m_union.m_pmouse;
 
-      pmessage->m_bRet = true;
+   //   pmessage->m_bRet = true;
 
-      if (get_app()->m_popenglengine)
-      {
+   //   if (get_app()->m_popenglengine)
+   //   {
 
-         auto point = pmouse->m_pointHost;
+   //      auto point = pmouse->m_pointHost;
 
-         host_to_client()(point);
+   //      host_to_client()(point);
 
-         //m_mousestate.position.x = point.x();
-         //m_mousestate.position.y = point.y();
-         //m_mousestate.buttons.left = true;
-         //         pmouse->m_p
+   //      //m_mousestate.position.x = point.x();
+   //      //m_mousestate.position.y = point.y();
+   //      //m_mousestate.buttons.left = true;
+   //      //         pmouse->m_p
 
-         double w = m_iWidth;
-         double h = m_iHeight;
+   //      double w = m_iWidth;
+   //      double h = m_iHeight;
 
-         if (m_bLastMouse)
-         {
-            m_bLastMouse = false;
-            m_bFirstMouse = true;
+   //      if (m_bLastMouse)
+   //      {
+   //         m_bLastMouse = false;
+   //         m_bFirstMouse = true;
 
-         }
+   //      }
 
-         if (is_absolute_mouse_position())
-         {
-            m_dCursorX = ((point.x() - (w / 2.0)) * 2.0);
-            m_dCursorY = ((point.y() - (h / 2.0)) * 2.0);
-         }
-         else
-         {
+   //      if (is_absolute_mouse_position())
+   //      {
+   //         m_dCursorX = ((point.x() - (w / 2.0)) * 2.0);
+   //         m_dCursorY = ((point.y() - (h / 2.0)) * 2.0);
+   //      }
+   //      else
+   //      {
 
-            m_dCursorX = point.x();
-            m_dCursorY = point.y();
+   //         m_dCursorX = point.x();
+   //         m_dCursorY = point.y();
 
-         }
+   //      }
 
-         track_mouse_leave();
+   //      track_mouse_leave();
 
-         get_app()->m_popenglengine->handleMouseMove(m_dCursorX, m_dCursorY);
+   //      get_app()->m_popenglengine->handleMouseMove(m_dCursorX, m_dCursorY);
 
-      }
+   //   }
 
-   }
+   //}
 
 
    void impact::on_message_create(::message::message * pmessage)
@@ -577,13 +578,37 @@ namespace opengl_graphics3d_MyPlace2025
    }
 
 
-   bool impact::is_absolute_mouse_position()
+   //bool impact::is_absolute_mouse_position()
+   //{
+
+   //   return m_bAbsoluteMousePosition;
+
+   //}
+
+   ::pointer < ::graphics3d::key_map > impact::get_default_key_map()
    {
 
-      return m_bAbsoluteMousePosition;
+      auto pmap = __create_new < ::graphics3d::key_map>();
+      using namespace ::graphics3d;
+
+      pmap->map(e_key_moveLeft, ::user::e_key_a);
+      pmap->map(e_key_moveRight, ::user::e_key_d);
+      pmap->map(e_key_moveForward, ::user::e_key_w);
+      pmap->map(e_key_moveBackward, ::user::e_key_s);
+      pmap->map(e_key_moveUp, ::user::e_key_e);
+      pmap->map(e_key_moveDown, ::user::e_key_q);
+      pmap->map(e_key_lookLeft, ::user::e_key_left);
+      pmap->map(e_key_lookRight, ::user::e_key_right);
+      pmap->map(e_key_lookUp, ::user::e_key_up);
+      pmap->map(e_key_lookDown, ::user::e_key_down);
+      pmap->map(e_key_Exit, ::user::e_key_escape);
+
+      return pmap;
 
    }
 
+
+      //)->IsKeyPressed(::user::e_key_w
 
 
 } // namespace opengl_graphics3d_MyPlace2025

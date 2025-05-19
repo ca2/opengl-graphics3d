@@ -63,11 +63,11 @@ namespace opengl_graphics3d_MyPlace2025
       DECLARE_MESSAGE_HANDLER(on_message_destroy);
       //DECLARE_MESSAGE_HANDLER(on_message_mouse_move);
       //DECLARE_MESSAGE_HANDLER(on_message_mouse_leave);
-      
+      ::pointer < ::graphics3d::key_map > get_default_key_map() override;
       
       bool on_click(::item * pitem, ::user::mouse * pmouse) override;
       
-      virtual bool is_absolute_mouse_position();
+      //virtual bool is_absolute_mouse_position();
 
    };
 

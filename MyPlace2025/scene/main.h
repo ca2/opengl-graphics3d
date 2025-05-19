@@ -19,23 +19,23 @@ namespace opengl_graphics3d_MyPlace2025
    //class Camera;
    class sky_box;
 
-   class render_data :
-      virtual public ::particle
+   class main_scene :
+      virtual public ::cube::scene
    {
    public:
 
-      render_data();
-      ~render_data();
+      main_scene();
+      ~main_scene();
 
 
 
-      struct DrawIndexedIndirectCommand {
-         GLuint indexCount;    // Number of indices to draw
-         GLuint instanceCount; // Number of instances
-         GLuint firstIndex;    // Starting index in index buffer
-         GLuint baseVertex;    // Base vertex offset
-         GLuint baseInstance;  // Instance offset
-      };
+      //struct DrawIndexedIndirectCommand {
+      //   GLuint indexCount;    // Number of indices to draw
+      //   GLuint instanceCount; // Number of instances
+      //   GLuint firstIndex;    // Starting index in index buffer
+      //   GLuint baseVertex;    // Base vertex offset
+      //   GLuint baseInstance;  // Instance offset
+      //};
 
       void Init();
       void Update(float deltaTime);
@@ -44,7 +44,7 @@ namespace opengl_graphics3d_MyPlace2025
       // Misc
 
 
-   private:
+   //private:
       // Shaders
       ::pointer<shader> m_Shader;
       ::pointer<shader> m_LightingShader;
