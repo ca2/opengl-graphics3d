@@ -21,19 +21,19 @@
 
 
 CLASS_DECL_AURA ::color::color dk_red(); // <3 tbs
-namespace opengl
-{
+//namespace opengl
+//{
+//
+//   ::pointer<::opengl::engine > start_opengl_engine(::glc::GlContainer* pvkcontainer, mouseState* pmousestate);
+//
+//} // namespace vkc
 
-   ::pointer<::opengl::engine > start_opengl_engine(::glc::GlContainer* pvkcontainer, mouseState* pmousestate);
-
-} // namespace vkc
-
-namespace glc
-{
-   
-   ::pointer<::opengl::application > start_opengl_application(::glc::GlContainer* pvkcontainer, mouseState* pmousestate);
-
-} // namespace glc
+//namespace glc
+//{
+//   
+//   ::pointer<::opengl::application > start_opengl_application(::glc::GlContainer* pvkcontainer, mouseState* pmousestate);
+//
+//} // namespace glc
 
 
 namespace opengl_graphics3d_MyPlace2025
@@ -420,42 +420,44 @@ namespace opengl_graphics3d_MyPlace2025
 
       }
 
-      auto papp = get_app();
+      //auto papp = get_app();
 
-      if (papp)
-      {
+      //if (papp)
+      //{
 
-          auto pengine = get_app()->m_popenglengine;
+      //    auto pengine = get_app()->m_popenglengine;
 
-          if(pengine)
-          { 
+      //    if(pengine)
+      //    { 
 
-              auto r = host_rectangle();
+      //        auto r = host_rectangle();
 
-              pengine->m_rectangle = r;
+      //        pengine->m_rectangle = r;
 
-              pengine->m_sizeHost = top_level()->raw_rectangle().size();
-          
-              pengine->render_step();
-          }
-      }
+      //        pengine->m_sizeHost = top_level()->raw_rectangle().size();
+      //    
+      //        pengine->render_step();
+      //    }
+      //}
 
-      //get_app()->m_popenglengine->render_step();
+      ////get_app()->m_popenglengine->render_step();
 
-   }
-
-
-   void impact::on_message_mouse_leave(::message::message* pmessage)
-   {
-
-      //if (is_absolute_mouse_position())
-      {
-
-         reset_mouse_last_position();
-
-      }
+      ::cube::impact::_001OnDraw(pgraphics);
 
    }
+
+
+   //void impact::on_message_mouse_leave(::message::message* pmessage)
+   //{
+
+   //   //if (is_absolute_mouse_position())
+   //   {
+
+   //      reset_mouse_last_position();
+
+   //   }
+
+   //}
 
 
    //void impact::reset_mouse_last_position()
@@ -482,19 +484,21 @@ namespace opengl_graphics3d_MyPlace2025
 
       }
 
-      auto iWidth = rectangleX.width();
-      auto iHeight = rectangleX.height();
+      ::cube::impact::on_layout(pgraphics);
 
-      get_app()->update_3d_application(iWidth, iHeight);
+      //auto iWidth = rectangleX.width();
+      //auto iHeight = rectangleX.height();
 
-      //m_iWidth = rectangleX.width();
-      //m_iHeight = rectangleX.height();
+      //get_app()->update_3d_application(iWidth, iHeight);
 
-      reset_mouse_last_position();
+      ////m_iWidth = rectangleX.width();
+      ////m_iHeight = rectangleX.height();
 
-      ::user::impact::on_layout(pgraphics);
-      
-      setup_default_client_area_user_item();
+      //reset_mouse_last_position();
+
+      //::user::impact::on_layout(pgraphics);
+      //
+      //setup_default_client_area_user_item();
 
    }
 
@@ -507,20 +511,20 @@ namespace opengl_graphics3d_MyPlace2025
    //}
 
 
-   void impact::reset_mouse_last_position()
-   {
+   //void impact::reset_mouse_last_position()
+   //{
 
-      if (is_absolute_mouse_position())
-      {
-         
-         m_dCursorX = 0.;
-         m_dCursorY = 0.;
+   //   if (is_absolute_mouse_position())
+   //   {
+   //      
+   //      m_dCursorX = 0.;
+   //      m_dCursorY = 0.;
 
-      }
+   //   }
 
-      m_bLastMouse = true;
+   //   m_bLastMouse = true;
 
-   }
+   //}
 
 
 

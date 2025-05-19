@@ -28,7 +28,7 @@ namespace graphics3d_opengl
 
    unsigned int TextureFromFile(const char* path, const ::std::string& directory, bool gamma = false);
 
-   class Model
+   class model
    {
    public:
       
@@ -43,7 +43,7 @@ namespace graphics3d_opengl
       bool gammaCorrection;
 
       // constructor, expects a filepath to a 3D model.
-      Model(::std::string const& path, bool gamma = false) : gammaCorrection(gamma)
+      model(::std::string const& path, bool gamma = false) : gammaCorrection(gamma)
       {
          loadModel(path);
       }
