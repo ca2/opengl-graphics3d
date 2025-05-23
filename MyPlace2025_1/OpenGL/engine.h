@@ -10,7 +10,7 @@
 #include "Core/Camera.h" // Include the Camera header
 #include "AppCore/Application.h"
 #include "apex/platform/app_consumer.h"
-#include "aura/graphics/gpu/render.h"
+#include "app-cube/cube/gpu/render.h"
 
 
 namespace opengl
