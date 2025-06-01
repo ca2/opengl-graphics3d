@@ -157,7 +157,7 @@ namespace opengl
             glPopMatrix();
 
 
-            if (!m_papplication->m_bUseDraw2dProtoWindow
+            if (!m_papplication->m_bUseSwapChainWindow
                 && m_pglcontainer->m_callbackOffscreen)
             {
                void* p = nullptr;
@@ -248,7 +248,7 @@ namespace opengl
                m_pglcapplication = m_pglcontainer->start_opengl_application();
 
 
-               if (!m_papplication->m_bUseDraw2dProtoWindow)
+               if (!m_papplication->m_bUseSwapChainWindow)
                {
                    m_pgpucontext->resize_offscreen_buffer({ cx, cy });
 

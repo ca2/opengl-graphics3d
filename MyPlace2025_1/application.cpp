@@ -29,7 +29,7 @@ namespace opengl_graphics3d_MyPlace2025
    application::application()
    {
 
-      m_bUseDraw2dProtoWindow = true;
+      m_bUseSwapChainWindow = true;
       m_bAbsoluteMousePosition = false;
       m_ppaneimpact = nullptr;
       //m_bImaging = false;
