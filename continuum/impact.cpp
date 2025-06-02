@@ -71,7 +71,7 @@ namespace opengl_graphics3d_continuum
    void impact::install_message_routing(::channel * psender)
    {
 
-      ::cube::impact::install_message_routing(psender);
+      ::user::graphics3d::install_message_routing(psender);
 
       MESSAGE_LINK(e_message_create,psender,this,&impact::on_message_create);
       MESSAGE_LINK(e_message_destroy, psender, this, &impact::on_message_destroy);
@@ -305,7 +305,7 @@ namespace opengl_graphics3d_continuum
 
       pgraphics->set_smooth_mode(::draw2d::e_smooth_mode_none);
       
-      ::cube::impact::_001OnDraw(pgraphics);
+      ::user::graphics3d::_001OnDraw(pgraphics);
 
    }
 
@@ -322,7 +322,7 @@ namespace opengl_graphics3d_continuum
 
       }
 
-      ::cube::impact::on_layout(pgraphics);
+      ::user::graphics3d::on_layout(pgraphics);
       
       setup_default_client_area_user_item();
 

@@ -2,8 +2,8 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-#include "cube/gpu/approach.h"
-#include "cube/gpu/context.h"
+#include "aura/graphics/gpu/approach.h"
+#include "aura/graphics/gpu/context.h"
 #include "engine.h"
 #include "Core/Window.h"
 #include "Core/Input.h"

@@ -2,10 +2,10 @@
 
 
 
-#include "cube/impact.h"
+#include "aura/user/user/graphics3d.h"
 //#include "opengl-cube/graphics3d_opengl/types.h"
 //#include "cube/application.h"
-//#include "cube/impact.h"
+//#include "aura/user/user/graphics3d.h"
 //#include "apex/platform/app_consumer.h"
 //#include "bred/cube/container.h"
 
@@ -15,7 +15,7 @@ namespace opengl_graphics3d_landen
 
 
    class CLASS_DECL_OPENGL_GRAPHICS3D_LANDEN impact :
-      virtual public ::app_consumer < application, ::cube::impact>
+      virtual public ::app_consumer < application, ::user::graphics3d>
    {
    public:
 
