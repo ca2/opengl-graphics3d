@@ -1,8 +1,8 @@
 #pragma once
 
 //#include "opengl/application.h"
-#include "app-cube/cube/platform/application.h"
-#include "app-cube/cube/application.h"
+#include "cube/platform/application.h"
+#include "cube/application.h"
 
 
 namespace opengl_graphics3d_landen

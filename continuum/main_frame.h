@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include "app-cube/cube/frame.h"
+#include "cube/frame.h"
 
 
 namespace opengl_graphics3d_continuum

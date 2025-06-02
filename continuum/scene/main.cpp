@@ -2,8 +2,8 @@
 // by camilo on 2025-05-07 02:18 <3ThomasBorregaardSorensen!!
 #include "framework.h"
 #include "main.h"
-#include "app-cube/cube/camera.h"
-#include "app-cube/cube/scene_object.h"
+#include "cube/camera.h"
+#include "cube/scene_object.h"
 
 
 namespace opengl_graphics3d_continuum

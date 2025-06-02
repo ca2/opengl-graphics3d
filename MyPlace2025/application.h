@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include "app-cube/cube/application.h"
+#include "cube/application.h"
 //#include "opengl/engine.h"
 
 

@@ -3,7 +3,7 @@
 #pragma once
 
 
-#include "app-cube/cube/scene.h"
+#include "cube/scene.h"
 
 
 namespace opengl_graphics3d_continuum

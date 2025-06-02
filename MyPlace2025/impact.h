@@ -2,11 +2,11 @@
 
 
 #include "apex/platform/app_consumer.h"
-#include "app-cube/cube/impact.h"
+#include "cube/impact.h"
 #include "application.h"
-#include "app-cube/cube/graphics3d/engine.h"
-//#include "app-cube/cube/impact.h"
-#include "app-cube/cube/graphics3d/types.h"
+#include "cube/graphics3d/engine.h"
+//#include "cube/impact.h"
+#include "cube/graphics3d/types.h"
 
 
 namespace opengl_graphics3d_MyPlace2025
