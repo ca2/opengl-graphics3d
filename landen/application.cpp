@@ -36,9 +36,9 @@ namespace opengl_graphics3d_landen
       //m_ptemplateFuelMain = nullptr;
       //m_ptemplateFuelImpact = nullptr;
 
-      m_strAppId              = "opengl-cube/landen";
-      m_strAppName            = "opengl-cube/landen";
-      m_strBaseSupportId      = "opengl-cube/landen";
+      m_strAppId              = "opengl-graphics3d/landen";
+      m_strAppName            = "opengl-graphics3d/landen";
+      m_strBaseSupportId      = "opengl-graphics3d/landen";
       m_bLicense              = false;
 
    }

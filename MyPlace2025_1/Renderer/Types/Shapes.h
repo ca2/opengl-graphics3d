@@ -21,13 +21,13 @@ namespace glc
          std::vector<unsigned int> indices;
       };
 
-      // Generate a cube with position, color, texture coordinates, and normals
+      // Generate a graphics3d with position, color, texture coordinates, and normals
       static ShapeData CreateCube(float size) {
          ShapeData shape;
 
          float halfSize = size / 2.0f;
 
-         // Vertices for a cube
+         // Vertices for a graphics3d
          shape.vertices = {
             // Front face
             -halfSize, -halfSize,  halfSize,  -0.5f, -0.5f,  0.5f,   0.0f, 0.0f,   // bottom-left (red)
@@ -67,7 +67,7 @@ namespace glc
          };
 
 
-         // Indices for the cube (two triangles per face)
+         // Indices for the graphics3d (two triangles per face)
          shape.indices = {
             // Front face
             0, 1, 2,  2, 3, 0,
