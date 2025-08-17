@@ -399,7 +399,7 @@ namespace opengl_graphics3d_continuum
    ::pointer < ::cube::key_map > impact::get_default_key_map()
    {
 
-      auto pmap = __create_new < ::cube::key_map>();
+      auto pmap = øcreate_new < ::cube::key_map>();
       using namespace ::cube;
 
       pmap->map(e_key_moveLeft, ::user::e_key_a);

@@ -28,7 +28,7 @@ namespace glc
    {
 
       // Create and initialize the first scene  *** EVENTUALLY ADD ACTUAL SCENE CLASS TO MANAGE MULTIPLE UNIQUE RENDER DATA IE SCENE DATA
-      m_prenderdataCurrentScene = __create_new<RenderData>();
+      m_prenderdataCurrentScene = øcreate_new<RenderData>();
 
       m_bInitRenderData = true;
 
@@ -74,7 +74,7 @@ namespace glc
    ::pointer<::opengl::application > start_opengl_application(::glc::GlContainer* pvkcontainer, mouseState* pmousestate)
    {
 
-      auto pglapplication = pvkcontainer->__create_new < Application>();
+      auto pglapplication = pvkcontainer->øcreate_new < Application>();
 
       return pglapplication;
 

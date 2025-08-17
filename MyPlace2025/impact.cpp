@@ -588,7 +588,7 @@ namespace opengl_graphics3d_MyPlace2025
    ::pointer < ::graphics3d::key_map > impact::get_default_key_map()
    {
 
-      auto pmap = __create_new < ::graphics3d::key_map>();
+      auto pmap = øcreate_new < ::graphics3d::key_map>();
       using namespace ::graphics3d;
 
       pmap->map(e_key_moveLeft, ::user::e_key_a);

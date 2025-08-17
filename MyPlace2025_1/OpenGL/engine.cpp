@@ -544,7 +544,7 @@ namespace opengl
    ::pointer<::opengl::engine > start_opengl_engine(::glc::GlContainer* pglcontainer, mouseState* pmousestate)
    {
 
-      auto popenglengine = pglcontainer->__create_new <::opengl::engine >();
+      auto popenglengine = pglcontainer->øcreate_new <::opengl::engine >();
 
       popenglengine->m_pglcontainer = pglcontainer;
 
